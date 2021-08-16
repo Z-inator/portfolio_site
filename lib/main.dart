@@ -26,12 +26,13 @@ class ScrollingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.grey,
       child: SafeArea(
         child: Scaffold(
           body: Row(
             children: [
               LeftNavBar(),
-              MainContentBody()
+              Expanded(child: MainContentBody())
             ],
           ),
         )),
