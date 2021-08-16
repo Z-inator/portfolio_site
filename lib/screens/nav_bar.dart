@@ -6,14 +6,15 @@ class LeftNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       color: Colors.red,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         children: [
           LogoHeader(),
-          PageList(),
-          LinkList(),
+          Expanded(child: PageList()),
+          Expanded(child: LinkList()),
         ],
       ),
     );
@@ -26,11 +27,14 @@ class LogoHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(20),
+      width: 160,
+      height: 160,
       decoration: ShapeDecoration(
           color: Colors.white,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(45))),
-      child: Text('Z', style: Theme.of(context).textTheme.headline6),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+      child: Center(child: Text('Z', style: Theme.of(context).textTheme.headline1)),
     );
   }
 }
@@ -49,18 +53,26 @@ class PageList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: ListView.builder(
-            itemCount: pages.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                    border: Border.symmetric(horizontal: BorderSide())),
-                child: ListTile(
-                  title: Text(pages[index]),
-                  onTap: () {},
-                ),
-              );
-            }));
+        child: Column(
+          children: [
+            Divider(),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: pages.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                            title: Text(pages[index]),
+                            onTap: () {},
+                        ),
+                        Divider()
+                      ],
+                    );
+                  }),
+            ),
+          ],
+        ));
   }
 }
 
