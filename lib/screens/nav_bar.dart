@@ -25,19 +25,41 @@ class LogoHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
+      decoration: ShapeDecoration(
+          color: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(45))),
+      child: Text('Z', style: Theme.of(context).textTheme.headline6),
     );
   }
 }
 
 class PageList extends StatelessWidget {
-  const PageList({Key? key}) : super(key: key);
+  PageList({Key? key}) : super(key: key);
+
+  final List pages = [
+    'About Me',
+    'Projects',
+    'Contact',
+    // 'Interests',
+    // 'Links'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
-    );
+        child: ListView.builder(
+            itemCount: pages.length,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                    border: Border.symmetric(horizontal: BorderSide())),
+                child: ListTile(
+                  title: Text(pages[index]),
+                  onTap: () {},
+                ),
+              );
+            }));
   }
 }
 
@@ -47,7 +69,11 @@ class LinkList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
+      child: ListView.builder(
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Icon(Icons.circle);
+      }),
     );
   }
 }

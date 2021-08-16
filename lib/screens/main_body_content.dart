@@ -8,8 +8,11 @@ class MainContentBody extends StatelessWidget {
     return Container(
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
+            AboutMe(),
+            ProjectsGrid(),
+            ContactForm()
           ],
         ),
       ),
