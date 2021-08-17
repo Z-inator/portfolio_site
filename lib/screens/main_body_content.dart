@@ -6,33 +6,26 @@ class MainContentBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Container(
-        color: Colors.blue,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AboutMe(pageConstraints: constraints),
-              ProjectsGrid(pageConstraints: constraints),
-              ContactPage(pageConstraints: constraints)
-            ],
-          ),
+    return Container(
+      color: Colors.blue,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [AboutMe(), ProjectsGrid(), ContactPage()],
         ),
-      );
-    });
+      ),
+    );
   }
 }
 
 class AboutMe extends StatelessWidget {
-  final BoxConstraints pageConstraints;
-  const AboutMe({Key? key, required this.pageConstraints}) : super(key: key);
+  // final BoxConstraints pageConstraints;
+  const AboutMe({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: pageConstraints.maxHeight,
+      color: Colors.grey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -67,25 +60,27 @@ class AboutMe extends StatelessWidget {
 }
 
 class ProjectsGrid extends StatelessWidget {
-  final BoxConstraints pageConstraints;
-  const ProjectsGrid({Key? key, required this.pageConstraints})
+  // final BoxConstraints pageConstraints;
+  const ProjectsGrid({Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> projects = List.generate(8, (index) => Container(
-                      decoration: ShapeDecoration(
-                          color: Colors.green,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25))),
-                      child: Center(
-                        child: Text('Project$index',
-                            style: Theme.of(context).textTheme.headline6),
-                      ),
-                    ));
+    List<Widget> projects = List.generate(
+        8,
+        (index) => Container(
+              decoration: ShapeDecoration(
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25))),
+              child: Center(
+                child: Text('Project$index',
+                    style: Theme.of(context).textTheme.headline6),
+              ),
+            ));
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40),
-      height: pageConstraints.maxHeight,
+      color: Colors.yellow,
+      padding: EdgeInsets.all(40),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
@@ -98,50 +93,33 @@ class ProjectsGrid extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline4),
               ),
             ),
-            Expanded(
-              child: GridView.extent(
-                maxCrossAxisExtent: 300,
-                mainAxisSpacing: 40,
-                crossAxisSpacing: 40,
-                children: projects,
-
-              )
-              // GridView.builder(
-              //     physics: NeverScrollableScrollPhysics(),
-              //     itemCount: 8,
-              //     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              //         mainAxisSpacing: 40,
-              //         crossAxisSpacing: 40,
-              //         maxCrossAxisExtent: 300),
-              //     itemBuilder: (context, index) {
-              //       return Container(
-              //         decoration: ShapeDecoration(
-              //             color: Colors.green,
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(25))),
-              //         child: Center(
-              //           child: Text('Project$index',
-              //               style: Theme.of(context).textTheme.headline6),
-              //         ),
-              //       );
-              // }
-                  ),
-            
+            Container(
+              height: 920,
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                child: GridView.extent(
+                  maxCrossAxisExtent: 300,
+                  mainAxisSpacing: 40,
+                  crossAxisSpacing: 40,
+                  children: projects,
+                ),
+              ),
+            ),
           ]),
     );
   }
 }
 
 class ContactPage extends StatelessWidget {
-  final BoxConstraints pageConstraints;
-  const ContactPage({Key? key, required this.pageConstraints})
+  // final BoxConstraints pageConstraints;
+  const ContactPage({Key? key,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.orange,
       padding: EdgeInsets.symmetric(horizontal: 40.0),
-      height: pageConstraints.maxHeight,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -152,49 +130,47 @@ class ContactPage extends StatelessWidget {
             child:
                 Text('Contact', style: Theme.of(context).textTheme.headline4),
           )),
-          Expanded(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          child: Container(
-                              margin: EdgeInsets.only(right: 20),
-                              decoration: ShapeDecoration(
-                                  color: Colors.grey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25))),
-                              child: TextFormField())),
-                      Expanded(
-                          child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              decoration: ShapeDecoration(
-                                  color: Colors.grey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25))),
-                              child: TextFormField()))
-                    ],
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
-                      decoration: ShapeDecoration(
-                          color: Colors.grey,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25))),
-                      child: TextFormField()),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
-                      decoration: ShapeDecoration(
-                          color: Colors.grey,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25))),
-                      child: TextFormField())
-                ],
-              ),
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(right: 20),
+                            decoration: ShapeDecoration(
+                                color: Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25))),
+                            child: TextFormField())),
+                    Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(left: 20),
+                            decoration: ShapeDecoration(
+                                color: Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25))),
+                            child: TextFormField()))
+                  ],
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 20),
+                    decoration: ShapeDecoration(
+                        color: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25))),
+                    child: TextFormField()),
+                Container(
+                    margin: EdgeInsets.only(left: 20),
+                    decoration: ShapeDecoration(
+                        color: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25))),
+                    child: TextFormField())
+              ],
             ),
           ),
           Row(

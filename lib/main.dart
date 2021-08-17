@@ -15,19 +15,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: ScrollingPage()
+      home: PCScreen()
     );
   }
 }
 
-class ScrollingPage extends StatelessWidget {
-  const ScrollingPage({Key? key}) : super(key: key);
+class PCScreen extends StatelessWidget {
+  const PCScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
       color: Colors.grey,
       child: SafeArea(
         child: Scaffold(
