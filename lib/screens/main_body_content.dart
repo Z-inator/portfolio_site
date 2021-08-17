@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class MainContentBody extends StatelessWidget {
   const MainContentBody({Key? key}) : super(key: key);
@@ -14,8 +15,8 @@ class MainContentBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               AboutMe(pageConstraints: constraints),
-              ProjectsGrid(),
-              ContactForm()
+              ProjectsGrid(pageConstraints: constraints),
+              ContactPage(pageConstraints: constraints)
             ],
           ),
         ),
@@ -31,7 +32,7 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: pageConstraints.maxHeight,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,13 +67,25 @@ class AboutMe extends StatelessWidget {
 }
 
 class ProjectsGrid extends StatelessWidget {
-  const ProjectsGrid({Key? key}) : super(key: key);
+  final BoxConstraints pageConstraints;
+  const ProjectsGrid({Key? key, required this.pageConstraints})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> projects = List.generate(8, (index) => Container(
+                      decoration: ShapeDecoration(
+                          color: Colors.green,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25))),
+                      child: Center(
+                        child: Text('Project$index',
+                            style: Theme.of(context).textTheme.headline6),
+                      ),
+                    ));
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 40),
-      height: MediaQuery.of(context).size.height,
+      height: pageConstraints.maxHeight,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
@@ -86,39 +99,49 @@ class ProjectsGrid extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 8,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      mainAxisSpacing: 40,
-                      crossAxisSpacing: 40,
-                      maxCrossAxisExtent: 300),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: ShapeDecoration(
-                          color: Colors.green,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25))),
-                      child: Center(
-                        child: Text('Project$index',
-                            style: Theme.of(context).textTheme.headline6),
-                      ),
-                    );
-                  }),
-            )
+              child: GridView.extent(
+                maxCrossAxisExtent: 300,
+                mainAxisSpacing: 40,
+                crossAxisSpacing: 40,
+                children: projects,
+
+              )
+              // GridView.builder(
+              //     physics: NeverScrollableScrollPhysics(),
+              //     itemCount: 8,
+              //     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              //         mainAxisSpacing: 40,
+              //         crossAxisSpacing: 40,
+              //         maxCrossAxisExtent: 300),
+              //     itemBuilder: (context, index) {
+              //       return Container(
+              //         decoration: ShapeDecoration(
+              //             color: Colors.green,
+              //             shape: RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.circular(25))),
+              //         child: Center(
+              //           child: Text('Project$index',
+              //               style: Theme.of(context).textTheme.headline6),
+              //         ),
+              //       );
+              // }
+                  ),
+            
           ]),
     );
   }
 }
 
-class ContactForm extends StatelessWidget {
-  const ContactForm({Key? key}) : super(key: key);
+class ContactPage extends StatelessWidget {
+  final BoxConstraints pageConstraints;
+  const ContactPage({Key? key, required this.pageConstraints})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 40.0),
-      height: MediaQuery.of(context).size.height,
+      height: pageConstraints.maxHeight,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
