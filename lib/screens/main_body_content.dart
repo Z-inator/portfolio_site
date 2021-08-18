@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
 class MainContentBody extends StatelessWidget {
   const MainContentBody({Key? key}) : super(key: key);
@@ -8,10 +9,15 @@ class MainContentBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue,
+      padding: EdgeInsets.symmetric(horizontal: 40.0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [AboutMe(), ProjectsGrid(), ContactPage()],
+          children: [
+            AboutMe(), 
+            ProjectsGrid(), 
+            ContactPage()
+          ],
         ),
       ),
     );
@@ -25,6 +31,7 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 760,
       color: Colors.grey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,42 +73,55 @@ class ProjectsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> projects = List.generate(
-        8,
-        (index) => Container(
-              decoration: ShapeDecoration(
-                  color: Colors.green,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25))),
-              child: Center(
-                child: Text('Project$index',
-                    style: Theme.of(context).textTheme.headline6),
-              ),
-            ));
+    List<int> projects = List.generate(8, (int index) => index);
     return Container(
+      // height: 760,
       color: Colors.yellow,
-      padding: EdgeInsets.all(40),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 40),
+              margin: EdgeInsets.all(40),
               child: Center(
                 child: Text('Projects',
                     style: Theme.of(context).textTheme.headline4),
               ),
             ),
-            Container(
-              height: 920,
-              child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                child: GridView.extent(
-                  maxCrossAxisExtent: 300,
-                  mainAxisSpacing: 40,
-                  crossAxisSpacing: 40,
-                  children: projects,
+            Expanded(
+              child: Container(
+                color: Colors.lightGreen,
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                  child: 
+                  ResponsiveGridList(
+                    desiredItemWidth: 220,
+                    minSpacing: 20,
+                    rowMainAxisAlignment: MainAxisAlignment.spaceAround,
+                    scroll: false,
+                    children: projects.map((widget) => AspectRatio(
+                      aspectRatio: 1,
+                      child: Container(
+                        decoration: ShapeDecoration(
+                            color: Colors.green,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25))),
+                        child: Center(
+                          child: Text('Project$widget',
+                              style: Theme.of(context).textTheme.headline6),
+                        ),
+                      ),
+                    )).toList()
+                  )
+                  // GridView.extent(
+                  //   scrollDirection: Axis.horizontal,
+                  //   maxCrossAxisExtent: 500,
+                  //   mainAxisSpacing: 40,
+                  //   crossAxisSpacing: 40,
+                  //   children: projects,
+                  // ),
                 ),
               ),
             ),
@@ -118,6 +138,7 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 760,
       color: Colors.orange,
       padding: EdgeInsets.symmetric(horizontal: 40.0),
       child: Column(
