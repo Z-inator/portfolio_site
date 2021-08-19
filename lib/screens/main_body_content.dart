@@ -75,7 +75,6 @@ class ProjectsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     List<int> projects = List.generate(8, (int index) => index);
     return Container(
-      // height: 760,
       color: Colors.yellow,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -83,46 +82,73 @@ class ProjectsGrid extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              margin: EdgeInsets.all(40),
-              child: Center(
-                child: Text('Projects',
-                    style: Theme.of(context).textTheme.headline4),
+              height: 180,
+              padding: EdgeInsets.symmetric(vertical: 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Center(
+                    child: Text('Projects',
+                        style: Theme.of(context).textTheme.headline4),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Favorite Frameworks', style: Theme.of(context).textTheme.headline6),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 25,
+                              width: 100,
+                              color: Colors.blueAccent,
+                              child: Text('Flutter'),
+                            ),
+                            Container(
+                              height: 25,
+                              width: 75,
+                              color: Colors.green,
+                              child: Text('Django'),
+                            ),
+                            Container(
+                              height: 25,
+                              width: 50,
+                              color: Colors.purpleAccent,
+                              child: Text('React'),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
-            Expanded(
-              child: Container(
-                color: Colors.lightGreen,
-                padding: EdgeInsets.symmetric(horizontal: 40),
-                child: Card(
+            Container(
+              padding: EdgeInsets.all(20),
+              color: Colors.green,
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 20,
+                alignment: WrapAlignment.spaceAround,
+                runAlignment: WrapAlignment.spaceAround,
+                children: projects.map((widget) => Card(
+                  elevation: 16,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                  child: 
-                  ResponsiveGridList(
-                    desiredItemWidth: 220,
-                    minSpacing: 20,
-                    rowMainAxisAlignment: MainAxisAlignment.spaceAround,
-                    scroll: false,
-                    children: projects.map((widget) => AspectRatio(
-                      aspectRatio: 1,
-                      child: Container(
-                        decoration: ShapeDecoration(
-                            color: Colors.green,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25))),
-                        child: Center(
-                          child: Text('Project$widget',
-                              style: Theme.of(context).textTheme.headline6),
-                        ),
-                      ),
-                    )).toList()
-                  )
-                  // GridView.extent(
-                  //   scrollDirection: Axis.horizontal,
-                  //   maxCrossAxisExtent: 500,
-                  //   mainAxisSpacing: 40,
-                  //   crossAxisSpacing: 40,
-                  //   children: projects,
-                  // ),
+                  child: Container(
+                    width: 250,
+                    height: 250,
+                    child: Center(
+                      child: Text('Project$widget',
+                          style: Theme.of(context).textTheme.headline6),
+                    ),
+                  ),
                 ),
+              ).toList(),
               ),
             ),
           ]),
