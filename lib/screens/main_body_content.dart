@@ -32,31 +32,41 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey,
+      margin: EdgeInsets.only(bottom: ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-              height: 180,
-              padding: EdgeInsets.symmetric(vertical: 40.0),
-              child: Text('Welcome',
-                  style: Theme.of(context).textTheme.headline4)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
+          Center(
+            child: Container(
+                height: 180,
+                padding: EdgeInsets.symmetric(vertical: 40.0),
+                child: Text('Welcome',
+                    style: Theme.of(context).textTheme.headline4)),
+          ),
+          Wrap(
+            spacing: 40,
+            runSpacing: 40,
+            alignment: WrapAlignment.spaceAround,
+            runAlignment: WrapAlignment.spaceAround,
             children: [
-              CircleAvatar(),
+              CircleAvatar(radius: 160),
               Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
                     child: Text('About Me',
                         style: Theme.of(context).textTheme.headline5),
                   ),
                   Container(
+                    width: 500,
                     child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
-                        softWrap: true),
+                        softWrap: true,
+                        maxLines: 10,
+                    ),
                   )
                 ],
               )
