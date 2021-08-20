@@ -31,13 +31,15 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 760,
       color: Colors.grey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
+              height: 180,
+              padding: EdgeInsets.symmetric(vertical: 40.0),
               child: Text('Welcome',
                   style: Theme.of(context).textTheme.headline4)),
           Row(
@@ -84,47 +86,11 @@ class ProjectsGrid extends StatelessWidget {
             Container(
               height: 180,
               padding: EdgeInsets.symmetric(vertical: 40.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
                 children: [
-                  Center(
-                    child: Text('Projects',
-                        style: Theme.of(context).textTheme.headline4),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Favorite Frameworks', style: Theme.of(context).textTheme.headline6),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 25,
-                              width: 100,
-                              color: Colors.blueAccent,
-                              child: Text('Flutter'),
-                            ),
-                            Container(
-                              height: 25,
-                              width: 75,
-                              color: Colors.green,
-                              child: Text('Django'),
-                            ),
-                            Container(
-                              height: 25,
-                              width: 50,
-                              color: Colors.purpleAccent,
-                              child: Text('React'),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
+                  Text('Projects',
+                          style: Theme.of(context).textTheme.headline4),
+                  FlutterButton()
                 ],
               ),
             ),
@@ -152,6 +118,26 @@ class ProjectsGrid extends StatelessWidget {
               ),
             ),
           ]),
+    );
+  }
+}
+
+class FlutterButton extends StatelessWidget {
+  const FlutterButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Primary Framework:', style: Theme.of(context).textTheme.headline6),
+        //TODO: make this a Textbutton to Flutter's website
+        CircleAvatar(backgroundColor: Colors.blueAccent),
+            Text('Flutter')
+      ],
     );
   }
 }
