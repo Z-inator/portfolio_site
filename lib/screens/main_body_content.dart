@@ -13,11 +13,7 @@ class MainContentBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AboutMe(), 
-            ProjectsGrid(), 
-            ContactPage()
-          ],
+          children: [AboutMe(), ProjectsGrid(), ContactPage()],
         ),
       ),
     );
@@ -32,7 +28,6 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey,
-      margin: EdgeInsets.only(bottom: ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
@@ -51,7 +46,7 @@ class AboutMe extends StatelessWidget {
             alignment: WrapAlignment.spaceAround,
             runAlignment: WrapAlignment.spaceAround,
             children: [
-              CircleAvatar(radius: 160),
+              CircleAvatar(maxRadius: 160, minRadius: 40),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
@@ -63,9 +58,9 @@ class AboutMe extends StatelessWidget {
                   Container(
                     width: 500,
                     child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
-                        softWrap: true,
-                        maxLines: 10,
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
+                      softWrap: true,
+                      maxLines: 10,
                     ),
                   )
                 ],
@@ -80,8 +75,7 @@ class AboutMe extends StatelessWidget {
 
 class ProjectsGrid extends StatelessWidget {
   // final BoxConstraints pageConstraints;
-  const ProjectsGrid({Key? key})
-      : super(key: key);
+  const ProjectsGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +93,7 @@ class ProjectsGrid extends StatelessWidget {
               child: Column(
                 children: [
                   Text('Projects',
-                          style: Theme.of(context).textTheme.headline4),
+                      style: Theme.of(context).textTheme.headline4),
                   FlutterButton()
                 ],
               ),
@@ -112,25 +106,61 @@ class ProjectsGrid extends StatelessWidget {
                 runSpacing: 20,
                 alignment: WrapAlignment.spaceAround,
                 runAlignment: WrapAlignment.spaceAround,
-                children: projects.map((widget) => Card(
-                  elevation: 16,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                  child: Container(
-                    width: 250,
-                    height: 250,
-                    child: Center(
-                      child: Text('Project$widget',
-                          style: Theme.of(context).textTheme.headline6),
-                    ),
-                  ),
-                ),
-              ).toList(),
+                children: projects
+                    .map(
+                      (widget) => Card(
+                        elevation: 16,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          // width: 250,
+                          // height: 250,
+                          child: Column(children: [
+                            Image.asset('assets/dashboard.png'),
+                            Container(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  CircleAvatar(),
+                                  Column(
+                                    children: [
+                                      Text('Project Name', style: Theme.of(context).textTheme.subtitle1),
+                                      Text('Project Description', style: Theme.of(context).textTheme.bodyText2)
+                                    ],
+                                  ),
+                                  IconButton(
+                                  icon: Icon(Icons.open_in_new_rounded),
+                                  onPressed: () {}),
+                                ],
+                              )
+                            ),
+                            // ListTile(
+                            //   leading: CircleAvatar(),
+                            //   title: Text('Project Name'),
+                            //   subtitle: Text('Description'),
+                            //   trailing: IconButton(
+                            //       icon: Icon(Icons.open_in_new_rounded),
+                            //       onPressed: () {}),
+                            // )
+                            // Center(
+                            //   child: Text('Project$widget',
+                            //       style: Theme.of(context).textTheme.headline6),
+                            // ),
+                          ]),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ]),
     );
   }
 }
+
 
 class FlutterButton extends StatelessWidget {
   const FlutterButton({
@@ -143,10 +173,11 @@ class FlutterButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Primary Framework:', style: Theme.of(context).textTheme.headline6),
+        Text('Primary Framework:',
+            style: Theme.of(context).textTheme.headline6),
         //TODO: make this a Textbutton to Flutter's website
         CircleAvatar(backgroundColor: Colors.blueAccent),
-            Text('Flutter')
+        Text('Flutter')
       ],
     );
   }
@@ -154,8 +185,9 @@ class FlutterButton extends StatelessWidget {
 
 class ContactPage extends StatelessWidget {
   // final BoxConstraints pageConstraints;
-  const ContactPage({Key? key,})
-      : super(key: key);
+  const ContactPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
