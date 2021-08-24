@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:responsive_grid/responsive_grid.dart';
@@ -118,25 +121,25 @@ class ProjectsGrid extends StatelessWidget {
                           // width: 250,
                           // height: 250,
                           child: Column(children: [
-                            Image.asset('assets/dashboard.png'),
-                            Container(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  CircleAvatar(),
-                                  Column(
-                                    children: [
-                                      Text('Project Name', style: Theme.of(context).textTheme.subtitle1),
-                                      Text('Project Description', style: Theme.of(context).textTheme.bodyText2)
-                                    ],
-                                  ),
-                                  IconButton(
-                                  icon: Icon(Icons.open_in_new_rounded),
-                                  onPressed: () {}),
-                                ],
-                              )
+                            Image.asset(
+                              'assets/dashboard.png',
+                              height: 200,
+                              width: 200,
                             ),
+                            Container(
+                                child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                CircleAvatar(),
+                                Text('Project Name',
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1),
+                                IconButton(
+                                    icon: Icon(Icons.open_in_new_rounded),
+                                    onPressed: () {}),
+                              ],
+                            )),
                             // ListTile(
                             //   leading: CircleAvatar(),
                             //   title: Text('Project Name'),
@@ -161,11 +164,20 @@ class ProjectsGrid extends StatelessWidget {
   }
 }
 
-
 class FlutterButton extends StatelessWidget {
   const FlutterButton({
     Key? key,
   }) : super(key: key);
+
+  void launchURL(String url) {
+    window.open(url, 'new tab');
+    // try {
+    //   await launch(url);
+    // } catch (e) {
+    //   log(e.toString());
+    // }
+    // await canLaunch(urlString) ? await launch(url) : throw 'Could not launch $url';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,8 +188,27 @@ class FlutterButton extends StatelessWidget {
         Text('Primary Framework:',
             style: Theme.of(context).textTheme.headline6),
         //TODO: make this a Textbutton to Flutter's website
-        CircleAvatar(backgroundColor: Colors.blueAccent),
-        Text('Flutter')
+        TextButton.icon(
+            onPressed: () => launchURL('https://flutter.dev/'),
+            icon: CircleAvatar(foregroundImage: AssetImage('flutter_logo.png')),
+            // Image.asset('flutter_logo.png'),
+            // ImageIcon(
+            //   AssetImage('flutter_logo.png'),
+            // ),
+            label: Text('Flutter'))
+        // Link(
+        //     uri: Uri.parse('https://flutter.dev/'),
+        //     builder: (context, followLink) {
+        //       return TextButton.icon(
+        //           onPressed: () => followLink,
+        //           icon: CircleAvatar(
+        //               foregroundImage: AssetImage('flutter_logo.png')),
+        //           // Image.asset('flutter_logo.png'),
+        //           // ImageIcon(
+        //           //   AssetImage('flutter_logo.png'),
+        //           // ),
+        //           label: Text('Flutter'));
+        //     })
       ],
     );
   }
