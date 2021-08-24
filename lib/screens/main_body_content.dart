@@ -31,6 +31,7 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey,
+      padding: EdgeInsets.only(bottom: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
@@ -49,7 +50,14 @@ class AboutMe extends StatelessWidget {
             alignment: WrapAlignment.spaceAround,
             runAlignment: WrapAlignment.spaceAround,
             children: [
-              CircleAvatar(maxRadius: 160, minRadius: 40),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(fit: FlexFit.loose, child: CircleAvatar(maxRadius: 100, minRadius: 40)),
+                  Text('Zachary Wauer', style: Theme.of(context).textTheme.headline4)
+                ],
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
@@ -190,7 +198,10 @@ class FlutterButton extends StatelessWidget {
         //TODO: make this a Textbutton to Flutter's website
         TextButton.icon(
             onPressed: () => launchURL('https://flutter.dev/'),
-            icon: CircleAvatar(foregroundImage: AssetImage('flutter_logo.png')),
+            icon: CircleAvatar(
+              foregroundImage: AssetImage('flutter_logo.png'),
+              backgroundColor: Colors.grey,
+            ),
             // Image.asset('flutter_logo.png'),
             // ImageIcon(
             //   AssetImage('flutter_logo.png'),
@@ -291,3 +302,4 @@ class ContactPage extends StatelessWidget {
     );
   }
 }
+
