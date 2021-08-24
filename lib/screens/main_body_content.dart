@@ -31,43 +31,44 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey,
+      height: 755,
       padding: EdgeInsets.only(bottom: 40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Row(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
+          Expanded(
             child: Container(
-                height: 180,
-                padding: EdgeInsets.symmetric(vertical: 40.0),
-                child: Text('Welcome',
-                    style: Theme.of(context).textTheme.headline4)),
-          ),
-          Wrap(
-            spacing: 40,
-            runSpacing: 40,
-            alignment: WrapAlignment.spaceAround,
-            runAlignment: WrapAlignment.spaceAround,
-            children: [
-              Column(
+              padding: EdgeInsets.all(40.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(fit: FlexFit.loose, child: CircleAvatar(maxRadius: 100, minRadius: 40)),
-                  Text('Zachary Wauer', style: Theme.of(context).textTheme.headline4)
+                  Text(
+                      'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.', style: Theme.of(context).textTheme.headline2),
+                  OutlinedButton(onPressed: () {}, child: Text('Contact Me'))
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(40.0),
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    child: Text('About Me',
-                        style: Theme.of(context).textTheme.headline5),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CircleAvatar(),
+                      Text('Zachary Wauer',
+                      style: Theme.of(context).textTheme.headline4)
+                    ],
                   ),
                   Container(
-                    width: 500,
                     child: Text(
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
                       softWrap: true,
@@ -75,8 +76,8 @@ class AboutMe extends StatelessWidget {
                     ),
                   )
                 ],
-              )
-            ],
+              ),
+            ),
           )
         ],
       ),
@@ -302,4 +303,3 @@ class ContactPage extends StatelessWidget {
     );
   }
 }
-
