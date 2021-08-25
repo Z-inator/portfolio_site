@@ -44,10 +44,23 @@ class AboutMe extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                       'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.', style: Theme.of(context).textTheme.headline2),
-                  OutlinedButton(onPressed: () {}, child: Text('Contact Me'))
+                  OutlinedButton(
+                    onPressed: () {}, 
+                    child: Text('Contact Me', style: Theme.of(context).textTheme.headline4), 
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      minimumSize: Size(200, 100),
+                      side: BorderSide(width: 4),
+                      shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                      
+                    )
+                  )
                 ],
               ),
             ),
@@ -59,18 +72,15 @@ class AboutMe extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CircleAvatar(),
+                  CircleAvatar(
+                        radius: 100,
+                      ),
                       Text('Zachary Wauer',
-                      style: Theme.of(context).textTheme.headline4)
-                    ],
-                  ),
+                      style: Theme.of(context).textTheme.headline4),
                   Container(
                     child: Text(
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
+                      style: Theme.of(context).textTheme.subtitle1,
                       softWrap: true,
                       maxLines: 10,
                     ),
