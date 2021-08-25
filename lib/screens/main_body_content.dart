@@ -11,7 +11,6 @@ class MainContentBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
       padding: EdgeInsets.symmetric(horizontal: 40.0),
       child: SingleChildScrollView(
         child: Column(
@@ -30,63 +29,61 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
       height: 755,
       padding: EdgeInsets.only(bottom: 40),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Wrap(
+        spacing: 40,
+        runSpacing: 40,
+      // Row(
+      //   mainAxisSize: MainAxisSize.max,
+      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //   crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(40.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.', style: Theme.of(context).textTheme.headline2),
-                  OutlinedButton(
-                    onPressed: () {}, 
-                    child: Text('Contact Me', style: Theme.of(context).textTheme.headline4), 
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      minimumSize: Size(200, 100),
-                      side: BorderSide(width: 4),
-                      shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
-                      
-                    )
+          Container(
+            padding: EdgeInsets.all(40.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.', style: Theme.of(context).textTheme.headline2),
+                OutlinedButton(
+                  onPressed: () {}, 
+                  child: Text('Contact Me', style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.cyan)), 
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.all(20),
+                    minimumSize: Size(200, 100),
+                    side: BorderSide(width: 4, color: Colors.cyan),
+                    shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(25))),
+                    
                   )
-                ],
-              ),
+                )
+              ],
             ),
           ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(40.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CircleAvatar(
-                        radius: 100,
-                      ),
-                      Text('Zachary Wauer',
-                      style: Theme.of(context).textTheme.headline4),
-                  Container(
-                    child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
-                      style: Theme.of(context).textTheme.subtitle1,
-                      softWrap: true,
-                      maxLines: 10,
+          Container(
+            padding: EdgeInsets.all(40.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CircleAvatar(
+                      radius: 100,
                     ),
-                  )
-                ],
-              ),
+                    Text('Zachary Wauer',
+                    style: Theme.of(context).textTheme.headline4),
+                Container(
+                  child: Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
+                    style: Theme.of(context).textTheme.subtitle1,
+                    softWrap: true,
+                    maxLines: 10,
+                  ),
+                )
+              ],
             ),
           )
         ],
@@ -103,7 +100,6 @@ class ProjectsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     List<int> projects = List.generate(8, (int index) => index);
     return Container(
-      color: Colors.yellow,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
@@ -122,7 +118,6 @@ class ProjectsGrid extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.green,
               child: Wrap(
                 spacing: 20,
                 runSpacing: 20,
@@ -246,7 +241,6 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 760,
-      color: Colors.orange,
       padding: EdgeInsets.symmetric(horizontal: 40.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
