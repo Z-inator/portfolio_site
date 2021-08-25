@@ -31,44 +31,63 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      height: 755,
+      padding: EdgeInsets.only(bottom: 40),
+      child: Row(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
+          Expanded(
             child: Container(
-                height: 180,
-                padding: EdgeInsets.symmetric(vertical: 40.0),
-                child: Text('Welcome',
-                    style: Theme.of(context).textTheme.headline4)),
-          ),
-          Wrap(
-            spacing: 40,
-            runSpacing: 40,
-            alignment: WrapAlignment.spaceAround,
-            runAlignment: WrapAlignment.spaceAround,
-            children: [
-              CircleAvatar(maxRadius: 160, minRadius: 40),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              padding: EdgeInsets.all(40.0),
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                      'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.', style: Theme.of(context).textTheme.headline2),
+                  OutlinedButton(
+                    onPressed: () {}, 
+                    child: Text('Contact Me', style: Theme.of(context).textTheme.headline4), 
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      minimumSize: Size(200, 100),
+                      side: BorderSide(width: 4),
+                      shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                      
+                    )
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(40.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CircleAvatar(
+                        radius: 100,
+                      ),
+                      Text('Zachary Wauer',
+                      style: Theme.of(context).textTheme.headline4),
                   Container(
-                    child: Text('About Me',
-                        style: Theme.of(context).textTheme.headline5),
-                  ),
-                  Container(
-                    width: 500,
                     child: Text(
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
+                      style: Theme.of(context).textTheme.subtitle1,
                       softWrap: true,
                       maxLines: 10,
                     ),
                   )
                 ],
-              )
-            ],
+              ),
+            ),
           )
         ],
       ),
@@ -190,7 +209,10 @@ class FlutterButton extends StatelessWidget {
         //TODO: make this a Textbutton to Flutter's website
         TextButton.icon(
             onPressed: () => launchURL('https://flutter.dev/'),
-            icon: CircleAvatar(foregroundImage: AssetImage('flutter_logo.png')),
+            icon: CircleAvatar(
+              foregroundImage: AssetImage('flutter_logo.png'),
+              backgroundColor: Colors.grey,
+            ),
             // Image.asset('flutter_logo.png'),
             // ImageIcon(
             //   AssetImage('flutter_logo.png'),
