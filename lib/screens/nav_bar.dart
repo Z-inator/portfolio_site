@@ -1,25 +1,63 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+
 
 class LeftNavBar extends StatelessWidget {
   const LeftNavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      color: Colors.cyan,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          LogoHeader(),
-          Expanded(child: PageList()),
-          Expanded(child: LinkList()),
-        ],
+    return Material(
+      elevation: 16,
+      borderRadius: BorderRadius.zero,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            LogoHeader(),
+            NavigationRail(
+              selectedIndex: 0,
+              groupAlignment: 0,
+              labelType: NavigationRailLabelType.all,
+              // leading: LogoHeader(),
+              // trailing: LinkList(),
+              destinations: [
+                NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('About Me')),
+                NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Projects')),
+                NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Contact')),
+              ]
+            ),
+            LinkList()
+          ],
+        ),
       ),
     );
   }
 }
+
+// class LeftNavBar extends StatelessWidget {
+//   const LeftNavBar({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 200,
+//       color: Colors.cyan,
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.spaceAround,
+//         mainAxisSize: MainAxisSize.max,
+//         children: [
+//           LogoHeader(),
+//           Expanded(child: PageList()),
+//           Expanded(child: LinkList()),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class LogoHeader extends StatelessWidget {
   const LogoHeader({Key? key}) : super(key: key);
@@ -82,11 +120,9 @@ class LinkList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return Icon(Icons.circle);
-      }),
+      child: Column(
+        children: List.generate(4, (index) => Icon(Icons.circle)),
+      )
     );
   }
 }
