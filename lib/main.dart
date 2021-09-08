@@ -83,14 +83,57 @@ class LargeScreen extends StatelessWidget {
     return Container(
       child: SafeArea(
           child: Scaffold(
-        body: Row(
+        body: MediaQuery.of(context).size.height < 760
+            ? Column(
+                children: [
+                  TopNavBar(), 
+                  Expanded(child: MainContentBody())
+                ],
+              )
+            : Row(
+                children: [
+                  Flexible(flex: 1, child: LeftNavBar()),
+                  // VerticalDivider(),
+                  Expanded(flex: 5, child: MainContentBody())
+                ],
+              ),
+      )),
+    );
+  }
+}
+
+class TopNavBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        LogoHeader(),
+        Row(
           children: [
-            LeftNavBar(),
-            // VerticalDivider(),
-            Expanded(child: MainContentBody())
+            ListTile(
+              selected: true,
+              selectedTileColor: Colors.cyan,
+              leading: Icon(Icons.circle),
+              title: Text('About Me'),
+            ),
+            ListTile(
+              selected: false,
+              selectedTileColor: Colors.cyan,
+              leading: Icon(Icons.circle),
+              title: Text('Projects'),
+            ),
+            ListTile(
+              selected: false,
+              selectedTileColor: Colors.cyan,
+              leading: Icon(Icons.circle),
+              title: Text('Contact'),
+            ),
           ],
         ),
-      )),
+        LinkList()
+      ],
     );
   }
 }
