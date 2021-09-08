@@ -23,10 +23,14 @@ class ResponsiveScreen extends StatelessWidget {
   const ResponsiveScreen({Key? key}) : super(key: key);
 
   Widget getScreen(Size screenSize) {
+    bool isShort = false;
+    if (screenSize.height < 760) {
+      isShort = true;
+    }
     if (screenSize.width >= 1200) {
-      return LargeScreen();
+      return LargeScreen(isShort: isShort);
     } else if (screenSize.width > 800 && screenSize.width < 1200) {
-      return MediumScreen();
+      return MediumScreen(isShort: isShort);
     } else {
       return SmallScreen();
     }
@@ -55,7 +59,8 @@ class SmallScreen extends StatelessWidget {
 }
 
 class MediumScreen extends StatelessWidget {
-  MediumScreen({Key? key}) : super(key: key);
+  final bool isShort;
+  MediumScreen({Key? key, required this.isShort}) : super(key: key);
   int selectedIndex = 0;
 
   @override
@@ -76,64 +81,88 @@ class MediumScreen extends StatelessWidget {
 }
 
 class LargeScreen extends StatelessWidget {
-  const LargeScreen({Key? key}) : super(key: key);
+  final bool isShort;
+  const LargeScreen({Key? key, required this.isShort}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
           child: Scaffold(
-        body: MediaQuery.of(context).size.height < 760
-            ? Column(
-                children: [
-                  TopNavBar(), 
-                  Expanded(child: MainContentBody())
-                ],
-              )
-            : Row(
-                children: [
-                  Flexible(flex: 1, child: LeftNavBar()),
-                  // VerticalDivider(),
-                  Expanded(flex: 5, child: MainContentBody())
-                ],
-              ),
+        body: Row(
+            children: [
+              Flexible(flex: 1, child: LeftNavBar()),
+              Expanded(flex: 5, child: MainContentBody())
+            ],
+          )
+        // isShort
+        //     ? Row(
+        //         children: [
+        //           Flexible(flex: 1, child: LeftNavBar()),
+        //           Expanded(flex: 5, child: MainContentBody())
+        //         ],
+        //       )
+        //     : Column(
+        //         children: [TopNavBar(), Expanded(child: MainContentBody())],
+        //       )
       )),
     );
   }
 }
 
-class TopNavBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        LogoHeader(),
-        Row(
-          children: [
-            ListTile(
-              selected: true,
-              selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('About Me'),
-            ),
-            ListTile(
-              selected: false,
-              selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('Projects'),
-            ),
-            ListTile(
-              selected: false,
-              selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('Contact'),
-            ),
-          ],
-        ),
-        LinkList()
-      ],
-    );
-  }
-}
+// class TopNavBar extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisSize: MainAxisSize.max,
+//       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//       children: [
+//         LogoHeader(),
+//         Row(
+//           children: [
+//             PageItem(pageName: 'About Me'),
+//             PageItem(pageName: 'Projects'),
+//             PageItem(pageName: 'Contact')
+//           ],
+//         ),
+//         LinkList()
+//       ],
+//     );
+//   }
+// }
+
+// class PageItem extends StatefulWidget {
+//   String pageName;
+//   PageItem({Key? key, required this.pageName}) : super(key: key);
+
+//   @override
+//   _PageItemState createState() => _PageItemState();
+// }
+
+// class _PageItemState extends State<PageItem> {
+//   bool isSelected = false;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: GestureDetector(
+//         onTap: () {
+//           setState(() {
+//             isSelected = !isSelected;
+//           });
+//         },
+//         child: Row(
+//           mainAxisSize: MainAxisSize.max,
+//           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           children: [
+//             Icon(Icons.circle, color: isSelected ? Colors.cyan : Colors.grey),
+//             Text(
+//               widget.pageName,
+//               style: TextStyle(color: isSelected ? Colors.cyan : Colors.grey),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
