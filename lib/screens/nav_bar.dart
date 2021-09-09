@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-
 
 class LeftNavBar extends StatelessWidget {
   const LeftNavBar({Key? key}) : super(key: key);
@@ -12,32 +9,47 @@ class LeftNavBar extends StatelessWidget {
       elevation: 16,
       borderRadius: BorderRadius.zero,
       child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            LogoHeader(),
-            PageList(),
-            // Expanded(
-            //   child: NavigationRail(
-            //     selectedIndex: 0,
-            //     groupAlignment: 0,
-            //     labelType: NavigationRailLabelType.all,
-            //     // leading: LogoHeader(),
-            //     // trailing: LinkList(),
-            //     destinations: [
-            //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('About Me')),
-            //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Projects')),
-            //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Contact')),
-            //     ]
-            //   ),
-            // ),
-            Expanded(child: LinkList())
-          ],
-        ),
-      ),
+          color: Colors.white,
+          padding: EdgeInsets.all(20),
+          child: SingleChildScrollView(
+              child: Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [LogoHeader(), PageList(), LinkList()],
+                ),
+              ),
+          )
+          // SingleChildScrollView(
+          //   child: Container(
+          //     child: Column(
+          //       mainAxisSize: MainAxisSize.max,
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         LogoHeader(),
+          //         PageList(),
+          //         // Expanded(
+          //         //   child: NavigationRail(
+          //         //     selectedIndex: 0,
+          //         //     groupAlignment: 0,
+          //         //     labelType: NavigationRailLabelType.all,
+          //         //     // leading: LogoHeader(),
+          //         //     // trailing: LinkList(),
+          //         //     destinations: [
+          //         //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('About Me')),
+          //         //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Projects')),
+          //         //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Contact')),
+          //         //     ]
+          //         //   ),
+          //         // ),
+          //         LinkList()
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          ),
     );
   }
 }
@@ -70,14 +82,12 @@ class LogoHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(20),
-      padding: EdgeInsets.all(20),
-      // width: 160,
-      // height: 160,
       decoration: ShapeDecoration(
           color: Colors.cyan,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
-      child: Center(child: Text('Z', style: Theme.of(context).textTheme.headline1)),
+      child: Center(
+          child: Text('Z', style: Theme.of(context).textTheme.headline1)),
     );
   }
 }
@@ -142,12 +152,18 @@ class LinkList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      direction: Axis.vertical,
-      alignment: WrapAlignment.end,
-      runAlignment: WrapAlignment.center,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: List.generate(4, (index) => IconButton(onPressed: () {}, icon: Icon(Icons.circle))),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: List.generate(
+          4, (index) => IconButton(onPressed: () {}, icon: Icon(Icons.circle))),
     );
+    // Wrap(
+    //   direction: Axis.vertical,
+    //   alignment: WrapAlignment.end,
+    //   runAlignment: WrapAlignment.center,
+    //   crossAxisAlignment: WrapCrossAlignment.center,
+    //   children: List.generate(4, (index) => IconButton(onPressed: () {}, icon: Icon(Icons.circle))),
+    // );
   }
 }

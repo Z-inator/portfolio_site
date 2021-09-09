@@ -90,8 +90,9 @@ class LargeScreen extends StatelessWidget {
       child: SafeArea(
           child: Scaffold(
         body: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Flexible(flex: 1, child: LeftNavBar()),
+              Container(width: 250, child: LeftNavBar()),
               Expanded(flex: 5, child: MainContentBody())
             ],
           )
