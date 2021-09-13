@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+
+class DrawerNavBar extends StatelessWidget {
+  const DrawerNavBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: SingleChildScrollView(
+        child: Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [LogoHeader(), PageList(), LinkList()],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class LeftNavBar extends StatelessWidget {
   const LeftNavBar({Key? key}) : super(key: key);
 
