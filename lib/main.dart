@@ -64,9 +64,7 @@ class SmallScreen extends StatelessWidget {
               child: DrawerNavBar(),
             ),
               appBar: AppBar(),
-              body: Column(
-                children: [Expanded(child: SmallBodyContent())],
-              ))),
+              body: SmallBodyContent())),
     );
   }
 }
