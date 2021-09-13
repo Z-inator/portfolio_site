@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_site/screens/small_screen.dart';
 
 import 'screens/main_body_content.dart';
 import 'screens/nav_bar.dart';
@@ -12,11 +13,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.cyan,
-        ),
+        theme: themeData(ThemeData.light()),
         home: ResponsiveScreen());
   }
+}
+
+ThemeData themeData(ThemeData base) {
+  return base.copyWith(
+    primaryColor: Colors.cyan,
+    cardTheme: CardTheme(
+      shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.all(Radius.circular(25))),
+    )
+  );
 }
 
 class ResponsiveScreen extends StatelessWidget {
@@ -50,9 +60,12 @@ class SmallScreen extends StatelessWidget {
     return Container(
       child: SafeArea(
           child: Scaffold(
+            drawer: Drawer(
+              child: DrawerNavBar(),
+            ),
               appBar: AppBar(),
               body: Column(
-                children: [Expanded(child: MainContentBody())],
+                children: [Expanded(child: SmallBodyContent())],
               ))),
     );
   }
