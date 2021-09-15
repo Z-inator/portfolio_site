@@ -6,8 +6,14 @@ class SmallBodyContent extends StatelessWidget {
 
   List<Project> projects = List.generate(
       5,
-      (index) =>
-          Project('name', 'description', Image(image: AssetImage('dashboard.png'),), 'tools', 'takeAways'));
+      (index) => Project(
+          'name',
+          'description',
+          Image(
+            image: AssetImage('dashboard.png'),
+          ),
+          'tools',
+          'takeAways'));
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +24,11 @@ class SmallBodyContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Photo(), 
-            Bio(), 
-            ProjectPageView(projects: projects), 
-            ContactPage()],
+            Photo(),
+            Bio(),
+            ProjectPageView(projects: projects),
+            ContactPage()
+          ],
         ),
       ),
     );
@@ -34,8 +41,17 @@ class ProjectPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(itemBuilder: (BuildContext context, int index) {
-      return ProjectTile(project: projects[index]);
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Container(
+        constraints: constraints,
+        padding: EdgeInsets.all(20),
+        child: PageView.builder(
+          itemCount: projects.length,
+          itemBuilder: (BuildContext context, int index) {
+          return ProjectTile(project: projects[index]);
+        }),
+      );
     });
   }
 }
