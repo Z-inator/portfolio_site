@@ -44,7 +44,7 @@ class ProjectPageView extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Container(
-        constraints: constraints,
+        height: constraints.maxHeight,
         padding: EdgeInsets.all(20),
         child: PageView.builder(
           itemCount: projects.length,

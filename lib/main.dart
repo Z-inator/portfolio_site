@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 
-import 'screens/main_body_content.dart';
-import 'screens/nav_bar.dart';
+import 'package:portfolio_site/screens/main_body_content.dart';
+import 'package:portfolio_site/screens/nav_bar.dart';
 
 void main() {
   runApp(MyApp());
