@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/screens/main_body_content.dart';
 
@@ -7,7 +9,7 @@ class SmallBodyContent extends StatelessWidget {
   List<Project> projects = List.generate(
       5,
       (index) => Project(
-          'name',
+          'name$index',
           'description',
           Image(
             image: AssetImage('dashboard.png'),
@@ -41,18 +43,32 @@ class ProjectPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Container(
-        height: constraints.maxHeight,
-        padding: EdgeInsets.all(20),
-        child: PageView.builder(
+    PageController controller = PageController(viewportFraction: 1, initialPage: 0);
+    log(projects.length.toString());
+    return Container(
+      height: 540,
+      margin: EdgeInsets.all(20),
+      child: 
+      // PageView(
+      //   controller: controller,
+      //   children: [
+      //     ProjectTile(project: projects[0]),
+      //     ProjectTile(project: projects[1]),
+      //     ProjectTile(project: projects[2]),
+      //     ProjectTile(project: projects[3]),
+      //     ProjectTile(project: projects[4]),
+      //   ],
+      // )
+      PageView.builder(
           itemCount: projects.length,
+          controller: controller,
+          scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
-          return ProjectTile(project: projects[index]);
-        }),
-      );
-    });
+            return Container(
+              margin: EdgeInsets.all(10),
+              child: ProjectTile(project: projects[index]));
+          }),
+    );
   }
 }
 
@@ -85,41 +101,38 @@ class ProjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 12,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(children: [
-          Image.asset(
-            'assets/dashboard.png',
-            // height: 200,
-            // width: 200,
-          ),
-          Container(
-              child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CircleAvatar(),
-              Text('Project Name',
-                  style: Theme.of(context).textTheme.subtitle1),
-              IconButton(
-                  icon: Icon(Icons.open_in_new_rounded), onPressed: () {}),
-            ],
-          )),
-          // ListTile(
-          //   leading: CircleAvatar(),
-          //   title: Text('Project Name'),
-          //   subtitle: Text('Description'),
-          //   trailing: IconButton(
-          //       icon: Icon(Icons.open_in_new_rounded),
-          //       onPressed: () {}),
-          // )
-          // Center(
-          //   child: Text('Project$widget',
-          //       style: Theme.of(context).textTheme.headline6),
-          // ),
-        ]),
-      ),
+      elevation: 8,
+      child: Column(children: [
+        Image.asset(
+          'assets/dashboard.png',
+          // height: 200,
+          // width: 200,
+        ),
+        Container(
+            child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CircleAvatar(),
+            Text(project.name,
+                style: Theme.of(context).textTheme.subtitle1),
+            IconButton(
+                icon: Icon(Icons.open_in_new_rounded), onPressed: () {}),
+          ],
+        )),
+        // ListTile(
+        //   leading: CircleAvatar(),
+        //   title: Text('Project Name'),
+        //   subtitle: Text('Description'),
+        //   trailing: IconButton(
+        //       icon: Icon(Icons.open_in_new_rounded),
+        //       onPressed: () {}),
+        // )
+        // Center(
+        //   child: Text('Project$widget',
+        //       style: Theme.of(context).textTheme.headline6),
+        // ),
+      ]),
     );
   }
 }
