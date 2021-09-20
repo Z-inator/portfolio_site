@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/screens/main_body_content.dart';
 
@@ -39,35 +40,59 @@ class SmallBodyContent extends StatelessWidget {
 
 class ProjectPageView extends StatelessWidget {
   final List<Project> projects;
-  const ProjectPageView({Key? key, required this.projects}) : super(key: key);
+  late PageController controller;
+  ProjectPageView({Key? key, required this.projects}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    PageController controller = PageController(viewportFraction: 1, initialPage: 0);
+    PageController controller =
+        PageController(viewportFraction: 1, initialPage: 0);
     log(projects.length.toString());
     return Container(
-      height: 540,
-      margin: EdgeInsets.all(20),
-      child: 
-      // PageView(
-      //   controller: controller,
-      //   children: [
-      //     ProjectTile(project: projects[0]),
-      //     ProjectTile(project: projects[1]),
-      //     ProjectTile(project: projects[2]),
-      //     ProjectTile(project: projects[3]),
-      //     ProjectTile(project: projects[4]),
-      //   ],
-      // )
-      PageView.builder(
-          itemCount: projects.length,
-          controller: controller,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              margin: EdgeInsets.all(10),
-              child: ProjectTile(project: projects[index]));
-          }),
+      height: 560,
+      child:
+          // PageView(
+          //   controller: controller,
+          //   children: [
+          //     ProjectTile(project: projects[0]),
+          //     ProjectTile(project: projects[1]),
+          //     ProjectTile(project: projects[2]),
+          //     ProjectTile(project: projects[3]),
+          //     ProjectTile(project: projects[4]),
+          //   ],
+          // )
+          Stack(children: [
+        PageView.builder(
+            itemCount: projects.length,
+            controller: controller,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                  margin: EdgeInsets.all(40),
+                  child: ProjectTile(project: projects[index]));
+            }),
+        Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            IconButton(
+                onPressed: () {
+                  controller.animateToPage((controller.page! - 1).toInt(),
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                },
+                icon: Icon(Icons.chevron_left_rounded)),
+            IconButton(
+                onPressed: () {
+                  controller.animateToPage((controller.page! + 1).toInt(),
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                },
+                icon: Icon(Icons.chevron_right_rounded)),
+          ],
+        )),
+      ]),
     );
   }
 }
@@ -114,10 +139,8 @@ class ProjectTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CircleAvatar(),
-            Text(project.name,
-                style: Theme.of(context).textTheme.subtitle1),
-            IconButton(
-                icon: Icon(Icons.open_in_new_rounded), onPressed: () {}),
+            Text(project.name, style: Theme.of(context).textTheme.subtitle1),
+            IconButton(icon: Icon(Icons.open_in_new_rounded), onPressed: () {}),
           ],
         )),
         // ListTile(
