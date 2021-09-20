@@ -4,6 +4,8 @@ import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:portfolio_site/screens/main_body_content.dart';
 import 'package:portfolio_site/screens/nav_bar.dart';
 
+import 'components/project_grid.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -20,17 +22,26 @@ class MyApp extends StatelessWidget {
 
 ThemeData themeData(ThemeData base) {
   return base.copyWith(
-    primaryColor: Colors.cyan,
-    cardTheme: CardTheme(
-      shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(25))),
-    )
-  );
+      primaryColor: Colors.cyan,
+      cardTheme: CardTheme(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25))),
+      ));
 }
 
 class ResponsiveScreen extends StatelessWidget {
-  const ResponsiveScreen({Key? key}) : super(key: key);
+  ResponsiveScreen({Key? key}) : super(key: key);
+
+  List<Project> projects = List.generate(
+      5,
+      (index) => Project(
+          'name$index',
+          'description',
+          Image(
+            image: AssetImage('dashboard.png'),
+          ),
+          'tools',
+          'takeAways'));
 
   Widget getScreen(Size screenSize) {
     bool isShort = false;
@@ -38,11 +49,11 @@ class ResponsiveScreen extends StatelessWidget {
       isShort = true;
     }
     if (screenSize.width >= 1200) {
-      return LargeScreen(isShort: isShort);
+      return LargeScreen(isShort: isShort, projects: projects);
     } else if (screenSize.width > 800 && screenSize.width < 1200) {
-      return MediumScreen(isShort: isShort);
+      return MediumScreen(isShort: isShort, projects: projects);
     } else {
-      return SmallScreen();
+      return SmallScreen(projects: projects);
     }
   }
 
@@ -53,25 +64,27 @@ class ResponsiveScreen extends StatelessWidget {
 }
 
 class SmallScreen extends StatelessWidget {
-  const SmallScreen({Key? key}) : super(key: key);
+  final List<Project> projects;
+  SmallScreen({Key? key, required this.projects}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
           child: Scaffold(
-            drawer: Drawer(
-              child: DrawerNavBar(),
-            ),
+              drawer: Drawer(
+                child: DrawerNavBar(),
+              ),
               appBar: AppBar(),
-              body: SmallBodyContent())),
+              body: SmallBodyContent(projects: projects))),
     );
   }
 }
 
 class MediumScreen extends StatelessWidget {
   final bool isShort;
-  MediumScreen({Key? key, required this.isShort}) : super(key: key);
+  final List<Project> projects;
+  MediumScreen({Key? key, required this.isShort, required this.projects}) : super(key: key);
   int selectedIndex = 0;
 
   @override
@@ -83,7 +96,7 @@ class MediumScreen extends StatelessWidget {
           children: [
             LeftNavBar(),
             VerticalDivider(),
-            Expanded(child: MainContentBody())
+            Expanded(child: MainContentBody(projects: projects))
           ],
         ),
       )),
@@ -93,31 +106,32 @@ class MediumScreen extends StatelessWidget {
 
 class LargeScreen extends StatelessWidget {
   final bool isShort;
-  const LargeScreen({Key? key, required this.isShort}) : super(key: key);
+  final List<Project> projects;
+  const LargeScreen({Key? key, required this.isShort, required this.projects}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
           child: Scaffold(
-        body: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(width: 250, child: LeftNavBar()),
-              Expanded(flex: 5, child: MainContentBody())
-            ],
-          )
-        // isShort
-        //     ? Row(
-        //         children: [
-        //           Flexible(flex: 1, child: LeftNavBar()),
-        //           Expanded(flex: 5, child: MainContentBody())
-        //         ],
-        //       )
-        //     : Column(
-        //         children: [TopNavBar(), Expanded(child: MainContentBody())],
-        //       )
-      )),
+              body: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(width: 250, child: LeftNavBar()),
+          Expanded(flex: 5, child: MainContentBody(projects: projects))
+        ],
+      )
+              // isShort
+              //     ? Row(
+              //         children: [
+              //           Flexible(flex: 1, child: LeftNavBar()),
+              //           Expanded(flex: 5, child: MainContentBody())
+              //         ],
+              //       )
+              //     : Column(
+              //         children: [TopNavBar(), Expanded(child: MainContentBody())],
+              //       )
+              )),
     );
   }
 }

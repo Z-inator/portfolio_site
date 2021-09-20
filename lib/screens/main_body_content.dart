@@ -3,10 +3,13 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:portfolio_site/components/project_grid.dart';
+import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class MainContentBody extends StatelessWidget {
-  const MainContentBody({Key? key}) : super(key: key);
+  final List<Project> projects;
+  const MainContentBody({Key? key, required this.projects}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class MainContentBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [AboutMe(), ProjectsGrid(), ContactPage()],
+          children: [AboutMe(), ProjectsGrid(projects: projects), ContactPage()],
         ),
       ),
     );
@@ -103,11 +106,13 @@ class AboutMe extends StatelessWidget {
 
 class ProjectsGrid extends StatelessWidget {
   // final BoxConstraints pageConstraints;
-  const ProjectsGrid({Key? key}) : super(key: key);
+  final List<Project> projects;
+  ProjectsGrid({Key? key, required this.projects}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
-    List<int> projects = List.generate(8, (int index) => index);
+    // List<int> projects = List.generate(8, (int index) => index);
     return Container(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -127,60 +132,61 @@ class ProjectsGrid extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              child: Wrap(
-                spacing: 20,
-                runSpacing: 20,
-                alignment: WrapAlignment.spaceAround,
-                runAlignment: WrapAlignment.spaceAround,
-                children: projects
-                    .map(
-                      (widget) => Card(
-                        elevation: 16,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          // width: 250,
-                          // height: 250,
-                          child: Column(children: [
-                            Image.asset(
-                              'assets/dashboard.png',
-                              height: 200,
-                              width: 200,
-                            ),
-                            Container(
-                                child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CircleAvatar(),
-                                Text('Project Name',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1),
-                                IconButton(
-                                    icon: Icon(Icons.open_in_new_rounded),
-                                    onPressed: () {}),
-                              ],
-                            )),
-                            // ListTile(
-                            //   leading: CircleAvatar(),
-                            //   title: Text('Project Name'),
-                            //   subtitle: Text('Description'),
-                            //   trailing: IconButton(
-                            //       icon: Icon(Icons.open_in_new_rounded),
-                            //       onPressed: () {}),
-                            // )
-                            // Center(
-                            //   child: Text('Project$widget',
-                            //       style: Theme.of(context).textTheme.headline6),
-                            // ),
-                          ]),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+              child: ProjectPageView(projects: projects, projectTileHeight: 400)
+              // Wrap(
+              //   spacing: 20,
+              //   runSpacing: 20,
+              //   alignment: WrapAlignment.spaceAround,
+              //   runAlignment: WrapAlignment.spaceAround,
+              //   children: projects
+              //       .map(
+              //         (widget) => Card(
+              //           elevation: 16,
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius:
+              //                   BorderRadius.all(Radius.circular(25))),
+              //           child: Container(
+              //             padding: EdgeInsets.all(20),
+              //             // width: 250,
+              //             // height: 250,
+              //             child: Column(children: [
+              //               Image.asset(
+              //                 'assets/dashboard.png',
+              //                 height: 200,
+              //                 width: 200,
+              //               ),
+              //               Container(
+              //                   child: Row(
+              //                 mainAxisSize: MainAxisSize.min,
+              //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //                 children: [
+              //                   CircleAvatar(),
+              //                   Text('Project Name',
+              //                       style:
+              //                           Theme.of(context).textTheme.subtitle1),
+              //                   IconButton(
+              //                       icon: Icon(Icons.open_in_new_rounded),
+              //                       onPressed: () {}),
+              //                 ],
+              //               )),
+              //               // ListTile(
+              //               //   leading: CircleAvatar(),
+              //               //   title: Text('Project Name'),
+              //               //   subtitle: Text('Description'),
+              //               //   trailing: IconButton(
+              //               //       icon: Icon(Icons.open_in_new_rounded),
+              //               //       onPressed: () {}),
+              //               // )
+              //               // Center(
+              //               //   child: Text('Project$widget',
+              //               //       style: Theme.of(context).textTheme.headline6),
+              //               // ),
+              //             ]),
+              //           ),
+              //         ),
+              //       )
+              //       .toList(),
+              // ),
             ),
           ]),
     );
