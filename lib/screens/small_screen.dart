@@ -49,7 +49,7 @@ class ProjectPageView extends StatelessWidget {
         PageController(viewportFraction: 1, initialPage: 0);
     log(projects.length.toString());
     return Container(
-      height: 560,
+      height: 540,
       child:
           // PageView(
           //   controller: controller,
@@ -68,7 +68,8 @@ class ProjectPageView extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                  margin: EdgeInsets.all(40),
+                  margin: EdgeInsets.fromLTRB(40,0,40,0),
+                  // padding: EdgeInsets.all(10),
                   child: ProjectTile(project: projects[index]));
             }),
         Center(
