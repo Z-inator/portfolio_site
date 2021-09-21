@@ -18,7 +18,8 @@ class ProjectPageView extends StatelessWidget {
     List<Project> projects = Provider.of<ProjectState>(context).projects;
     PageViewDotsState pageViewDotsState = Provider.of<PageViewDotsState>(context);
     return Container(
-      height: 500,
+      height: 480,
+      width: 500,
       child: Stack(children: [
         PageView.builder(
             itemCount: projects.length,
@@ -91,48 +92,45 @@ class ProjectTile extends StatelessWidget {
         minHeight: 300,
       ),
       margin: EdgeInsets.all(10),
-      child: AspectRatio(
-        aspectRatio: .9,
-        child: Card(
-          elevation: 8,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    'assets/dashboard.png',
-                    // height: 200,
-                    // width: 200,
-                  ),
-                  Container(
-                      child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CircleAvatar(),
-                      Text(project.name,
-                          style: Theme.of(context).textTheme.subtitle1),
-                      IconButton(
-                          icon: Icon(Icons.open_in_new_rounded),
-                          onPressed: () {}),
-                    ],
-                  )),
-                  // ListTile(
-                  //   leading: CircleAvatar(),
-                  //   title: Text('Project Name'),
-                  //   subtitle: Text('Description'),
-                  //   trailing: IconButton(
-                  //       icon: Icon(Icons.open_in_new_rounded),
-                  //       onPressed: () {}),
-                  // )
-                  // Center(
-                  //   child: Text('Project$widget',
-                  //       style: Theme.of(context).textTheme.headline6),
-                  // ),
-                ]),
-          ),
+      child: Card(
+        elevation: 8,
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  'assets/dashboard.png',
+                  // height: 200,
+                  // width: 200,
+                ),
+                Container(
+                    child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CircleAvatar(),
+                    Text(project.name,
+                        style: Theme.of(context).textTheme.subtitle1),
+                    IconButton(
+                        icon: Icon(Icons.open_in_new_rounded),
+                        onPressed: () {}),
+                  ],
+                )),
+                // ListTile(
+                //   leading: CircleAvatar(),
+                //   title: Text('Project Name'),
+                //   subtitle: Text('Description'),
+                //   trailing: IconButton(
+                //       icon: Icon(Icons.open_in_new_rounded),
+                //       onPressed: () {}),
+                // )
+                // Center(
+                //   child: Text('Project$widget',
+                //       style: Theme.of(context).textTheme.headline6),
+                // ),
+              ]),
         ),
       ),
     );

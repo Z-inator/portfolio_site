@@ -50,16 +50,11 @@ class ResponsiveScreen extends StatelessWidget {
           'takeAways'));
 
   Widget getScreen(Size screenSize) {
-    bool isShort = false;
-    if (screenSize.height < 760) {
-      isShort = true;
-    }
-    if (screenSize.width >= 1200) {
-      return LargeScreen(isShort: isShort, projects: projects);
-    } else if (screenSize.width > 800 && screenSize.width < 1200) {
-      return MediumScreen(isShort: isShort, projects: projects);
+
+    if (screenSize.width >= 800) {
+      return LargeScreen();
     } else {
-      return SmallScreen(projects: projects);
+      return SmallScreen();
     }
   }
 
@@ -70,8 +65,7 @@ class ResponsiveScreen extends StatelessWidget {
 }
 
 class SmallScreen extends StatelessWidget {
-  final List<Project> projects;
-  SmallScreen({Key? key, required this.projects}) : super(key: key);
+  SmallScreen({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,38 +76,13 @@ class SmallScreen extends StatelessWidget {
                 child: DrawerNavBar(),
               ),
               appBar: AppBar(),
-              body: SmallBodyContent(projects: projects))),
-    );
-  }
-}
-
-class MediumScreen extends StatelessWidget {
-  final bool isShort;
-  final List<Project> projects;
-  MediumScreen({Key? key, required this.isShort, required this.projects}) : super(key: key);
-  int selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-          child: Scaffold(
-        body: Row(
-          children: [
-            LeftNavBar(),
-            VerticalDivider(),
-            Expanded(child: MainContentBody(projects: projects))
-          ],
-        ),
-      )),
+              body: SmallBodyContent())),
     );
   }
 }
 
 class LargeScreen extends StatelessWidget {
-  final bool isShort;
-  final List<Project> projects;
-  const LargeScreen({Key? key, required this.isShort, required this.projects}) : super(key: key);
+  const LargeScreen({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +93,7 @@ class LargeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(width: 250, child: LeftNavBar()),
-          Expanded(flex: 5, child: MainContentBody(projects: projects))
+          Expanded(flex: 5, child: MainContentBody())
         ],
       )
               // isShort

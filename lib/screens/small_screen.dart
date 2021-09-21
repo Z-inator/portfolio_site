@@ -9,8 +9,7 @@ import 'package:portfolio_site/screens/main_body_content.dart';
 import 'package:provider/provider.dart';
 
 class SmallBodyContent extends StatelessWidget {
-  final List<Project> projects;
-  SmallBodyContent({Key? key, required this.projects}) : super(key: key);
+  SmallBodyContent({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +18,15 @@ class SmallBodyContent extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [Photo(), Bio(), ProjectSection(), ContactPage()],
+          children: [Photo(), Bio(), SmallProjectSection(), ContactPage()],
         ),
       ),
     );
   }
 }
 
-class ProjectSection extends StatelessWidget {
-  ProjectSection({Key? key}) : super(key: key);
+class SmallProjectSection extends StatelessWidget {
+  SmallProjectSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,7 @@ import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class MainContentBody extends StatelessWidget {
-  final List<Project> projects;
-  const MainContentBody({Key? key, required this.projects}) : super(key: key);
+  const MainContentBody({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class MainContentBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [AboutMe(), ProjectsGrid(projects: projects), ContactPage()],
+          children: [AboutMe(), LargeProjectSection(), ContactPage()],
         ),
       ),
     );
@@ -104,11 +103,8 @@ class AboutMe extends StatelessWidget {
   }
 }
 
-class ProjectsGrid extends StatelessWidget {
-  // final BoxConstraints pageConstraints;
-  final List<Project> projects;
-  ProjectsGrid({Key? key, required this.projects}) : super(key: key);
-
+class LargeProjectSection extends StatelessWidget {
+  LargeProjectSection({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
