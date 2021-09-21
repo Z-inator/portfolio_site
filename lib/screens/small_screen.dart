@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/project_services.dart';
-import 'package:portfolio_site/components/project_grid.dart';
+import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/main_body_content.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +19,7 @@ class SmallBodyContent extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Photo(),
-            Bio(),
-            ProjectPageView(projects: projects, projectTileHeight: 300),
-            ContactPage()
-          ],
+          children: [Photo(), Bio(), ProjectSection(), ContactPage()],
         ),
       ),
     );
@@ -32,26 +27,30 @@ class SmallBodyContent extends StatelessWidget {
 }
 
 class ProjectSection extends StatelessWidget {
-  const ProjectSection({Key? key}) : super(key: key);
+  ProjectSection({Key? key}) : super(key: key);
+  PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            height: 180,
-            padding: EdgeInsets.symmetric(vertical: 40.0),
-            child: Column(
-              children: [
-                Text('Projects', style: Theme.of(context).textTheme.headline4),
-                FlutterButton()
-              ],
+    return ChangeNotifierProvider.value(
+      value: pageController,
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              child: Column(
+                children: [
+                  Text('Projects',
+                      style: Theme.of(context).textTheme.headline4),
+                  FlutterButton()
+                ],
+              ),
             ),
-          ),
-          ProjectPageView(),
-          PageViewDotsRow()
-        ],
+            ProjectPageView(),
+            PageViewDotsRow()
+          ],
+        ),
       ),
     );
   }
@@ -81,38 +80,41 @@ class Bio extends StatelessWidget {
 
 class PageViewDots extends StatelessWidget {
   final int index;
+  late PageController pageController;
   PageViewDots({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    PageViewDotsState state = Provider.of<PageViewDotsState>(context);
+    pageController = Provider.of<PageController>(context, listen: false);
+    log('${pageController.page}');
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       margin: EdgeInsets.symmetric(horizontal: 10),
-      height: state.activePage == index ? 12 : 8,
-      width: state.activePage == index ? 12 : 8,
+      height: pageController.page!.toInt() == index ? 12 : 8,
+      width: pageController.page!.toInt() == index ? 12 : 8,
       decoration: BoxDecoration(
-          color: state.activePage == index
-              ? Colors.cyan
-              : Colors.grey,
+          color:
+              pageController.page!.toInt() == index ? Colors.cyan : Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(25))),
     );
   }
 }
 
 class PageViewDotsRow extends StatelessWidget {
-  final int? numberOfPages;
-  const PageViewDotsRow({Key? key, this.numberOfPages}) : super(key: key);
+  late int numberOfPages;
+  PageViewDotsRow({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    PageViewDotsState state = Provider.of<PageViewDotsState>(context);
+    numberOfPages = Provider.of<ProjectState>(context).projects.length;
     return ListTile(
       title: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children:
-            List.generate(numberOfPages!, (index) => PageViewDots(index: index)),
+            List.generate(numberOfPages, (index) => PageViewDots(index: index)),
       ),
     );
   }

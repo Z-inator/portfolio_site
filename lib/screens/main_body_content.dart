@@ -3,7 +3,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:portfolio_site/components/project_grid.dart';
+import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -132,7 +132,7 @@ class ProjectsGrid extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              child: ProjectPageView(projects: projects, projectTileHeight: 400)
+              child: ProjectGridView()
               // Wrap(
               //   spacing: 20,
               //   runSpacing: 20,
@@ -214,7 +214,7 @@ class FlutterButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Primary Framework:',
+        Text('Primary Framework:  ',
             style: Theme.of(context).textTheme.headline6),
         //TODO: make this a Textbutton to Flutter's website
         TextButton.icon(

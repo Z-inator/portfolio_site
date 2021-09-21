@@ -6,7 +6,7 @@ import 'package:portfolio_site/screens/main_body_content.dart';
 import 'package:portfolio_site/screens/nav_bar.dart';
 import 'package:provider/provider.dart';
 
-import 'components/project_grid.dart';
+import 'components/project_views.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,10 +15,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: themeData(ThemeData.light()),
-        home: ResponsiveScreen());
+    return Provider<ProjectState>(
+      create: (context) => ProjectState(),
+      dispose: (context, value) => value.dispose(),
+      child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: themeData(ThemeData.light()),
+          home: ResponsiveScreen()),
+    );
   }
 }
 
@@ -71,17 +75,14 @@ class SmallScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => PageViewDotsState(),
-      child: Container(
-        child: SafeArea(
-            child: Scaffold(
-                drawer: Drawer(
-                  child: DrawerNavBar(),
-                ),
-                appBar: AppBar(),
-                body: SmallBodyContent(projects: projects))),
-      ),
+    return Container(
+      child: SafeArea(
+          child: Scaffold(
+              drawer: Drawer(
+                child: DrawerNavBar(),
+              ),
+              appBar: AppBar(),
+              body: SmallBodyContent(projects: projects))),
     );
   }
 }
