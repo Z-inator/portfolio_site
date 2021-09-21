@@ -7,7 +7,7 @@ import 'package:portfolio_site/screens/main_body_content.dart';
 import 'package:provider/provider.dart';
 
 class ProjectPageView extends StatelessWidget {
-  late PageController controller;
+  late PageController pageController = PageController();
   late List<Project> projects;
   ProjectPageView({
     Key? key,
@@ -16,8 +16,7 @@ class ProjectPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Project> projects = Provider.of<ProjectState>(context).projects;
-    PageController pageController =
-        Provider.of<PageController>(context, listen: false);
+    PageViewDotsState pageViewDotsState = Provider.of<PageViewDotsState>(context);
     return Container(
       height: 500,
       child: Stack(children: [
@@ -25,6 +24,7 @@ class ProjectPageView extends StatelessWidget {
             itemCount: projects.length,
             controller: pageController,
             scrollDirection: Axis.horizontal,
+            onPageChanged: (int) => pageViewDotsState.changePage(int),
             itemBuilder: (BuildContext context, int index) {
               return Container(
                   margin: EdgeInsets.fromLTRB(40, 0, 40, 0),

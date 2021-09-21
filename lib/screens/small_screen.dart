@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:html';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,11 @@ class SmallBodyContent extends StatelessWidget {
 
 class ProjectSection extends StatelessWidget {
   ProjectSection({Key? key}) : super(key: key);
-  PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: pageController,
+    return ChangeNotifierProvider(
+      create: (context) => PageViewDotsState(),
       child: Container(
         child: Column(
           children: [
@@ -81,20 +81,22 @@ class Bio extends StatelessWidget {
 class PageViewDots extends StatelessWidget {
   final int index;
   late PageController pageController;
+  late AnimationController animationController;
   PageViewDots({Key? key, required this.index}) : super(key: key);
+
+  
 
   @override
   Widget build(BuildContext context) {
-    pageController = Provider.of<PageController>(context, listen: false);
-    log('${pageController.page}');
+    PageViewDotsState pageViewDotsState = Provider.of<PageViewDotsState>(context);
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       margin: EdgeInsets.symmetric(horizontal: 10),
-      height: pageController.page!.toInt() == index ? 12 : 8,
-      width: pageController.page!.toInt() == index ? 12 : 8,
+      height: pageViewDotsState.activePage == index ? 12 : 8,
+      width: pageViewDotsState.activePage == index ? 12 : 8,
       decoration: BoxDecoration(
           color:
-              pageController.page!.toInt() == index ? Colors.cyan : Colors.grey,
+              pageViewDotsState.activePage == index ? Colors.cyan : Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(25))),
     );
   }
