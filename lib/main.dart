@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_site/Services/project_services.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 
 import 'package:portfolio_site/screens/main_body_content.dart';
 import 'package:portfolio_site/screens/nav_bar.dart';
+import 'package:provider/provider.dart';
 
 import 'components/project_grid.dart';
 
@@ -69,14 +71,17 @@ class SmallScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-          child: Scaffold(
-              drawer: Drawer(
-                child: DrawerNavBar(),
-              ),
-              appBar: AppBar(),
-              body: SmallBodyContent(projects: projects))),
+    return ChangeNotifierProvider(
+      create: (context) => PageViewDotsState(),
+      child: Container(
+        child: SafeArea(
+            child: Scaffold(
+                drawer: Drawer(
+                  child: DrawerNavBar(),
+                ),
+                appBar: AppBar(),
+                body: SmallBodyContent(projects: projects))),
+      ),
     );
   }
 }
