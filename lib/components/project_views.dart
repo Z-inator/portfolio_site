@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/project_services.dart';
-import 'package:portfolio_site/screens/main_body_content.dart';
+import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProjectPageView extends StatelessWidget {
@@ -88,8 +88,10 @@ class ProjectTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxHeight: 400,
+        maxHeight: 350,
         minHeight: 300,
+        maxWidth: 280,
+        minWidth: 250
       ),
       margin: EdgeInsets.all(10),
       child: Card(
@@ -100,10 +102,12 @@ class ProjectTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  'assets/dashboard.png',
-                  // height: 200,
-                  // width: 200,
+                Expanded(
+                  child: Image.asset(
+                    'assets/dashboard.png',
+                    // height: 200,
+                    // width: 200,
+                  ),
                 ),
                 Container(
                     child: Row(

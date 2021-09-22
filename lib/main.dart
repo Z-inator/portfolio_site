@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/project_services.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 
-import 'package:portfolio_site/screens/main_body_content.dart';
+import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:portfolio_site/screens/nav_bar.dart';
 import 'package:provider/provider.dart';
 

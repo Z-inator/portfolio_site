@@ -13,7 +13,6 @@ class MainContentBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40.0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,8 +115,7 @@ class LargeProjectSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 180,
-              padding: EdgeInsets.symmetric(vertical: 40.0),
+              padding: EdgeInsets.symmetric(vertical: 20.0),
               child: Column(
                 children: [
                   Text('Projects',
