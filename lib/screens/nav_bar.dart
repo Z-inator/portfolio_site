@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class DrawerNavBar extends StatelessWidget {
@@ -127,14 +129,42 @@ class PageList extends StatelessWidget {
 class LinkList extends StatelessWidget {
   const LinkList({Key? key}) : super(key: key);
 
+  void launchURL(String url) {
+    window.open(url, 'new tab');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: List.generate(
-          4, (index) => IconButton(onPressed: () {}, icon: Icon(Icons.circle))),
-    );
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () =>
+                launchURL('https://www.linkedin.com/in/zacharywauer/'),
+            icon: Image.asset('logos/linkedin.png'),
+            iconSize: 36,
+            // AssetImage('logos/linkedin.png'),
+          ),
+          IconButton(
+              onPressed: () => launchURL('https://github.com/Z-inator'),
+              icon: Image.asset('logos/github.png'),
+              iconSize: 36,
+              // CircleAvatar(
+              //   radius: 20,
+              //   foregroundImage: AssetImage('logos/github.png'),
+              //   backgroundColor: Colors.white,
+              ),
+          IconButton(
+              onPressed: () => launchURL('https://twitter.com/ZachWauer'),
+              icon: Image.asset('logos/twitter.png'),
+              iconSize: 36,
+              // CircleAvatar(
+              //   radius: 20,
+              //   foregroundImage: AssetImage('logos/twitter.png'),
+              //   backgroundColor: Colors.white,
+              ),
+        ]);
     // Wrap(
     //   direction: Axis.vertical,
     //   alignment: WrapAlignment.end,
