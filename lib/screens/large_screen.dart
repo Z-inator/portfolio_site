@@ -7,13 +7,13 @@ import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
-class MainContentBody extends StatelessWidget {
-  const MainContentBody({Key? key,}) : super(key: key);
+class LargeScreenBody extends StatelessWidget {
+  const LargeScreenBody({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [AboutMe(), LargeProjectSection(), ContactPage()],

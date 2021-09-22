@@ -8,8 +8,8 @@ import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
 
-class SmallBodyContent extends StatelessWidget {
-  SmallBodyContent({Key? key,}) : super(key: key);
+class SmallScreenBody extends StatelessWidget {
+  SmallScreenBody({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

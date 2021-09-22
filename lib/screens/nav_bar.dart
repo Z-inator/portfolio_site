@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 
-
 class DrawerNavBar extends StatelessWidget {
-  const DrawerNavBar({Key? key}) : super(key: key);
+  final List<Widget> drawerWidgets;
+  const DrawerNavBar({Key? key, required this.drawerWidgets}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Expanded(
+    return Drawer(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [LogoHeader(), PageList(), LinkList()],
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: drawerWidgets
           ),
-        ),
-      ),
     );
   }
 }
 
 class LeftNavBar extends StatelessWidget {
-  const LeftNavBar({Key? key}) : super(key: key);
+  final List<Widget> drawerWidgets;
+
+  LeftNavBar({Key? key, required this.drawerWidgets}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +30,12 @@ class LeftNavBar extends StatelessWidget {
       child: Container(
           color: Colors.white,
           padding: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-              child: Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [LogoHeader(), PageList(), LinkList()],
-                ),
-              ),
+          child: Drawer(
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: drawerWidgets),
           )
           // SingleChildScrollView(
           //   child: Container(

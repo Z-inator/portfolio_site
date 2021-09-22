@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: themeData(ThemeData.light()),
-          home: ResponsiveScreen()),
+          home: AdaptiveScaffold()),
     );
   }
 }
@@ -35,81 +35,123 @@ ThemeData themeData(ThemeData base) {
       ));
 }
 
-class ResponsiveScreen extends StatelessWidget {
-  ResponsiveScreen({Key? key}) : super(key: key);
-
-  List<Project> projects = List.generate(
-      5,
-      (index) => Project(
-          'name$index',
-          'description',
-          Image(
-            image: AssetImage('dashboard.png'),
-          ),
-          'tools',
-          'takeAways'));
-
-  Widget getScreen(Size screenSize) {
-
-    if (screenSize.width >= 800) {
-      return LargeScreen();
-    } else {
-      return SmallScreen();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return getScreen(MediaQuery.of(context).size);
-  }
+bool _isLargeScreen(BuildContext context) {
+  return MediaQuery.of(context).size.width > 960.0;
 }
 
-class SmallScreen extends StatelessWidget {
-  SmallScreen({Key? key,}) : super(key: key);
+class AdaptiveScaffold extends StatefulWidget {
+  AdaptiveScaffold({Key? key,})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-          child: Scaffold(
-              drawer: Drawer(
-                child: DrawerNavBar(),
-              ),
-              appBar: AppBar(),
-              body: SmallBodyContent())),
-    );
-  }
+  _AdaptiveScaffoldState createState() => _AdaptiveScaffoldState();
 }
 
-class LargeScreen extends StatelessWidget {
-  const LargeScreen({Key? key,}) : super(key: key);
-
+class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-          child: Scaffold(
-              body: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    if (_isLargeScreen(context)) {
+      return Row(
         children: [
-          Container(width: 250, child: LeftNavBar()),
-          Expanded(flex: 5, child: MainContentBody())
+          LeftNavBar(drawerWidgets: [
+            DrawerHeader(child: LogoHeader()),
+            PageList(),
+            LinkList()
+          ]),
+          Expanded(child: LargeScreenBody())
         ],
-      )
-              // isShort
-              //     ? Row(
-              //         children: [
-              //           Flexible(flex: 1, child: LeftNavBar()),
-              //           Expanded(flex: 5, child: MainContentBody())
-              //         ],
-              //       )
-              //     : Column(
-              //         children: [TopNavBar(), Expanded(child: MainContentBody())],
-              //       )
-              )),
-    );
+      );
+    }
+    return SafeArea(
+        child: Scaffold(
+            drawer: DrawerNavBar(drawerWidgets: [
+              DrawerHeader(child: LogoHeader()),
+                  PageList(),
+                  LinkList()
+            ]
+          ),
+            appBar: AppBar(),
+            body: SmallScreenBody()));
   }
 }
+
+// class ResponsiveScreen extends StatelessWidget {
+//   ResponsiveScreen({Key? key}) : super(key: key);
+
+//   List<Project> projects = List.generate(
+//       5,
+//       (index) => Project(
+//           'name$index',
+//           'description',
+//           Image(
+//             image: AssetImage('dashboard.png'),
+//           ),
+//           'tools',
+//           'takeAways'));
+
+//   Widget getScreen(Size screenSize) {
+//     if (screenSize.width >= 800) {
+//       return LargeScreen();
+//     } else {
+//       return SmallScreen();
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return getScreen(MediaQuery.of(context).size);
+//   }
+// }
+
+// class SmallScreen extends StatelessWidget {
+//   SmallScreen({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: SafeArea(
+//           child: Scaffold(
+//               drawer: Drawer(
+//                 child: DrawerNavBar(),
+//               ),
+//               appBar: AppBar(),
+//               body: SmallScreenBody())),
+//     );
+//   }
+// }
+
+// class LargeScreen extends StatelessWidget {
+//   const LargeScreen({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       crossAxisAlignment: CrossAxisAlignment.stretch,
+//       children: [
+//         LeftNavBar(drawerWidgets: [
+//           DrawerHeader(child: LogoHeader()),
+//           PageList(),
+//           LinkList()
+//         ]),
+//         Expanded(flex: 5, child: LargeScreenBody())
+//       ],
+//       // isShort
+//       //     ? Row(
+//       //         children: [
+//       //           Flexible(flex: 1, child: LeftNavBar()),
+//       //           Expanded(flex: 5, child: MainContentBody())
+//       //         ],
+//       //       )
+//       //     : Column(
+//       //         children: [TopNavBar(), Expanded(child: MainContentBody())],
+//       //       )
+//     );
+//   }
+// }
 
 // class TopNavBar extends StatelessWidget {
 //   @override
