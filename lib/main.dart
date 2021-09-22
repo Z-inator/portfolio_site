@@ -54,10 +54,15 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       return Row(
         children: [
           LeftNavBar(drawerWidgets: [
-            DrawerHeader(child: LogoHeader()),
+            LogoHeader(),
             PageList(),
             LinkList()
           ]),
+          VerticalDivider(
+            width: 1,
+            thickness: 1,
+            color: Colors.grey[300],
+          ),
           Expanded(child: LargeScreenBody())
         ],
       );
@@ -65,7 +70,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     return SafeArea(
         child: Scaffold(
             drawer: DrawerNavBar(drawerWidgets: [
-              DrawerHeader(child: LogoHeader()),
+              LogoHeader(),
                   PageList(),
                   LinkList()
             ]

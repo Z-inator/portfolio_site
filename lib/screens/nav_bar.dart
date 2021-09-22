@@ -7,12 +7,11 @@ class DrawerNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-          child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: drawerWidgets
-          ),
+      child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: drawerWidgets),
     );
   }
 }
@@ -24,48 +23,12 @@ class LeftNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 16,
-      borderRadius: BorderRadius.zero,
-      child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(20),
-          child: Drawer(
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: drawerWidgets),
-          )
-          // SingleChildScrollView(
-          //   child: Container(
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.max,
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         LogoHeader(),
-          //         PageList(),
-          //         // Expanded(
-          //         //   child: NavigationRail(
-          //         //     selectedIndex: 0,
-          //         //     groupAlignment: 0,
-          //         //     labelType: NavigationRailLabelType.all,
-          //         //     // leading: LogoHeader(),
-          //         //     // trailing: LinkList(),
-          //         //     destinations: [
-          //         //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('About Me')),
-          //         //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Projects')),
-          //         //       NavigationRailDestination(icon: Icon(Icons.access_alarm_outlined), selectedIcon: Icon(Icons.access_alarm), label: Text('Contact')),
-          //         //     ]
-          //         //   ),
-          //         // ),
-          //         LinkList()
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          ),
+    return Drawer(
+      child: Column(
+          // mainAxisSize: MainAxisSize.max,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: drawerWidgets),
     );
   }
 }
@@ -111,35 +74,33 @@ class LogoHeader extends StatelessWidget {
 class PageList extends StatelessWidget {
   PageList({Key? key}) : super(key: key);
 
-  final List pages = [
-    'About Me',
-    'Projects',
-    'Contact',
-    // 'Interests',
-    // 'Links'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(20),
+        margin: EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
             ListTile(
               selected: true,
-              selectedTileColor: Colors.cyan,
+              // selectedTileColor: Colors.cyan,
+              leading: Icon(Icons.circle),
+              title: Text('Home'),
+            ),
+            ListTile(
+              selected: false,
+              // selectedTileColor: Colors.cyan,
               leading: Icon(Icons.circle),
               title: Text('About Me'),
             ),
             ListTile(
               selected: false,
-              selectedTileColor: Colors.cyan,
+              // selectedTileColor: Colors.cyan,
               leading: Icon(Icons.circle),
               title: Text('Projects'),
             ),
             ListTile(
               selected: false,
-              selectedTileColor: Colors.cyan,
+              // selectedTileColor: Colors.cyan,
               leading: Icon(Icons.circle),
               title: Text('Contact'),
             ),
@@ -168,7 +129,7 @@ class LinkList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: List.generate(
