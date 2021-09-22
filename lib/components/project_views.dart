@@ -16,7 +16,8 @@ class ProjectPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Project> projects = Provider.of<ProjectState>(context).projects;
-    PageViewDotsState pageViewDotsState = Provider.of<PageViewDotsState>(context);
+    PageViewDotsState pageViewDotsState =
+        Provider.of<PageViewDotsState>(context);
     return Container(
       height: 480,
       width: 500,
@@ -72,11 +73,19 @@ class ProjectGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Project> projects = Provider.of<ProjectState>(context).projects;
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: generateProjectTiles(projects),
+    return GridView(
+      shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        childAspectRatio: .9,
+        maxCrossAxisExtent: 500
+      ),
+      children: [...projects.map((project) => ProjectTile(project: project))],
     );
+    // return Wrap(
+    //   spacing: 10,
+    //   runSpacing: 10,
+    //   children: generateProjectTiles(projects),
+    // );
   }
 }
 
@@ -87,12 +96,6 @@ class ProjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
-        maxHeight: 350,
-        minHeight: 300,
-        maxWidth: 280,
-        minWidth: 250
-      ),
       margin: EdgeInsets.all(10),
       child: Card(
         elevation: 8,
