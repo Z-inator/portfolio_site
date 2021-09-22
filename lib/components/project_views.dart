@@ -77,7 +77,7 @@ class ProjectGridView extends StatelessWidget {
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         childAspectRatio: .9,
-        maxCrossAxisExtent: 500
+        maxCrossAxisExtent: 300
       ),
       children: [...projects.map((project) => ProjectTile(project: project))],
     );

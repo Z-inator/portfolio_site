@@ -194,12 +194,6 @@ class FlutterButton extends StatelessWidget {
 
   void launchURL(String url) {
     window.open(url, 'new tab');
-    // try {
-    //   await launch(url);
-    // } catch (e) {
-    //   log(e.toString());
-    // }
-    // await canLaunch(urlString) ? await launch(url) : throw 'Could not launch $url';
   }
 
   @override
@@ -214,7 +208,7 @@ class FlutterButton extends StatelessWidget {
         TextButton.icon(
             onPressed: () => launchURL('https://flutter.dev/'),
             icon: CircleAvatar(
-              foregroundImage: AssetImage('flutter_logo.png'),
+              foregroundImage: AssetImage('logos/flutter_logo.png'),
               backgroundColor: Colors.grey,
             ),
             // Image.asset('flutter_logo.png'),
@@ -304,13 +298,6 @@ class ContactPage extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            children: [
-              Icon(Icons.circle),
-              Icon(Icons.circle),
-              Icon(Icons.circle)
-            ],
-          )
         ],
       ),
     );
