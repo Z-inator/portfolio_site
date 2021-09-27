@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:portfolio_site/components/contact_views.dart';
 import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:responsive_grid/responsive_grid.dart';
@@ -18,7 +19,7 @@ class LargeScreenBody extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [AboutMe(), LargeProjectSection(), ContactPage()],
+          children: [AboutMe(), LargeProjectSection(), ContactForm()],
         ),
       ),
     );
@@ -221,72 +222,3 @@ class FlutterButton extends StatelessWidget {
   }
 }
 
-class ContactPage extends StatelessWidget {
-  // final BoxConstraints pageConstraints;
-  const ContactPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 760,
-      padding: EdgeInsets.symmetric(horizontal: 40.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-              child: Center(
-            child:
-                Text('Contact', style: Theme.of(context).textTheme.headline4),
-          )),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                        child: Container(
-                            margin: EdgeInsets.only(right: 20),
-                            decoration: ShapeDecoration(
-                                color: Colors.grey,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25))),
-                            child: TextFormField())),
-                    Expanded(
-                        child: Container(
-                            margin: EdgeInsets.only(left: 20),
-                            decoration: ShapeDecoration(
-                                color: Colors.grey,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25))),
-                            child: TextFormField()))
-                  ],
-                ),
-                Container(
-                    margin: EdgeInsets.only(left: 20),
-                    decoration: ShapeDecoration(
-                        color: Colors.grey,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25))),
-                    child: TextFormField()),
-                Container(
-                    margin: EdgeInsets.only(left: 20),
-                    decoration: ShapeDecoration(
-                        color: Colors.grey,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25))),
-                    child: TextFormField())
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
