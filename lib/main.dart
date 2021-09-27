@@ -32,7 +32,15 @@ ThemeData themeData(ThemeData base) {
       cardTheme: CardTheme(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(25))),
-      ));
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25))),
+          filled: true,
+          fillColor: Colors.grey[200],
+          focusColor: Colors.cyan,
+      ),
+  );    
 }
 
 bool _isLargeScreen(BuildContext context) {
