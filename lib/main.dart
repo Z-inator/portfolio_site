@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:portfolio_site/Services/project_services.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 
@@ -13,15 +14,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Provider<ProjectState>(
-      create: (context) => ProjectState(),
-      dispose: (context, value) => value.dispose(),
+    return MultiProvider(
+      providers: [
+        Provider<ProjectState>(
+          create: (context) => ProjectState(),
+          dispose: (context, value) => value.dispose(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ContactFormState(formKey: formKey),
+        )
+      ],
       child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: themeData(ThemeData.light()),
-          home: AdaptiveScaffold()),
+            title: 'Flutter Demo',
+            theme: themeData(ThemeData.light()),
+            home: AdaptiveScaffold()),
     );
   }
 }
