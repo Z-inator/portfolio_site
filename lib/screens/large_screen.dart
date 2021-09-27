@@ -122,17 +122,14 @@ class LargeProjectSection extends StatelessWidget {
 }
 
 class LargeContactSection extends StatelessWidget {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   LargeContactSection({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => ContactFormState(formKey: formKey),
-        builder: (context, child) {
-          return Container(
+    return Container(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: Column(
                 children: [
@@ -140,7 +137,6 @@ class LargeContactSection extends StatelessWidget {
                   LargeContactForm(),
                 ],
               ));
-        });
   }
 }
 
