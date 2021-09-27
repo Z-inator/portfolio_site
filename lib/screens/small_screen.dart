@@ -5,6 +5,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/project_services.dart';
 import 'package:portfolio_site/components/contact_views.dart';
+import 'package:portfolio_site/components/flutter_button.dart';
 import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
@@ -34,10 +35,11 @@ class SmallProjectSection extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => PageViewDotsState(),
       child: Container(
+        padding: EdgeInsets.all(40),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
+              padding: EdgeInsets.only(bottom: 40),
               child: Column(
                 children: [
                   Text('Projects',
@@ -61,7 +63,7 @@ class SmallContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40.0),
+      padding: EdgeInsets.all(40.0),
       child: Column(
         children: [
           Text('Contact', style: Theme.of(context).textTheme.headline4),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,11 @@ class LargeContactForm extends StatelessWidget {
                 ],
               ),
             ),
-            Container(child: ContactFormMessage()),
             Container(
-                padding: EdgeInsets.symmetric(vertical: 40),
+              padding: EdgeInsets.only(bottom: 40),
+              child: ContactFormMessage()
+            ),
+            Container(
                 child: ContactFormSubmitButton())
           ],
         ));
@@ -59,7 +62,6 @@ class SmallContactForm extends StatelessWidget {
               child: ContactFormMessage(),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 40),
               child: ContactFormSubmitButton(),
             ),
           ],
@@ -123,6 +125,7 @@ class ContactFormMessage extends StatelessWidget {
       maxLines: null,
       decoration: InputDecoration(
         hintText: 'Your Message',
+        alignLabelWithHint: true,
         icon: Icon(Icons.comment_rounded),
         labelText: 'Message',
       ),

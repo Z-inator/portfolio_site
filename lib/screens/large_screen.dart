@@ -1,10 +1,8 @@
-import 'dart:developer';
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:portfolio_site/components/contact_views.dart';
+import 'package:portfolio_site/components/flutter_button.dart';
 import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:provider/provider.dart';
@@ -100,13 +98,14 @@ class LargeProjectSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(40),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
+              padding: EdgeInsets.only(bottom: 40.0),
               child: Column(
                 children: [
                   Text('Projects',
@@ -115,7 +114,7 @@ class LargeProjectSection extends StatelessWidget {
                 ],
               ),
             ),
-            Container(padding: EdgeInsets.all(20), child: ProjectGridView()),
+            Container(child: ProjectGridView()),
           ]),
     );
   }
@@ -130,7 +129,7 @@ class LargeContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: EdgeInsets.all(40.0),
               child: Column(
                 children: [
                   Text('Contact', style: Theme.of(context).textTheme.headline4),
@@ -140,49 +139,4 @@ class LargeContactSection extends StatelessWidget {
   }
 }
 
-class FlutterButton extends StatelessWidget {
-  const FlutterButton({
-    Key? key,
-  }) : super(key: key);
 
-  void launchURL(String url) {
-    window.open(url, 'new tab');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('Primary Framework:  ',
-            style: Theme.of(context).textTheme.headline6),
-        //TODO: make this a Textbutton to Flutter's website
-        TextButton.icon(
-            onPressed: () => launchURL('https://flutter.dev/'),
-            icon: CircleAvatar(
-              foregroundImage: AssetImage('logos/flutter_logo.png'),
-              backgroundColor: Colors.grey,
-            ),
-            // Image.asset('flutter_logo.png'),
-            // ImageIcon(
-            //   AssetImage('flutter_logo.png'),
-            // ),
-            label: Text('Flutter'))
-        // Link(
-        //     uri: Uri.parse('https://flutter.dev/'),
-        //     builder: (context, followLink) {
-        //       return TextButton.icon(
-        //           onPressed: () => followLink,
-        //           icon: CircleAvatar(
-        //               foregroundImage: AssetImage('flutter_logo.png')),
-        //           // Image.asset('flutter_logo.png'),
-        //           // ImageIcon(
-        //           //   AssetImage('flutter_logo.png'),
-        //           // ),
-        //           label: Text('Flutter'));
-        //     })
-      ],
-    );
-  }
-}
