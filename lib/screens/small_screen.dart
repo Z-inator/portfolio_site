@@ -19,7 +19,7 @@ class SmallScreenBody extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Photo(), Bio(), SmallProjectSection(), ContactPage()],
+          children: [Photo(), Bio(), SmallProjectSection(), SmallContactSection()],
         ),
       ),
     );
@@ -51,6 +51,23 @@ class SmallProjectSection extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SmallContactSection extends StatelessWidget {
+  const SmallContactSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 40.0),
+      child: Column(
+        children: [
+          Text('Contact', style: Theme.of(context).textTheme.headline4),
+          SmallContactForm(),
+        ],
+      )
     );
   }
 }
