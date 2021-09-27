@@ -3,9 +3,11 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:portfolio_site/components/contact_views.dart';
 import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class LargeScreenBody extends StatelessWidget {
@@ -19,7 +21,7 @@ class LargeScreenBody extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [AboutMe(), LargeProjectSection(), ContactForm()],
+          children: [AboutMe(), LargeProjectSection(), LargeContactSection()],
         ),
       ),
     );
@@ -97,7 +99,6 @@ class LargeProjectSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<int> projects = List.generate(8, (int index) => index);
     return Container(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -114,64 +115,32 @@ class LargeProjectSection extends StatelessWidget {
                 ],
               ),
             ),
-            Container(padding: EdgeInsets.all(20), child: ProjectGridView()
-                // Wrap(
-                //   spacing: 20,
-                //   runSpacing: 20,
-                //   alignment: WrapAlignment.spaceAround,
-                //   runAlignment: WrapAlignment.spaceAround,
-                //   children: projects
-                //       .map(
-                //         (widget) => Card(
-                //           elevation: 16,
-                //           shape: RoundedRectangleBorder(
-                //               borderRadius:
-                //                   BorderRadius.all(Radius.circular(25))),
-                //           child: Container(
-                //             padding: EdgeInsets.all(20),
-                //             // width: 250,
-                //             // height: 250,
-                //             child: Column(children: [
-                //               Image.asset(
-                //                 'assets/dashboard.png',
-                //                 height: 200,
-                //                 width: 200,
-                //               ),
-                //               Container(
-                //                   child: Row(
-                //                 mainAxisSize: MainAxisSize.min,
-                //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //                 children: [
-                //                   CircleAvatar(),
-                //                   Text('Project Name',
-                //                       style:
-                //                           Theme.of(context).textTheme.subtitle1),
-                //                   IconButton(
-                //                       icon: Icon(Icons.open_in_new_rounded),
-                //                       onPressed: () {}),
-                //                 ],
-                //               )),
-                //               // ListTile(
-                //               //   leading: CircleAvatar(),
-                //               //   title: Text('Project Name'),
-                //               //   subtitle: Text('Description'),
-                //               //   trailing: IconButton(
-                //               //       icon: Icon(Icons.open_in_new_rounded),
-                //               //       onPressed: () {}),
-                //               // )
-                //               // Center(
-                //               //   child: Text('Project$widget',
-                //               //       style: Theme.of(context).textTheme.headline6),
-                //               // ),
-                //             ]),
-                //           ),
-                //         ),
-                //       )
-                //       .toList(),
-                // ),
-                ),
+            Container(padding: EdgeInsets.all(20), child: ProjectGridView()),
           ]),
     );
+  }
+}
+
+class LargeContactSection extends StatelessWidget {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  LargeContactSection({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+        create: (context) => ContactFormState(formKey: formKey),
+        builder: (context, child) {
+          return Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              child: Column(
+                children: [
+                  Text('Contact', style: Theme.of(context).textTheme.headline4),
+                  LargeContactForm(),
+                ],
+              ));
+        });
   }
 }
 
@@ -221,4 +190,3 @@ class FlutterButton extends StatelessWidget {
     );
   }
 }
-
