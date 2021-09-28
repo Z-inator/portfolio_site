@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactFormState extends ChangeNotifier {
   String name = '';
   String email = '';
-  String message = '';
+  String body = '';
   GlobalKey<FormState> formKey;
   ContactFormState({required this.formKey});
 
@@ -30,11 +35,55 @@ class ContactFormState extends ChangeNotifier {
   }
 
   void changeMessage(String input) {
-    message = input;
+    body = input;
     notifyListeners();
   }
 
   String? validateMessagee() {
-    return (message.isEmpty) ? 'Please enter your message.' : null;
+    return (body.isEmpty) ? 'Please enter your message.' : null;
+  }
+
+  Future<String> sendEmail() async {
+    await launch()
+    
+    
+    // final smtpServer = gmailSaslXoauth2(email, accessToken)
+
+    // final Message message = Message()
+    //   ..from = Address(email, name)
+    //   ..recipients = ['zawauer@gmail.com']
+    //   ..subject = 'Portfolio Site Inquiry'
+    //   ..text = body;
+
+    // try {
+    //   await send(message, smtpServer);
+    //   return 'success';
+    // } on MailerException catch (e) {
+    //   return e.toString();
+    // }
+
+    // final Email email = Email(
+    //   body: message,
+    //   subject: 'Portfolio Site Inquiry',
+    //   recipient: 'zawauer@gmail.com',
+    //   isHTML: true,
+    // );
+
+    // // String platformResponse;
+
+    // try {
+    //   await SendEmail.send(email);
+    //   return 'success';
+    // } catch (error) {
+    //   return error.toString();
+    // }
+
+    // if (!mounted) return;
+
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text(platformResponse),
+    //   ),
+    // );
   }
 }

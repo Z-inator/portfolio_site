@@ -28,18 +28,18 @@ class LargeContactForm extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 40),
-              child: ContactFormMessage()
-            ),
-            Container(
-                child: ContactFormSubmitButton())
+                padding: EdgeInsets.only(bottom: 40),
+                child: ContactFormMessage()),
+            Container(child: ContactFormSubmitButton())
           ],
         ));
   }
 }
 
 class SmallContactForm extends StatelessWidget {
-  const SmallContactForm({Key? key,}) : super(key: key);
+  const SmallContactForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -143,9 +143,14 @@ class ContactFormSubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (contactFormState.formKey.currentState!.validate()) {
-            // Process
+            String platformResponse = await contactFormState.send();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(platformResponse),
+              ),
+            );
           }
         },
         child: Text('Submit'));
