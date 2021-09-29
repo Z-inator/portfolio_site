@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,16 +50,22 @@ class ContactFormState extends ChangeNotifier {
     name = '';
     email = '';
     body = '';
-    notifyListeners();
+    formKey.currentState?.reset();
   }
 
   Future<String> sendInquiry() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference inquiries = firestore.collection('inquiries');
     String output = '';
-    await inquiries
-        .add({'name': name, 'email': email, 'message': body, 'time': DateTime.now(), 'replied': false}).then((value) {
+    await inquiries.doc(email).set({
+      'name': name,
+      'email': email,
+      'message': body,
+      'time': DateTime.now(),
+      'replied': false
+    }).then((value) {
       output = 'Successfully sent inquiry.';
+      resetValues();
     }).catchError((error) {
       output = 'Error sending inquiry. $error';
     });

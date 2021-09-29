@@ -77,7 +77,7 @@ class ContactFormName extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      initialValue: contactFormState.name,
+      // initialValue: contactFormState.name,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         hintText: 'Your Name',
@@ -98,7 +98,7 @@ class ContactFormEmail extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      initialValue: contactFormState.email,
+      // initialValue: contactFormState.email,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: 'Your Email',
@@ -119,7 +119,7 @@ class ContactFormMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      initialValue: contactFormState.body,
+      // initialValue: contactFormState.body,
       keyboardType: TextInputType.multiline,
       minLines: 5,
       maxLines: null,
@@ -144,16 +144,16 @@ class ContactFormSubmitButton extends StatelessWidget {
     contactFormState = Provider.of<ContactFormState>(context);
     return ElevatedButton(
         onPressed: () async {
+          String platformResponse = '';
           if (contactFormState.formKey.currentState!.validate()) {
-            String platformResponse = await contactFormState.sendInquiry();
+            await contactFormState.sendInquiry().then((value) {
+              platformResponse = value;
+            });
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(platformResponse),
               ),
             );
-            if (platformResponse.contains('Success')) {
-              contactFormState.resetValues();
-            }
           }
         },
         child: Text('Submit'));
