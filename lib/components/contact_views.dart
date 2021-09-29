@@ -119,7 +119,7 @@ class ContactFormMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      initialValue: contactFormState.message,
+      initialValue: contactFormState.body,
       keyboardType: TextInputType.multiline,
       minLines: 5,
       maxLines: null,
@@ -145,7 +145,8 @@ class ContactFormSubmitButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: () async {
           if (contactFormState.formKey.currentState!.validate()) {
-            String platformResponse = await contactFormState.send();
+            
+            String platformResponse = await contactFormState.sendInquiry();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(platformResponse),

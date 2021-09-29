@@ -30,6 +30,20 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyD2nQ0tgRa7Mh5aVOCa-V91mGqD-58e95M",
+    authDomain: "zachary-wauer-portfolio-site.firebaseapp.com",
+    projectId: "zachary-wauer-portfolio-site",
+    storageBucket: "zachary-wauer-portfolio-site.appspot.com",
+    messagingSenderId: "865786480566",
+    appId: "1:865786480566:web:ff03ecfc85189d3481a317",
+    measurementId: "G-5F0H1C97BM"
+  };
+  firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;

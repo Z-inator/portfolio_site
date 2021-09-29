@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:portfolio_site/Services/project_services.dart';
@@ -10,47 +11,81 @@ import 'package:provider/provider.dart';
 import 'components/project_views.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return Center(child: Text('Something went wrong'),);
+        }
+
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return PortfolioApp();
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+}
+
+class PortfolioApp extends StatelessWidget {
+  PortfolioApp({Key? key}) : super(key: key);
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        Provider<ProjectState>(
-          create: (context) => ProjectState(),
-          dispose: (context, value) => value.dispose(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ContactFormState(formKey: formKey),
-        )
-      ],
-      child: MaterialApp(
+        providers: [
+          Provider<ProjectState>(
+            create: (context) => ProjectState(),
+            dispose: (context, value) => value.dispose(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ContactFormState(formKey: formKey),
+          )
+        ],
+        child: MaterialApp(
             title: 'Flutter Demo',
             theme: themeData(ThemeData.light()),
             home: AdaptiveScaffold()),
-    );
+      );
   }
 }
 
 ThemeData themeData(ThemeData base) {
   return base.copyWith(
-      primaryColor: Colors.cyan,
-      cardTheme: CardTheme(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25))),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(25))),
-          filled: true,
-          fillColor: Colors.grey[200],
-          focusColor: Colors.cyan,
-      ),
-  );    
+    primaryColor: Colors.cyan,
+    cardTheme: CardTheme(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+      filled: true,
+      fillColor: Colors.grey[200],
+      focusColor: Colors.cyan,
+    ),
+  );
 }
 
 bool _isLargeScreen(BuildContext context) {
@@ -58,8 +93,9 @@ bool _isLargeScreen(BuildContext context) {
 }
 
 class AdaptiveScaffold extends StatefulWidget {
-  AdaptiveScaffold({Key? key,})
-      : super(key: key);
+  AdaptiveScaffold({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _AdaptiveScaffoldState createState() => _AdaptiveScaffoldState();
@@ -71,11 +107,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     if (_isLargeScreen(context)) {
       return Row(
         children: [
-          LeftNavBar(drawerWidgets: [
-            LogoHeader(),
-            PageList(),
-            LinkList()
-          ]),
+          LeftNavBar(drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
           VerticalDivider(
             width: 1,
             thickness: 1,
@@ -87,12 +119,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     }
     return SafeArea(
         child: Scaffold(
-            drawer: DrawerNavBar(drawerWidgets: [
-              LogoHeader(),
-                  PageList(),
-                  LinkList()
-            ]
-          ),
+            drawer: DrawerNavBar(
+                drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
             appBar: AppBar(),
             body: SmallScreenBody()));
   }

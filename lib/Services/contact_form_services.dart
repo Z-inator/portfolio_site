@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,10 +44,18 @@ class ContactFormState extends ChangeNotifier {
     return (body.isEmpty) ? 'Please enter your message.' : null;
   }
 
-  Future<String> sendEmail() async {
-    await launch()
-    
-    
+  Future<String> sendInquiry() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference inquiries = firestore.collection('inquiries');
+    String output = '';
+    inquiries
+        .add({'name': name, 'email': email, 'message': body}).then((value) {
+      output = 'Successfully sent inquiry.';
+    }).catchError((error) {
+      output = 'Error sending inquiry. $error';
+    });
+    return output;
+
     // final smtpServer = gmailSaslXoauth2(email, accessToken)
 
     // final Message message = Message()
