@@ -145,13 +145,15 @@ class ContactFormSubmitButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: () async {
           if (contactFormState.formKey.currentState!.validate()) {
-            
             String platformResponse = await contactFormState.sendInquiry();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(platformResponse),
               ),
             );
+            if (platformResponse.contains('Success')) {
+              contactFormState.resetValues();
+            }
           }
         },
         child: Text('Submit'));

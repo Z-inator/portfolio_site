@@ -44,12 +44,19 @@ class ContactFormState extends ChangeNotifier {
     return (body.isEmpty) ? 'Please enter your message.' : null;
   }
 
+  void resetValues() {
+    name = '';
+    email = '';
+    body = '';
+    notifyListeners();
+  }
+
   Future<String> sendInquiry() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference inquiries = firestore.collection('inquiries');
     String output = '';
-    inquiries
-        .add({'name': name, 'email': email, 'message': body}).then((value) {
+    await inquiries
+        .add({'name': name, 'email': email, 'message': body, 'time': DateTime.now(), 'replied': false}).then((value) {
       output = 'Successfully sent inquiry.';
     }).catchError((error) {
       output = 'Error sending inquiry. $error';
