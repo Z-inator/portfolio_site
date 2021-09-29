@@ -66,9 +66,64 @@ class PortfolioApp extends StatelessWidget {
         child: MaterialApp(
             title: 'Flutter Demo',
             theme: themeData(ThemeData.light()),
-            home: AdaptiveScaffold()),
+            // home: AdaptiveScaffold(),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => AdaptiveScaffold(),
+              // '/about': (context) => AboutMe(),
+              // '/projects': (context) => ProjectPageView(),
+              // '/contact': (context) => LargeContactSection()
+            },
+            onGenerateRoute: (settings) {
+              switch (settings.name) {
+                case '/home':
+                  return SlideRightRoute(page: AdaptiveScaffold());
+                case '/about':
+                  return SlideRightRoute(page: AboutMe());
+                case '/projects':
+                  return SlideRightRoute(page: ProjectPageView());
+                case '/contact':
+                  return SlideRightRoute(page: LargeContactSection());
+                default:
+                  return SlideRightRoute(page: UnknownRoute());
+              }
+            },
+        ),
       );
   }
+}
+
+class UnknownRoute extends StatelessWidget {
+  const UnknownRoute({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(child: Center(child: Text('404: Page not found'),),);
+  }
+}
+
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({required this.page})
+    : super(
+      pageBuilder: (
+        BuildContext context, 
+        Animation<double> animation, 
+        Animation<double> secondaryAnimation
+      ) => page,
+      transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+      ) => SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(-1, 0),
+          end: Offset.zero
+        ).animate(animation),
+        child: child,
+      )
+    );
 }
 
 ThemeData themeData(ThemeData base) {
@@ -105,16 +160,19 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   @override
   Widget build(BuildContext context) {
     if (_isLargeScreen(context)) {
-      return Row(
-        children: [
-          LeftNavBar(drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
-          VerticalDivider(
-            width: 1,
-            thickness: 1,
-            color: Colors.grey[300],
-          ),
-          Expanded(child: LargeScreenBody())
-        ],
+      return Container(
+        color: Theme.of(context).canvasColor,
+        child: Row(
+          children: [
+            LeftNavBar(drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
+            // VerticalDivider(
+            //   width: 1,
+            //   thickness: 1,
+            //   color: Colors.grey[300],
+            // ),
+            Expanded(child: LargeScreenBody())
+          ],
+        ),
       );
     }
     return SafeArea(
