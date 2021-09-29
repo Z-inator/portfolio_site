@@ -25,12 +25,20 @@ class LeftNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-          // mainAxisSize: MainAxisSize.max,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: drawerWidgets),
+    return Container(
+      margin: EdgeInsets.only(right: 20),
+      // width: 200,
+      child: Material(
+        elevation: 8.0,
+        borderRadius: BorderRadius.zero,
+        child: Drawer(
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: drawerWidgets),
+        ),
+      ),
     );
   }
 }
@@ -82,30 +90,11 @@ class PageList extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            ListTile(
-              selected: true,
-              // selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('Home'),
-            ),
-            ListTile(
-              selected: false,
-              // selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('About Me'),
-            ),
-            ListTile(
-              selected: false,
-              // selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('Projects'),
-            ),
-            ListTile(
-              selected: false,
-              // selectedTileColor: Colors.cyan,
-              leading: Icon(Icons.circle),
-              title: Text('Contact'),
-            ),
+            NavigationItem(icon: Icon(Icons.home_rounded), name: 'home'),
+            NavigationItem(icon: Icon(Icons.person_rounded), name: 'about'),
+            NavigationItem(icon: Icon(Icons.topic_rounded), name: 'projects'),
+            NavigationItem(icon: Icon(Icons.message_rounded), name: 'contact'),
+
             // Expanded(
             //   child: ListView.builder(
             //       itemCount: pages.length,
@@ -123,6 +112,34 @@ class PageList extends StatelessWidget {
             // ),
           ],
         ));
+  }
+}
+
+class NavigationItem extends StatefulWidget {
+  final Icon icon;
+  final String name;
+  const NavigationItem({
+    Key? key,
+    required this.icon,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  State<NavigationItem> createState() => _NavigationItemState();
+}
+
+class _NavigationItemState extends State<NavigationItem> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      selected: selected,
+      // selectedTileColor: Colors.cyan,
+      leading: widget.icon,
+      title: Text(widget.name.toUpperCase()),
+      onTap: () => Navigator.pushReplacementNamed(context, '/${widget.name}')
+    );
   }
 }
 
@@ -147,23 +164,23 @@ class LinkList extends StatelessWidget {
             // AssetImage('logos/linkedin.png'),
           ),
           IconButton(
-              onPressed: () => launchURL('https://github.com/Z-inator'),
-              icon: Image.asset('logos/github.png'),
-              iconSize: 36,
-              // CircleAvatar(
-              //   radius: 20,
-              //   foregroundImage: AssetImage('logos/github.png'),
-              //   backgroundColor: Colors.white,
-              ),
+            onPressed: () => launchURL('https://github.com/Z-inator'),
+            icon: Image.asset('logos/github.png'),
+            iconSize: 36,
+            // CircleAvatar(
+            //   radius: 20,
+            //   foregroundImage: AssetImage('logos/github.png'),
+            //   backgroundColor: Colors.white,
+          ),
           IconButton(
-              onPressed: () => launchURL('https://twitter.com/ZachWauer'),
-              icon: Image.asset('logos/twitter.png'),
-              iconSize: 36,
-              // CircleAvatar(
-              //   radius: 20,
-              //   foregroundImage: AssetImage('logos/twitter.png'),
-              //   backgroundColor: Colors.white,
-              ),
+            onPressed: () => launchURL('https://twitter.com/ZachWauer'),
+            icon: Image.asset('logos/twitter.png'),
+            iconSize: 36,
+            // CircleAvatar(
+            //   radius: 20,
+            //   foregroundImage: AssetImage('logos/twitter.png'),
+            //   backgroundColor: Colors.white,
+          ),
         ]);
     // Wrap(
     //   direction: Axis.vertical,
