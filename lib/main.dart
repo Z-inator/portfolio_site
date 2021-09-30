@@ -170,7 +170,12 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
             //   thickness: 1,
             //   color: Colors.grey[300],
             // ),
-            Expanded(child: LargeScreenBody())
+            Expanded(
+              child: Navigator(
+                on
+                child: LargeScreenBody()
+              )
+            )
           ],
         ),
       );
