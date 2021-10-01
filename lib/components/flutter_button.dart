@@ -13,21 +13,32 @@ class FlutterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('Primary Framework:  ',
-            style: Theme.of(context).textTheme.headline6),
-        //TODO: make this a Textbutton to Flutter's website
-        TextButton.icon(
-            onPressed: () => launchURL('https://flutter.dev/'),
-            icon: CircleAvatar(
-              foregroundImage: AssetImage('logos/flutter_logo.png'),
-              backgroundColor: Colors.grey,
-            ),
-            label: Text('Flutter'))
-      ],
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Primary Framework:  ',
+              style: Theme.of(context).textTheme.headline6),
+          //TODO: make this a Textbutton to Flutter's website
+          ElevatedButton.icon(
+          onPressed: () => launchURL('https://flutter.dev/'),
+          icon: Image.asset('logos/flutter_logo.png', width: 24, height: 24,),
+          // CircleAvatar(
+          //   foregroundImage: AssetImage('logos/flutter_logo.png'),
+          //   backgroundColor: Colors.grey,
+          // ),
+          label: Text('Flutter')),
+          TextButton.icon(
+              onPressed: () => launchURL('https://flutter.dev/'),
+              icon: CircleAvatar(
+                foregroundImage: AssetImage('logos/flutter_logo.png'),
+                backgroundColor: Colors.grey,
+              ),
+              label: Text('Flutter'))
+        ],
+      ),
     );
   }
 }
