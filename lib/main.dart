@@ -211,6 +211,7 @@ ThemeData themeData(ThemeData base) {
       fillColor: Colors.grey[200],
       focusColor: Colors.cyan,
     ),
+    tabBarTheme: base.tabBarTheme.copyWith(labelColor: Colors.cyan, unselectedLabelColor: base.iconTheme.color)
   );
 }
 

@@ -100,9 +100,8 @@ class LargeProjectSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(40),
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               padding: EdgeInsets.only(bottom: 40.0),
@@ -110,7 +109,7 @@ class LargeProjectSection extends StatelessWidget {
                 children: [
                   Text('Projects',
                       style: Theme.of(context).textTheme.headline4),
-                  FlutterButton()
+                  // FlutterButton()
                 ],
               ),
             ),
@@ -121,7 +120,6 @@ class LargeProjectSection extends StatelessWidget {
 }
 
 class LargeContactSection extends StatelessWidget {
-
   LargeContactSection({
     Key? key,
   }) : super(key: key);
@@ -129,14 +127,18 @@ class LargeContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-              padding: EdgeInsets.all(40.0),
-              child: Column(
-                children: [
-                  Text('Contact', style: Theme.of(context).textTheme.headline4),
-                  LargeContactForm(),
-                ],
-              ));
+        padding: EdgeInsets.all(40.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 40.0),
+              child: Text('Contact',
+                      style: Theme.of(context).textTheme.headline4),
+            ),
+            LargeContactForm(),
+          ],
+        ));
   }
 }
-
-
