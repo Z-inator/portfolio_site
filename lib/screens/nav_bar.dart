@@ -1,6 +1,9 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:portfolio_site/components/project_views.dart';
+import 'package:portfolio_site/main.dart';
+import 'package:portfolio_site/screens/large_screen.dart';
 
 class DrawerNavBar extends StatelessWidget {
   final List<Widget> drawerWidgets;
@@ -18,29 +21,75 @@ class DrawerNavBar extends StatelessWidget {
   }
 }
 
-class LeftNavBar extends StatelessWidget {
-  final List<Widget> drawerWidgets;
+class NavTabBar extends StatelessWidget {
+  final List<Widget> tabs;
+  final TabController tabController;
+  const NavTabBar({Key? key, required this.tabs, required this.tabController})
+      : super(key: key);
 
-  LeftNavBar({Key? key, required this.drawerWidgets}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return FocusTraversalOrder(
+        order: NumericFocusOrder(0),
+        child:
+            TabBar(tabs: tabs, isScrollable: true, controller: tabController, indicatorColor: theme.primaryColor, indicatorWeight: 3));
+  }
+}
+
+class LeftNavBar extends StatelessWidget {
+  final TabController tabController;
+
+  LeftNavBar({Key? key, required this.tabController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 20),
-      // width: 200,
-      child: Material(
-        elevation: 8.0,
-        borderRadius: BorderRadius.zero,
-        child: Drawer(
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: drawerWidgets),
-        ),
-      ),
-    );
+            margin: EdgeInsets.only(right: 20),
+            width: 200,
+            child: Material(
+                elevation: 8.0,
+                borderRadius: BorderRadius.zero,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    LogoHeader(),
+                    RotatedBox(
+                      quarterTurns: 1,
+                      child: NavTabBar(
+                        tabs: _buildTabs()
+                            .map((widget) => RotatedBox(
+                                  quarterTurns: 3,
+                                  child: widget,
+                                ))
+                            .toList(),
+                        tabController: tabController,
+                      ),
+                    ),
+                    LinkList()
+                  ],
+                )));
   }
+
+  List<Widget> _buildTabs() {
+    return [
+      Tab(
+        // iconMargin: EdgeInsets.zero,
+        child: NavigationItem(icon: Icon(Icons.home_rounded), name: 'home', index: 0, tabController: tabController,)),
+      Tab(
+          child:
+              NavigationItem(icon: Icon(Icons.person_rounded), name: 'about', index: 1, tabController: tabController)),
+      Tab(
+          child: NavigationItem(
+              icon: Icon(Icons.topic_rounded), name: 'projects', index: 2, tabController: tabController)),
+      Tab(
+          child: NavigationItem(
+              icon: Icon(Icons.message_rounded), name: 'contact', index: 3, tabController: tabController)),
+    ];
+  }
+
+
 }
 
 // class LeftNavBar extends StatelessWidget {
@@ -90,10 +139,10 @@ class PageList extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            NavigationItem(icon: Icon(Icons.home_rounded), name: 'home'),
-            NavigationItem(icon: Icon(Icons.person_rounded), name: 'about'),
-            NavigationItem(icon: Icon(Icons.topic_rounded), name: 'projects'),
-            NavigationItem(icon: Icon(Icons.message_rounded), name: 'contact'),
+            // NavigationItem(icon: Icon(Icons.home_rounded), name: 'home'),
+            // NavigationItem(icon: Icon(Icons.person_rounded), name: 'about'),
+            // NavigationItem(icon: Icon(Icons.topic_rounded), name: 'projects'),
+            // NavigationItem(icon: Icon(Icons.message_rounded), name: 'contact'),
 
             // Expanded(
             //   child: ListView.builder(
@@ -118,10 +167,14 @@ class PageList extends StatelessWidget {
 class NavigationItem extends StatefulWidget {
   final Icon icon;
   final String name;
+  final TabController tabController;
+  final int index;
   const NavigationItem({
     Key? key,
     required this.icon,
     required this.name,
+    required this.tabController,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -129,17 +182,46 @@ class NavigationItem extends StatefulWidget {
 }
 
 class _NavigationItemState extends State<NavigationItem> {
-  bool selected = false;
+  // @override
+  // void didUpdateWidget(covariant NavigationItem oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      selected: selected,
-      // selectedTileColor: Colors.cyan,
-      leading: widget.icon,
-      title: Text(widget.name.toUpperCase()),
-      onTap: () => Navigator.pushReplacementNamed(context, '/${widget.name}')
+    ThemeData theme = Theme.of(context);
+    return Container(
+      // height: 60,
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      // color: widget.index == widget.tabController.index
+      //     ? theme.primaryColor
+      //     : Colors.transparent,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        
+        children: [
+          widget.icon,
+          SizedBox(
+            width: 30,
+          ),
+          Text(widget.name.toUpperCase(),
+              // style: widget.index == widget.tabController.index
+              //     ? theme.textTheme.subtitle1
+              //         ?.copyWith(color: theme.primaryColor)
+              //     : theme.textTheme.subtitle1
+          )
+        ],
+      ),
     );
+    // ListTile(
+    //     selected: widget.index == widget.tabController.index,
+    //     enabled: false,
+    //     selectedTileColor: Colors.cyan,
+    //     leading: widget.icon,
+    //     title: Text(widget.name..toUpperCase()),
+    //     onTap: () =>
+    //         Navigator.pushReplacementNamed(context, '/${widget.name}'));
   }
 }
 
@@ -160,13 +242,13 @@ class LinkList extends StatelessWidget {
             onPressed: () =>
                 launchURL('https://www.linkedin.com/in/zacharywauer/'),
             icon: Image.asset('logos/linkedin.png'),
-            iconSize: 36,
+            // iconSize: 36,
             // AssetImage('logos/linkedin.png'),
           ),
           IconButton(
             onPressed: () => launchURL('https://github.com/Z-inator'),
             icon: Image.asset('logos/github.png'),
-            iconSize: 36,
+            // iconSize: 36,
             // CircleAvatar(
             //   radius: 20,
             //   foregroundImage: AssetImage('logos/github.png'),
@@ -175,7 +257,7 @@ class LinkList extends StatelessWidget {
           IconButton(
             onPressed: () => launchURL('https://twitter.com/ZachWauer'),
             icon: Image.asset('logos/twitter.png'),
-            iconSize: 36,
+            // iconSize: 36,
             // CircleAvatar(
             //   radius: 20,
             //   foregroundImage: AssetImage('logos/twitter.png'),

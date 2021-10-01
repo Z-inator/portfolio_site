@@ -21,7 +21,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
@@ -31,7 +30,9 @@ class _MyAppState extends State<MyApp> {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return Center(child: Text('Something went wrong'),);
+          return Center(
+            child: Text('Something went wrong'),
+          );
         }
 
         // Once complete, show your application
@@ -54,76 +55,146 @@ class PortfolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          Provider<ProjectState>(
-            create: (context) => ProjectState(),
-            dispose: (context, value) => value.dispose(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => ContactFormState(formKey: formKey),
-          )
-        ],
-        child: MaterialApp(
-            title: 'Flutter Demo',
-            theme: themeData(ThemeData.light()),
-            // home: AdaptiveScaffold(),
-            initialRoute: '/',
-            routes: {
-              '/': (context) => AdaptiveScaffold(),
-              // '/about': (context) => AboutMe(),
-              // '/projects': (context) => ProjectPageView(),
-              // '/contact': (context) => LargeContactSection()
-            },
-            onGenerateRoute: (settings) {
-              switch (settings.name) {
-                case '/home':
-                  return SlideRightRoute(page: AdaptiveScaffold());
-                case '/about':
-                  return SlideRightRoute(page: AboutMe());
-                case '/projects':
-                  return SlideRightRoute(page: ProjectPageView());
-                case '/contact':
-                  return SlideRightRoute(page: LargeContactSection());
-                default:
-                  return SlideRightRoute(page: UnknownRoute());
-              }
-            },
+      providers: [
+        Provider<ProjectState>(
+          create: (context) => ProjectState(),
+          dispose: (context, value) => value.dispose(),
         ),
-      );
+        ChangeNotifierProvider(
+          create: (context) => ContactFormState(formKey: formKey),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Portfolio Site',
+        theme: themeData(ThemeData.light()),
+        home: HomePage(),
+        // initialRoute: '/',
+        // routes: {
+        //   '/': (context) => AdaptiveScaffold(),
+        //   // '/about': (context) => AboutMe(),
+        //   // '/projects': (context) => ProjectPageView(),
+        //   // '/contact': (context) => LargeContactSection()
+        // },
+        // onGenerateRoute: (settings) {
+        //   switch (settings.name) {
+        //     case '/home':
+        //       return SlideRightRoute(page: AdaptiveScaffold());
+        //     case '/about':
+        //       return SlideRightRoute(page: AboutMe());
+        //     case '/projects':
+        //       return SlideRightRoute(page: ProjectPageView());
+        //     case '/contact':
+        //       return SlideRightRoute(page: LargeContactSection());
+        //     default:
+        //       return SlideRightRoute(page: UnknownRoute());
+        //   }
+        // },
+      ),
+    );
   }
 }
 
-class UnknownRoute extends StatelessWidget {
-  const UnknownRoute({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin, RestorationMixin {
+  late TabController tabController;
+  RestorableInt tabIndex = RestorableInt(0);
+
+  @override
+  String? get restorationId => 'home_page';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(tabIndex, 'tab_index');
+    tabController.index = tabIndex.value;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 4, vsync: this)
+      ..addListener(() {
+        setState(() {
+          tabIndex.value = tabController.index;
+        });
+      });
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    tabIndex.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(child: Text('404: Page not found'),),);
+    final isDesktop = _isLargeScreen(context);
+    Widget tabBarView;
+    if (isDesktop) {
+      tabBarView = Row(children: [
+        LeftNavBar(tabController: tabController),
+        Expanded(
+            child: TabBarView(
+                children: _buildTabViews(), controller: tabController))
+      ]);
+    } else {
+      tabBarView = Column(
+        children: [
+          // NavTabBar(tabs: _buildTabs(), tabController: tabController),
+          Expanded(
+              child: TabBarView(
+            children: _buildTabViews(),
+            controller: tabController,
+          ))
+        ],
+      );
+    }
+    return Scaffold(
+      body: SafeArea(top: !isDesktop, bottom: !isDesktop, child: tabBarView),
+    );
+  }
+
+
+  List<Widget> _buildTabViews() {
+    return [
+      LargeScreenBody(),
+      Center(child: AboutMe()),
+      Center(child: LargeProjectSection()),
+      Center(child: LargeContactSection())
+    ];
   }
 }
 
-class SlideRightRoute extends PageRouteBuilder {
-  final Widget page;
-  SlideRightRoute({required this.page})
-    : super(
-      pageBuilder: (
-        BuildContext context, 
-        Animation<double> animation, 
-        Animation<double> secondaryAnimation
-      ) => page,
-      transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) => SlideTransition(
-        position: Tween<Offset>(
-          begin: Offset(-1, 0),
-          end: Offset.zero
-        ).animate(animation),
-        child: child,
-      )
-    );
+class NavTabBar extends StatelessWidget {
+  final List<Widget> tabs;
+  final TabController tabController;
+  const NavTabBar({Key? key, required this.tabs, required this.tabController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return FocusTraversalOrder(
+        order: NumericFocusOrder(0),
+        child:
+            TabBar(tabs: tabs, isScrollable: true, controller: tabController, indicatorColor: theme.primaryColor, indicatorWeight: 3));
+  }
+}
+
+class NavTab extends StatelessWidget {
+  const NavTab({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Tab();
+  }
 }
 
 ThemeData themeData(ThemeData base) {
@@ -144,182 +215,76 @@ ThemeData themeData(ThemeData base) {
 }
 
 bool _isLargeScreen(BuildContext context) {
-  return MediaQuery.of(context).size.width > 960.0;
+  return MediaQuery.of(context).size.width > 1024.0;
 }
 
-class AdaptiveScaffold extends StatefulWidget {
-  AdaptiveScaffold({
-    Key? key,
-  }) : super(key: key);
+// class AdaptiveScaffold extends StatefulWidget {
+//   AdaptiveScaffold({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  _AdaptiveScaffoldState createState() => _AdaptiveScaffoldState();
-}
+//   @override
+//   _AdaptiveScaffoldState createState() => _AdaptiveScaffoldState();
+// }
 
-class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
+// class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
+//   @override
+//   Widget build(BuildContext context) {
+//     if (_isLargeScreen(context)) {
+//       return Container(
+//         color: Theme.of(context).canvasColor,
+//         child: Row(
+//           children: [
+//             // LeftNavBar(drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
+//             // VerticalDivider(
+//             //   width: 1,
+//             //   thickness: 1,
+//             //   color: Colors.grey[300],
+//             // ),
+//             Expanded(child: LargeScreenBody())
+//           ],
+//         ),
+//       );
+//     }
+//     return SafeArea(
+//         child: Scaffold(
+//             drawer: DrawerNavBar(
+//                 drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
+//             appBar: AppBar(),
+//             body: SmallScreenBody()));
+//   }
+// }
+
+class UnknownRoute extends StatelessWidget {
+  const UnknownRoute({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    if (_isLargeScreen(context)) {
-      return Container(
-        color: Theme.of(context).canvasColor,
-        child: Row(
-          children: [
-            LeftNavBar(drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
-            // VerticalDivider(
-            //   width: 1,
-            //   thickness: 1,
-            //   color: Colors.grey[300],
-            // ),
-            Expanded(
-              child: Navigator(
-                on
-                child: LargeScreenBody()
-              )
-            )
-          ],
-        ),
-      );
-    }
-    return SafeArea(
-        child: Scaffold(
-            drawer: DrawerNavBar(
-                drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
-            appBar: AppBar(),
-            body: SmallScreenBody()));
+    return Container(
+      child: Center(
+        child: Text('404: Page not found'),
+      ),
+    );
   }
 }
 
-// class ResponsiveScreen extends StatelessWidget {
-//   ResponsiveScreen({Key? key}) : super(key: key);
-
-//   List<Project> projects = List.generate(
-//       5,
-//       (index) => Project(
-//           'name$index',
-//           'description',
-//           Image(
-//             image: AssetImage('dashboard.png'),
-//           ),
-//           'tools',
-//           'takeAways'));
-
-//   Widget getScreen(Size screenSize) {
-//     if (screenSize.width >= 800) {
-//       return LargeScreen();
-//     } else {
-//       return SmallScreen();
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return getScreen(MediaQuery.of(context).size);
-//   }
-// }
-
-// class SmallScreen extends StatelessWidget {
-//   SmallScreen({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: SafeArea(
-//           child: Scaffold(
-//               drawer: Drawer(
-//                 child: DrawerNavBar(),
-//               ),
-//               appBar: AppBar(),
-//               body: SmallScreenBody())),
-//     );
-//   }
-// }
-
-// class LargeScreen extends StatelessWidget {
-//   const LargeScreen({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: [
-//         LeftNavBar(drawerWidgets: [
-//           DrawerHeader(child: LogoHeader()),
-//           PageList(),
-//           LinkList()
-//         ]),
-//         Expanded(flex: 5, child: LargeScreenBody())
-//       ],
-//       // isShort
-//       //     ? Row(
-//       //         children: [
-//       //           Flexible(flex: 1, child: LeftNavBar()),
-//       //           Expanded(flex: 5, child: MainContentBody())
-//       //         ],
-//       //       )
-//       //     : Column(
-//       //         children: [TopNavBar(), Expanded(child: MainContentBody())],
-//       //       )
-//     );
-//   }
-// }
-
-// class TopNavBar extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisSize: MainAxisSize.max,
-//       mainAxisAlignment: MainAxisAlignment.spaceAround,
-//       children: [
-//         LogoHeader(),
-//         Row(
-//           children: [
-//             PageItem(pageName: 'About Me'),
-//             PageItem(pageName: 'Projects'),
-//             PageItem(pageName: 'Contact')
-//           ],
-//         ),
-//         LinkList()
-//       ],
-//     );
-//   }
-// }
-
-// class PageItem extends StatefulWidget {
-//   String pageName;
-//   PageItem({Key? key, required this.pageName}) : super(key: key);
-
-//   @override
-//   _PageItemState createState() => _PageItemState();
-// }
-
-// class _PageItemState extends State<PageItem> {
-//   bool isSelected = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: GestureDetector(
-//         onTap: () {
-//           setState(() {
-//             isSelected = !isSelected;
-//           });
-//         },
-//         child: Row(
-//           mainAxisSize: MainAxisSize.max,
-//           mainAxisAlignment: MainAxisAlignment.spaceAround,
-//           children: [
-//             Icon(Icons.circle, color: isSelected ? Colors.cyan : Colors.grey),
-//             Text(
-//               widget.pageName,
-//               style: TextStyle(color: isSelected ? Colors.cyan : Colors.grey),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({required this.page})
+      : super(
+            pageBuilder: (BuildContext context, Animation<double> animation,
+                    Animation<double> secondaryAnimation) =>
+                page,
+            transitionsBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child,
+            ) =>
+                SlideTransition(
+                  position:
+                      Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero)
+                          .animate(animation),
+                  child: child,
+                ));
+}
