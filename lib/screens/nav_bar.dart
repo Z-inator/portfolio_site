@@ -206,10 +206,7 @@ class _NavigationItemState extends State<NavigationItem> {
             width: 30,
           ),
           Text(widget.name.toUpperCase(),
-              // style: widget.index == widget.tabController.index
-              //     ? theme.textTheme.subtitle1
-              //         ?.copyWith(color: theme.primaryColor)
-              //     : theme.textTheme.subtitle1
+              style: theme.textTheme.subtitle1
           )
         ],
       ),

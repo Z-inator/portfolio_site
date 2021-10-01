@@ -73,13 +73,16 @@ class ProjectGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Project> projects = Provider.of<ProjectState>(context).projects;
-    return GridView(
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        childAspectRatio: .9,
-        maxCrossAxisExtent: 300
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 40),
+      child: GridView(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          childAspectRatio: .9,
+          maxCrossAxisExtent: 300
+        ),
+        children: [...projects.map((project) => ProjectTile(project: project))],
       ),
-      children: [...projects.map((project) => ProjectTile(project: project))],
     );
     // return Wrap(
     //   spacing: 10,
