@@ -139,7 +139,32 @@ class _HomePageState extends State<HomePage>
     Widget tabBarView;
     if (isDesktop) {
       tabBarView = Row(children: [
-        LeftNavBar(tabController: tabController),
+        Container(
+            margin: EdgeInsets.only(right: 20),
+            width: 200,
+            child: Material(
+                elevation: 8.0,
+                borderRadius: BorderRadius.zero,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    LogoHeader(),
+                    RotatedBox(
+                      quarterTurns: 1,
+                      child: NavTabBar(
+                        tabs: _buildTabs()
+                            .map((widget) => RotatedBox(
+                                  quarterTurns: 3,
+                                  child: widget,
+                                ))
+                            .toList(),
+                        tabController: tabController,
+                      ),
+                    ),
+                    LinkList()
+                  ],
+                ))),
         Expanded(
             child: TabBarView(
                 children: _buildTabViews(), controller: tabController))
@@ -147,7 +172,7 @@ class _HomePageState extends State<HomePage>
     } else {
       tabBarView = Column(
         children: [
-          // NavTabBar(tabs: _buildTabs(), tabController: tabController),
+          NavTabBar(tabs: _buildTabs(), tabController: tabController),
           Expanded(
               child: TabBarView(
             children: _buildTabViews(),
@@ -161,6 +186,22 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  List<Widget> _buildTabs() {
+    return [
+      Tab(
+        // iconMargin: EdgeInsets.zero,
+        child: NavigationItem(icon: Icon(Icons.home_rounded), name: 'home', index: 0, tabController: tabController,)),
+      Tab(
+          child:
+              NavigationItem(icon: Icon(Icons.person_rounded), name: 'about', index: 1, tabController: tabController)),
+      Tab(
+          child: NavigationItem(
+              icon: Icon(Icons.topic_rounded), name: 'projects', index: 2, tabController: tabController)),
+      Tab(
+          child: NavigationItem(
+              icon: Icon(Icons.message_rounded), name: 'contact', index: 3, tabController: tabController)),
+    ];
+  }
 
   List<Widget> _buildTabViews() {
     return [
@@ -172,30 +213,6 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-class NavTabBar extends StatelessWidget {
-  final List<Widget> tabs;
-  final TabController tabController;
-  const NavTabBar({Key? key, required this.tabs, required this.tabController})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    return FocusTraversalOrder(
-        order: NumericFocusOrder(0),
-        child:
-            TabBar(tabs: tabs, isScrollable: true, controller: tabController, indicatorColor: theme.primaryColor, indicatorWeight: 3));
-  }
-}
-
-class NavTab extends StatelessWidget {
-  const NavTab({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Tab();
-  }
-}
 
 ThemeData themeData(ThemeData base) {
   return base.copyWith(
