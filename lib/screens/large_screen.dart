@@ -22,9 +22,20 @@ class LargeScreenHomePage extends StatelessWidget {
         padding: EdgeInsets.all(40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [AboutMe(), LargeProjectSection(), LargeContactSection()],
+            children: [LargeAboutMeSection(), LargeProjectSection(), LargeContactSection()],
           ),
       ),
+    );
+  }
+}
+
+class LargeAboutMeSection extends StatelessWidget {
+  const LargeAboutMeSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: AboutMe(),
     );
   }
 }
