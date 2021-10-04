@@ -206,43 +206,6 @@ bool _isLargeScreen(BuildContext context) {
   return MediaQuery.of(context).size.width > 1024.0;
 }
 
-// class AdaptiveScaffold extends StatefulWidget {
-//   AdaptiveScaffold({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   _AdaptiveScaffoldState createState() => _AdaptiveScaffoldState();
-// }
-
-// class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
-//   @override
-//   Widget build(BuildContext context) {
-//     if (_isLargeScreen(context)) {
-//       return Container(
-//         color: Theme.of(context).canvasColor,
-//         child: Row(
-//           children: [
-//             // LeftNavBar(drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
-//             // VerticalDivider(
-//             //   width: 1,
-//             //   thickness: 1,
-//             //   color: Colors.grey[300],
-//             // ),
-//             Expanded(child: LargeScreenBody())
-//           ],
-//         ),
-//       );
-//     }
-//     return SafeArea(
-//         child: Scaffold(
-//             drawer: DrawerNavBar(
-//                 drawerWidgets: [LogoHeader(), PageList(), LinkList()]),
-//             appBar: AppBar(),
-//             body: SmallScreenBody()));
-//   }
-// }
-
 class UnknownRoute extends StatelessWidget {
   const UnknownRoute({Key? key}) : super(key: key);
 

@@ -99,22 +99,18 @@ List<Widget> _buildSmallTabs() {
     Tab(
       text: 'HOME',
       icon: Icon(Icons.home_rounded),
-      // child: NavigationItem(icon: Icon(Icons.home_rounded), name: 'home', index: 0, tabController: tabController,)),
     ),
     Tab(
       text: 'ABOUT',
       icon: Icon(Icons.person_rounded),
-      // child: NavigationItem(icon: Icon(Icons.person_rounded), name: 'about', index: 1, tabController: tabController)
     ),
     Tab(
       text: 'PROJECTS',
       icon: Icon(Icons.topic_rounded),
-      // child: NavigationItem(icon: Icon(Icons.topic_rounded), name: 'projects', index: 2, tabController: tabController)
     ),
     Tab(
       text: 'CONTACT',
       icon: Icon(Icons.message_rounded),
-      // child: NavigationItem(icon: Icon(Icons.message_rounded), name: 'contact', index: 3, tabController: tabController)
     ),
   ];
 }
@@ -122,13 +118,11 @@ List<Widget> _buildSmallTabs() {
 List<Widget> _buildLargeTabs({required TabController tabController}) {
   return [
     Tab(
-        // iconMargin: EdgeInsets.zero,
         child: NavigationItem(
-      icon: Icon(Icons.home_rounded),
-      name: 'home',
-      index: 0,
-      tabController: tabController,
-    )),
+            icon: Icon(Icons.home_rounded),
+            name: 'home',
+            index: 0,
+            tabController: tabController,)),
     Tab(
         child: NavigationItem(
             icon: Icon(Icons.person_rounded),
@@ -150,26 +144,6 @@ List<Widget> _buildLargeTabs({required TabController tabController}) {
   ];
 }
 
-// class LeftNavBar extends StatelessWidget {
-//   const LeftNavBar({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 200,
-//       color: Colors.cyan,
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         mainAxisSize: MainAxisSize.max,
-//         children: [
-//           LogoHeader(),
-//           Expanded(child: PageList()),
-//           Expanded(child: LinkList()),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class LogoHeader extends StatelessWidget {
   const LogoHeader({Key? key}) : super(key: key);
@@ -197,26 +171,6 @@ class PageList extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            // NavigationItem(icon: Icon(Icons.home_rounded), name: 'home'),
-            // NavigationItem(icon: Icon(Icons.person_rounded), name: 'about'),
-            // NavigationItem(icon: Icon(Icons.topic_rounded), name: 'projects'),
-            // NavigationItem(icon: Icon(Icons.message_rounded), name: 'contact'),
-
-            // Expanded(
-            //   child: ListView.builder(
-            //       itemCount: pages.length,
-            //       itemBuilder: (context, index) {
-            //         return Column(
-            //           children: [
-            //             ListTile(
-            //                 title: Text(pages[index]),
-            //                 onTap: () {},
-            //             ),
-            //             Divider()
-            //           ],
-            //         );
-            //       }),
-            // ),
           ],
         ));
   }
@@ -250,11 +204,7 @@ class _NavigationItemState extends State<NavigationItem> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Container(
-      // height: 60,
       padding: EdgeInsets.symmetric(horizontal: 30),
-      // color: widget.index == widget.tabController.index
-      //     ? theme.primaryColor
-      //     : Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -266,14 +216,6 @@ class _NavigationItemState extends State<NavigationItem> {
         ],
       ),
     );
-    // ListTile(
-    //     selected: widget.index == widget.tabController.index,
-    //     enabled: false,
-    //     selectedTileColor: Colors.cyan,
-    //     leading: widget.icon,
-    //     title: Text(widget.name..toUpperCase()),
-    //     onTap: () =>
-    //         Navigator.pushReplacementNamed(context, '/${widget.name}'));
   }
 }
 
@@ -294,34 +236,15 @@ class LinkList extends StatelessWidget {
             onPressed: () =>
                 launchURL('https://www.linkedin.com/in/zacharywauer/'),
             icon: Image.asset('logos/linkedin.png'),
-            // iconSize: 36,
-            // AssetImage('logos/linkedin.png'),
           ),
           IconButton(
             onPressed: () => launchURL('https://github.com/Z-inator'),
             icon: Image.asset('logos/github.png'),
-            // iconSize: 36,
-            // CircleAvatar(
-            //   radius: 20,
-            //   foregroundImage: AssetImage('logos/github.png'),
-            //   backgroundColor: Colors.white,
           ),
           IconButton(
             onPressed: () => launchURL('https://twitter.com/ZachWauer'),
             icon: Image.asset('logos/twitter.png'),
-            // iconSize: 36,
-            // CircleAvatar(
-            //   radius: 20,
-            //   foregroundImage: AssetImage('logos/twitter.png'),
-            //   backgroundColor: Colors.white,
           ),
         ]);
-    // Wrap(
-    //   direction: Axis.vertical,
-    //   alignment: WrapAlignment.end,
-    //   runAlignment: WrapAlignment.center,
-    //   crossAxisAlignment: WrapCrossAlignment.center,
-    //   children: List.generate(4, (index) => IconButton(onPressed: () {}, icon: Icon(Icons.circle))),
-    // );
   }
 }

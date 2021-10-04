@@ -47,41 +47,6 @@ class ProjectPageView extends StatelessWidget {
             icon: Icon(Icons.chevron_right_rounded)),
       ],
     )
-        // Stack(children: [
-        //   PageView.builder(
-        //       itemCount: projects.length,
-        //       controller: pageController,
-        //       scrollDirection: Axis.horizontal,
-        //       onPageChanged: (int) => pageViewDotsState.changePage(int),
-        //       itemBuilder: (BuildContext context, int index) {
-        //         return Container(
-        //             margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-        //             child: ProjectTile(project: projects[index]));
-        //       }),
-        //   Center(
-        //       child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     mainAxisSize: MainAxisSize.max,
-        //     children: [
-        //       IconButton(
-        //           onPressed: () {
-        //             pageController.animateToPage(
-        //                 (pageController.page! - 1).toInt(),
-        //                 duration: Duration(milliseconds: 300),
-        //                 curve: Curves.easeIn);
-        //           },
-        //           icon: Icon(Icons.chevron_left_rounded)),
-        //       IconButton(
-        //           onPressed: () {
-        //             pageController.animateToPage(
-        //                 (pageController.page! + 1).toInt(),
-        //                 duration: Duration(milliseconds: 300),
-        //                 curve: Curves.easeIn);
-        //           },
-        //           icon: Icon(Icons.chevron_right_rounded)),
-        //     ],
-        //   )),
-        // ]),
         );
   }
 }
@@ -108,11 +73,6 @@ class ProjectGridView extends StatelessWidget {
         children: [...projects.map((project) => ProjectTile(project: project))],
       ),
     );
-    // return Wrap(
-    //   spacing: 10,
-    //   runSpacing: 10,
-    //   children: generateProjectTiles(projects),
-    // );
   }
 }
 
@@ -150,18 +110,6 @@ class ProjectTile extends StatelessWidget {
                         onPressed: () {}),
                   ],
                 )),
-            // ListTile(
-            //   leading: CircleAvatar(),
-            //   title: Text('Project Name'),
-            //   subtitle: Text('Description'),
-            //   trailing: IconButton(
-            //       icon: Icon(Icons.open_in_new_rounded),
-            //       onPressed: () {}),
-            // )
-            // Center(
-            //   child: Text('Project$widget',
-            //       style: Theme.of(context).textTheme.headline6),
-            // ),
           ]),
     );
   }

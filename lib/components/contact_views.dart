@@ -3,37 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:provider/provider.dart';
 
-// class ContactFormGrid extends StatelessWidget {
-//   const ContactFormGrid({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         GridView(
-//           shrinkWrap: true,
-//             gridDelegate:
-//                 SliverGridDelegateWithMaxCrossAxisExtent(
-//                   maxCrossAxisExtent: 600,
-//                   crossAxisSpacing: 40,
-//                   mainAxisSpacing: 40,
-//                   childAspectRatio: 5
-//                 ),
-//             children: [
-//               ContactFormName(),
-//               ContactFormEmail()
-//             ],
-//         ),
-//         Container(
-//           padding: EdgeInsets.symmetric(vertical: 40),
-//           child: ContactFormMessage()
-//         ),
-//         ContactFormSubmitButton()
-//       ],
-//     );
-//   }
-// }
-
 class LargeContactForm extends StatelessWidget {
   LargeContactForm({
     Key? key,
