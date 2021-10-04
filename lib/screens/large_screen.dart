@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
+import 'package:portfolio_site/components/about_me_views.dart';
 import 'package:portfolio_site/components/contact_views.dart';
 import 'package:portfolio_site/components/flutter_button.dart';
 import 'package:portfolio_site/components/project_views.dart';
@@ -8,19 +9,21 @@ import 'package:portfolio_site/screens/small_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
-class LargeScreenBody extends StatelessWidget {
-  const LargeScreenBody({
+class LargeScreenHomePage extends StatelessWidget {
+  const LargeScreenHomePage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [AboutMe(), LargeProjectSection(), LargeContactSection()],
-        ),
+    return Container(
+      
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(40.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [AboutMe(), LargeProjectSection(), LargeContactSection()],
+          ),
       ),
     );
   }
@@ -60,36 +63,6 @@ class LandingPage extends StatelessWidget {
   }
 }
 
-class AboutMe extends StatelessWidget {
-  const AboutMe({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 755,
-      padding: EdgeInsets.only(bottom: 40),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          CircleAvatar(
-            radius: 100,
-          ),
-          Text('Zachary Wauer', style: Theme.of(context).textTheme.headline4),
-          Container(
-            child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
-              style: Theme.of(context).textTheme.subtitle1,
-              softWrap: true,
-              maxLines: 10,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class LargeProjectSection extends StatelessWidget {
   LargeProjectSection({
     Key? key,
@@ -98,7 +71,7 @@ class LargeProjectSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(40),
+      padding: EdgeInsets.symmetric(vertical: 40),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -127,7 +100,7 @@ class LargeContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(40.0),
+        padding: EdgeInsets.symmetric(vertical: 40.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
