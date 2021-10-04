@@ -32,8 +32,22 @@ class NavTabBar extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return FocusTraversalOrder(
         order: NumericFocusOrder(0),
-        child:
-            TabBar(tabs: tabs, isScrollable: true, controller: tabController, indicatorColor: theme.primaryColor, indicatorWeight: 3));
+        child: TabBar(
+            tabs: tabs,
+            isScrollable: true,
+            controller: tabController,
+            indicatorColor: theme.primaryColor,
+            indicatorWeight: 3));
+  }
+}
+
+class TopNavBar extends StatelessWidget {
+  final TabController tabController;
+  const TopNavBar({Key? key, required this.tabController}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NavTabBar(tabs: _buildSmallTabs(), tabController: tabController);
   }
 }
 
@@ -45,51 +59,88 @@ class LeftNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            margin: EdgeInsets.only(right: 20),
-            width: 200,
-            child: Material(
-                elevation: 8.0,
-                borderRadius: BorderRadius.zero,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    LogoHeader(),
-                    RotatedBox(
-                      quarterTurns: 1,
-                      child: NavTabBar(
-                        tabs: _buildTabs()
-                            .map((widget) => RotatedBox(
-                                  quarterTurns: 3,
-                                  child: widget,
-                                ))
-                            .toList(),
-                        tabController: tabController,
-                      ),
-                    ),
-                    LinkList()
-                  ],
-                )));
+        margin: EdgeInsets.only(right: 20),
+        width: 200,
+        child: Material(
+            elevation: 8.0,
+            borderRadius: BorderRadius.zero,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                LogoHeader(),
+                RotatedBox(
+                  quarterTurns: 1,
+                  child: NavTabBar(
+                    tabs: _buildLargeTabs(tabController: tabController)
+                        .map((widget) => RotatedBox(
+                              quarterTurns: 3,
+                              child: widget,
+                            ))
+                        .toList(),
+                    tabController: tabController,
+                  ),
+                ),
+                LinkList()
+              ],
+            )));
   }
+}
 
-  List<Widget> _buildTabs() {
-    return [
-      Tab(
+List<Widget> _buildSmallTabs() {
+  return [
+    Tab(
+      text: 'HOME',
+      icon: Icon(Icons.home_rounded),
+      // child: NavigationItem(icon: Icon(Icons.home_rounded), name: 'home', index: 0, tabController: tabController,)),
+    ),
+    Tab(
+      text: 'ABOUT',
+      icon: Icon(Icons.person_rounded),
+      // child: NavigationItem(icon: Icon(Icons.person_rounded), name: 'about', index: 1, tabController: tabController)
+    ),
+    Tab(
+      text: 'PROJECTS',
+      icon: Icon(Icons.topic_rounded),
+      // child: NavigationItem(icon: Icon(Icons.topic_rounded), name: 'projects', index: 2, tabController: tabController)
+    ),
+    Tab(
+      text: 'CONTACT',
+      icon: Icon(Icons.message_rounded),
+      // child: NavigationItem(icon: Icon(Icons.message_rounded), name: 'contact', index: 3, tabController: tabController)
+    ),
+  ];
+}
+
+List<Widget> _buildLargeTabs({required TabController tabController}) {
+  return [
+    Tab(
         // iconMargin: EdgeInsets.zero,
-        child: NavigationItem(icon: Icon(Icons.home_rounded), name: 'home', index: 0, tabController: tabController,)),
-      Tab(
-          child:
-              NavigationItem(icon: Icon(Icons.person_rounded), name: 'about', index: 1, tabController: tabController)),
-      Tab(
-          child: NavigationItem(
-              icon: Icon(Icons.topic_rounded), name: 'projects', index: 2, tabController: tabController)),
-      Tab(
-          child: NavigationItem(
-              icon: Icon(Icons.message_rounded), name: 'contact', index: 3, tabController: tabController)),
-    ];
-  }
-
-
+        child: NavigationItem(
+      icon: Icon(Icons.home_rounded),
+      name: 'home',
+      index: 0,
+      tabController: tabController,
+    )),
+    Tab(
+        child: NavigationItem(
+            icon: Icon(Icons.person_rounded),
+            name: 'about',
+            index: 1,
+            tabController: tabController)),
+    Tab(
+        child: NavigationItem(
+            icon: Icon(Icons.topic_rounded),
+            name: 'projects',
+            index: 2,
+            tabController: tabController)),
+    Tab(
+        child: NavigationItem(
+            icon: Icon(Icons.message_rounded),
+            name: 'contact',
+            index: 3,
+            tabController: tabController)),
+  ];
 }
 
 // class LeftNavBar extends StatelessWidget {
@@ -199,15 +250,12 @@ class _NavigationItemState extends State<NavigationItem> {
       //     : Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        
         children: [
           widget.icon,
           SizedBox(
             width: 30,
           ),
-          Text(widget.name.toUpperCase(),
-              style: theme.textTheme.subtitle1
-          )
+          Text(widget.name.toUpperCase(), style: theme.textTheme.subtitle1)
         ],
       ),
     );

@@ -139,32 +139,7 @@ class _HomePageState extends State<HomePage>
     Widget tabBarView;
     if (isDesktop) {
       tabBarView = Row(children: [
-        Container(
-            margin: EdgeInsets.only(right: 20),
-            width: 200,
-            child: Material(
-                elevation: 8.0,
-                borderRadius: BorderRadius.zero,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    LogoHeader(),
-                    RotatedBox(
-                      quarterTurns: 1,
-                      child: NavTabBar(
-                        tabs: _buildTabs()
-                            .map((widget) => RotatedBox(
-                                  quarterTurns: 3,
-                                  child: widget,
-                                ))
-                            .toList(),
-                        tabController: tabController,
-                      ),
-                    ),
-                    LinkList()
-                  ],
-                ))),
+        LeftNavBar(tabController: tabController),
         Expanded(
             child: TabBarView(
                 children: _buildTabViews(), controller: tabController))
@@ -172,7 +147,7 @@ class _HomePageState extends State<HomePage>
     } else {
       tabBarView = Column(
         children: [
-          NavTabBar(tabs: _buildTabs(), tabController: tabController),
+          TopNavBar(tabController: tabController),
           Expanded(
               child: TabBarView(
             children: _buildTabViews(),
@@ -186,22 +161,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  List<Widget> _buildTabs() {
-    return [
-      Tab(
-        // iconMargin: EdgeInsets.zero,
-        child: NavigationItem(icon: Icon(Icons.home_rounded), name: 'home', index: 0, tabController: tabController,)),
-      Tab(
-          child:
-              NavigationItem(icon: Icon(Icons.person_rounded), name: 'about', index: 1, tabController: tabController)),
-      Tab(
-          child: NavigationItem(
-              icon: Icon(Icons.topic_rounded), name: 'projects', index: 2, tabController: tabController)),
-      Tab(
-          child: NavigationItem(
-              icon: Icon(Icons.message_rounded), name: 'contact', index: 3, tabController: tabController)),
-    ];
-  }
+  
 
   List<Widget> _buildTabViews() {
     return [
