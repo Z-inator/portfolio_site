@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
 import 'package:portfolio_site/Services/project_services.dart';
+import 'package:portfolio_site/components/about_me_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 
 import 'package:portfolio_site/screens/large_screen.dart';
@@ -150,7 +151,7 @@ class _HomePageState extends State<HomePage>
           TopNavBar(tabController: tabController),
           Expanded(
               child: TabBarView(
-            children: _buildTabViews(),
+            children: _buildSmallTabViews(),
             controller: tabController,
           ))
         ],
@@ -161,11 +162,20 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  
+  List<Widget> _buildSmallTabViews() {
+    return [
+      SmallScreenHomePage(),
+      Center(child: AboutMe()),
+      Center(child: SmallProjectSection()),
+      Center(
+        child: SmallContactSection(),
+      )
+    ];
+  }
 
   List<Widget> _buildTabViews() {
     return [
-      LargeScreenBody(),
+      LargeScreenHomePage(),
       Center(child: AboutMe()),
       Center(child: LargeProjectSection()),
       Center(child: LargeContactSection())
@@ -173,23 +183,23 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-
 ThemeData themeData(ThemeData base) {
   return base.copyWith(
-    primaryColor: Colors.cyan,
-    cardTheme: CardTheme(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25))),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25))),
-      filled: true,
-      fillColor: Colors.grey[200],
-      focusColor: Colors.cyan,
-    ),
-    tabBarTheme: base.tabBarTheme.copyWith(labelColor: Colors.cyan, unselectedLabelColor: base.textTheme.headline4?.color)
-  );
+      primaryColor: Colors.cyan,
+      cardTheme: CardTheme(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25))),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25))),
+        filled: true,
+        fillColor: Colors.grey[200],
+        focusColor: Colors.cyan,
+      ),
+      tabBarTheme: base.tabBarTheme.copyWith(
+          labelColor: Colors.cyan,
+          unselectedLabelColor: base.textTheme.headline4?.color));
 }
 
 bool _isLargeScreen(BuildContext context) {

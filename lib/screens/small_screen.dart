@@ -4,23 +4,23 @@ import 'dart:html';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/project_services.dart';
+import 'package:portfolio_site/components/about_me_views.dart';
 import 'package:portfolio_site/components/contact_views.dart';
 import 'package:portfolio_site/components/flutter_button.dart';
 import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
 
-class SmallScreenBody extends StatelessWidget {
-  SmallScreenBody({Key? key,}) : super(key: key);
+class SmallScreenHomePage extends StatelessWidget {
+  SmallScreenHomePage({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 40),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Photo(), Bio(), SmallProjectSection(), SmallContactSection()],
+          children: [AboutMe(), SmallProjectSection(), SmallContactSection()],
         ),
       ),
     );
@@ -35,18 +35,14 @@ class SmallProjectSection extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => PageViewDotsState(),
       child: Container(
-        padding: EdgeInsets.all(40),
+        padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.only(bottom: 40),
-              child: Column(
-                children: [
+              child: 
                   Text('Projects',
                       style: Theme.of(context).textTheme.headline4),
-                  FlutterButton()
-                ],
-              ),
             ),
             ProjectPageView(),
             PageViewDotsRow()
@@ -63,35 +59,15 @@ class SmallContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(40.0),
+      padding: EdgeInsets.symmetric(vertical: 40.0),
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text('Contact', style: Theme.of(context).textTheme.headline4),
           SmallContactForm(),
         ],
       )
-    );
-  }
-}
-
-class Photo extends StatelessWidget {
-  const Photo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: null,
-    );
-  }
-}
-
-class Bio extends StatelessWidget {
-  const Bio({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: null,
     );
   }
 }

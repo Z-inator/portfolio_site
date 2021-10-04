@@ -34,7 +34,7 @@ class NavTabBar extends StatelessWidget {
         order: NumericFocusOrder(0),
         child: TabBar(
             tabs: tabs,
-            isScrollable: true,
+            // isScrollable: true,
             controller: tabController,
             indicatorColor: theme.primaryColor,
             indicatorWeight: 3));
@@ -47,7 +47,14 @@ class TopNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavTabBar(tabs: _buildSmallTabs(), tabController: tabController);
+    return Material(
+      elevation: 16,
+      borderRadius: BorderRadius.zero,
+      clipBehavior: Clip.hardEdge,
+      child: NavTabBar(tabs: _buildSmallTabs(), tabController: tabController)
+    );
+    NavTabBar(tabs: _buildSmallTabs(), tabController: tabController);
+    // 
   }
 }
 
