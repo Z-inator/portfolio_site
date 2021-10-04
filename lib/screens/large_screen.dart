@@ -35,7 +35,13 @@ class LargeAboutMeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: AboutMe(),
+      child: Row(
+        children: [
+          Expanded(child: AboutMe()),
+          SizedBox(width: 80,),
+          Expanded(child: MySkills())
+        ],
+      ),
     );
   }
 }
