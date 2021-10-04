@@ -18,11 +18,22 @@ class SmallScreenHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 40),
         child: Column(
-          children: [AboutMe(), SmallProjectSection(), SmallContactSection()],
+          children: [SmallAboutMeSection(), SmallProjectSection(), SmallContactSection()],
         ),
       ),
+    );
+  }
+}
+
+class SmallAboutMeSection extends StatelessWidget {
+  const SmallAboutMeSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 40),
+      child: AboutMe(),
     );
   }
 }
@@ -35,8 +46,10 @@ class SmallProjectSection extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => PageViewDotsState(),
       child: Container(
+        height: 650,
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: EdgeInsets.only(bottom: 40),
@@ -44,7 +57,7 @@ class SmallProjectSection extends StatelessWidget {
                   Text('Projects',
                       style: Theme.of(context).textTheme.headline4),
             ),
-            ProjectPageView(),
+            Expanded(child: ProjectPageView()),
             PageViewDotsRow()
           ],
         ),
@@ -59,7 +72,7 @@ class SmallContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 40.0),
+      padding: EdgeInsets.all(40.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,

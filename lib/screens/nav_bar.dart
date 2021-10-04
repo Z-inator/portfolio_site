@@ -24,7 +24,8 @@ class DrawerNavBar extends StatelessWidget {
 class NavTabBar extends StatelessWidget {
   final List<Widget> tabs;
   final TabController tabController;
-  const NavTabBar({Key? key, required this.tabs, required this.tabController})
+  final bool isScrollable;
+  const NavTabBar({Key? key, required this.tabs, required this.tabController, required this.isScrollable})
       : super(key: key);
 
   @override
@@ -34,7 +35,7 @@ class NavTabBar extends StatelessWidget {
         order: NumericFocusOrder(0),
         child: TabBar(
             tabs: tabs,
-            // isScrollable: true,
+            isScrollable: isScrollable,   // Allows for mobile version to expand to fill width
             controller: tabController,
             indicatorColor: theme.primaryColor,
             indicatorWeight: 3));
@@ -48,13 +49,11 @@ class TopNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 16,
-      borderRadius: BorderRadius.zero,
-      clipBehavior: Clip.hardEdge,
-      child: NavTabBar(tabs: _buildSmallTabs(), tabController: tabController)
-    );
-    NavTabBar(tabs: _buildSmallTabs(), tabController: tabController);
-    // 
+        elevation: 16,
+        borderRadius: BorderRadius.zero,
+        clipBehavior: Clip.hardEdge,
+        child:
+            NavTabBar(tabs: _buildSmallTabs(), tabController: tabController, isScrollable: false));
   }
 }
 
@@ -86,6 +85,7 @@ class LeftNavBar extends StatelessWidget {
                             ))
                         .toList(),
                     tabController: tabController,
+                    isScrollable: true,
                   ),
                 ),
                 LinkList()

@@ -19,44 +19,70 @@ class ProjectPageView extends StatelessWidget {
     PageViewDotsState pageViewDotsState =
         Provider.of<PageViewDotsState>(context);
     return Container(
-      height: 480,
-      width: 500,
-      child: Stack(children: [
-        PageView.builder(
-            itemCount: projects.length,
-            controller: pageController,
-            scrollDirection: Axis.horizontal,
-            onPageChanged: (int) => pageViewDotsState.changePage(int),
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                  margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                  child: ProjectTile(project: projects[index]));
-            }),
-        Center(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            IconButton(
-                onPressed: () {
-                  pageController.animateToPage(
-                      (pageController.page! - 1).toInt(),
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
-                },
-                icon: Icon(Icons.chevron_left_rounded)),
-            IconButton(
-                onPressed: () {
-                  pageController.animateToPage(
-                      (pageController.page! + 1).toInt(),
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
-                },
-                icon: Icon(Icons.chevron_right_rounded)),
-          ],
-        )),
-      ]),
-    );
+        child: Row(
+      children: [
+        IconButton(
+            onPressed: () {
+              pageController.animateToPage((pageController.page! - 1).toInt(),
+                  duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+            },
+            icon: Icon(Icons.chevron_left_rounded)),
+        Expanded(
+          child: PageView.builder(
+              itemCount: projects.length,
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: (int) => pageViewDotsState.changePage(int),
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                    // margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                    child: ProjectTile(project: projects[index]));
+              }),
+        ),
+        IconButton(
+            onPressed: () {
+              pageController.animateToPage((pageController.page! + 1).toInt(),
+                  duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+            },
+            icon: Icon(Icons.chevron_right_rounded)),
+      ],
+    )
+        // Stack(children: [
+        //   PageView.builder(
+        //       itemCount: projects.length,
+        //       controller: pageController,
+        //       scrollDirection: Axis.horizontal,
+        //       onPageChanged: (int) => pageViewDotsState.changePage(int),
+        //       itemBuilder: (BuildContext context, int index) {
+        //         return Container(
+        //             margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+        //             child: ProjectTile(project: projects[index]));
+        //       }),
+        //   Center(
+        //       child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       IconButton(
+        //           onPressed: () {
+        //             pageController.animateToPage(
+        //                 (pageController.page! - 1).toInt(),
+        //                 duration: Duration(milliseconds: 300),
+        //                 curve: Curves.easeIn);
+        //           },
+        //           icon: Icon(Icons.chevron_left_rounded)),
+        //       IconButton(
+        //           onPressed: () {
+        //             pageController.animateToPage(
+        //                 (pageController.page! + 1).toInt(),
+        //                 duration: Duration(milliseconds: 300),
+        //                 curve: Curves.easeIn);
+        //           },
+        //           icon: Icon(Icons.chevron_right_rounded)),
+        //     ],
+        //   )),
+        // ]),
+        );
   }
 }
 
@@ -78,9 +104,7 @@ class ProjectGridView extends StatelessWidget {
       child: GridView(
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          childAspectRatio: .9,
-          maxCrossAxisExtent: 300
-        ),
+            maxCrossAxisExtent: 300, mainAxisSpacing: 20, crossAxisSpacing: 20),
         children: [...projects.map((project) => ProjectTile(project: project))],
       ),
     );
@@ -98,25 +122,23 @@ class ProjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Card(
-        elevation: 8,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Image.asset(
-                    'assets/dashboard.png',
-                    // height: 200,
-                    // width: 200,
-                  ),
-                ),
-                Container(
-                    child: Row(
+    return Card(
+      elevation: 0,
+      clipBehavior: Clip.hardEdge,
+      child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Image.asset(
+                'assets/dashboard.png',
+                fit: BoxFit.none,
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -128,21 +150,19 @@ class ProjectTile extends StatelessWidget {
                         onPressed: () {}),
                   ],
                 )),
-                // ListTile(
-                //   leading: CircleAvatar(),
-                //   title: Text('Project Name'),
-                //   subtitle: Text('Description'),
-                //   trailing: IconButton(
-                //       icon: Icon(Icons.open_in_new_rounded),
-                //       onPressed: () {}),
-                // )
-                // Center(
-                //   child: Text('Project$widget',
-                //       style: Theme.of(context).textTheme.headline6),
-                // ),
-              ]),
-        ),
-      ),
+            // ListTile(
+            //   leading: CircleAvatar(),
+            //   title: Text('Project Name'),
+            //   subtitle: Text('Description'),
+            //   trailing: IconButton(
+            //       icon: Icon(Icons.open_in_new_rounded),
+            //       onPressed: () {}),
+            // )
+            // Center(
+            //   child: Text('Project$widget',
+            //       style: Theme.of(context).textTheme.headline6),
+            // ),
+          ]),
     );
   }
 }
