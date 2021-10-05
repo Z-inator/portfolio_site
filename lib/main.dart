@@ -10,6 +10,8 @@ import 'package:portfolio_site/screens/nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'components/project_views.dart';
+import 'education_and_certifications.dart' as education;
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +63,8 @@ class PortfolioApp extends StatelessWidget {
           create: (context) => ProjectState(),
           dispose: (context, value) => value.dispose(),
         ),
+        Provider<List<education.Certificate>>.value(value: education.certificates),
+        Provider<List<education.School>>.value(value: education.schools),
         ChangeNotifierProvider(
           create: (context) => ContactFormState(formKey: formKey),
         )

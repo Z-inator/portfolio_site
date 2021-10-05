@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:portfolio_site/education_and_certifications.dart';
+import 'package:provider/provider.dart';
 
 class AboutMe extends StatelessWidget {
   const AboutMe({Key? key}) : super(key: key);
@@ -31,45 +33,12 @@ class AboutMe extends StatelessWidget {
           )
         ],
       ),
-      // GridView(
-      //   shrinkWrap: true,
-      //   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-      //     maxCrossAxisExtent: 500,
-      //     mainAxisSpacing: 40,
-      //     crossAxisSpacing: 40),
-      //     children: [
-      //       Container(
-      //         child: Column(
-      //           children: [
-      //             CircleAvatar(
-      //               radius: 100,
-      //             ),
-      //             Container(
-      //               padding: EdgeInsets.symmetric(vertical: 40),
-      //               child: Text('Zachary Wauer', style: Theme.of(context).textTheme.headline4)
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       Container(
-      //         child: Text(
-      //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
-      //           style: Theme.of(context).textTheme.subtitle1,
-      //           softWrap: true,
-      //           maxLines: 10,
-      //         ),
-      //       )
-      //     ])
     );
   }
 }
 
-class MySkills extends StatelessWidget {
-  const MySkills({Key? key}) : super(key: key);
-
-  void launchURL(String url) {
-    window.open(url, 'new tab');
-  }
+class ExperienceAndEducation extends StatelessWidget {
+  const ExperienceAndEducation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +50,135 @@ class MySkills extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('Experience & Education', style: theme.textTheme.headline4),
+          Frameworks(),
+          Expanded(child: Education()),
+        ],
+      ),
+    );
+  }
+}
+
+class Education extends StatefulWidget {
+  Education({Key? key}) : super(key: key);
+
+  @override
+  State<Education> createState() => _EducationState();
+}
+
+class _EducationState extends State<Education> {
+  bool schoolsIsExpanded = false;
+  bool certificatesIsExpanded = false;
+
+  late List<School> schools;
+  late List<Certificate> certificates;
+
+  List<bool> itemToExpand = [
+    false, // schoolsIsExpanded
+    false, // certificatesIsExpanded
+  ];
+
+  void launchURL(String url) {
+    window.open(url, 'new tab');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    schools = Provider.of<List<School>>(context);
+    certificates = Provider.of<List<Certificate>>(context);
+    return Container(
+        padding: EdgeInsets.only(bottom: 40),
+        child: Row(
+          children: [
+            Expanded(
+              child: ExpansionTile(
+                title: Text('Schooling'),
+                children: schools.map((School school) {
+                      return ListTile(
+                        title: Text(school.name),
+                        subtitle: Text(school.study),
+                        trailing: Text(school.years),
+                      );
+                    }).toList(),
+              )
+            ),
+            SizedBox(
+              width: 40,
+            ),
+            Expanded(
+              child: ExpansionTile(
+                title: Text('Certificates'),
+                children: certificates.map((Certificate certificate) {
+                      return ListTile(
+                          title: Text(certificate.course),
+                          subtitle: Text(certificate.author),
+                          trailing: IconButton(
+                              onPressed: () => launchURL(certificate.url),
+                              icon: Icon(Icons.open_in_new_rounded)));
+                    }).toList(),
+              ),
+            )
+          ],
+        ));
+        // ExpansionPanelList(
+        //     expansionCallback: (int index, bool isExpanded) {
+        //       setState(() {
+        //         itemToExpand[index] = !isExpanded;
+        //       });
+        //     },
+        //     children: [
+        //       ExpansionPanel(
+        //           headerBuilder: (BuildContext context, bool isExpanded) {
+        //             return ListTile(
+        //               title: Text('Schooling'),
+        //             );
+        //           },
+        //           body: ListView(
+        //             shrinkWrap: true,
+        //             children: schools.map((School school) {
+        //               return ListTile(
+        //                 title: Text(school.name),
+        //                 subtitle: Text(school.study),
+        //                 trailing: Text(school.years),
+        //               );
+        //             }).toList(),
+        //           ),
+        //           isExpanded: itemToExpand[0]),
+        //       ExpansionPanel(
+        //           headerBuilder: (BuildContext context, bool isExpanded) {
+        //             return ListTile(
+        //               title: Text('Certificates'),
+        //             );
+        //           },
+        //           body: ListView(
+        //             shrinkWrap: true,
+        //             children: certificates.map((Certificate certificate) {
+        //               return ListTile(
+        //                   title: Text(certificate.course),
+        //                   subtitle: Text(certificate.author),
+        //                   trailing: IconButton(
+        //                       onPressed: () => launchURL(certificate.url),
+        //                       icon: Icon(Icons.open_in_new_rounded)));
+        //             }).toList(),
+        //           ),
+        //           isExpanded: itemToExpand[1])
+        //     ]));
+  }
+}
+
+class Frameworks extends StatelessWidget {
+  const Frameworks({Key? key}) : super(key: key);
+
+  void launchURL(String url) {
+    window.open(url, 'new tab');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 40),
+      child: Column(
+        children: [
           Container(
             child: Text('Frameworks:', style: theme.textTheme.headline6),
           ),
@@ -130,41 +228,11 @@ class MySkills extends StatelessWidget {
               title: SkillBars(skillLevel: .33, skillColor: Color(0xFF61DAFB)),
             ),
           ),
-          // Container(
-          //   padding: EdgeInsets.all(20.0),
-          //   child: SkillBars(skillLevel: 1, skillColor: Color(0xFF45D1FD)),
-          // ),
-          // Container(
-          //   padding: EdgeInsets.all(20.0),
-          //   child: SkillBars(skillLevel: .66, skillColor: Color(0xFF0C4B33)),
-          // ),
-          // Container(
-          //   padding: EdgeInsets.all(20.0),
-          //   child: SkillBars(skillLevel: .33, skillColor: Color(0xFF5ED2F7)),
-          // ),
-          // Row(
-          //   children: [
-          //     Expanded(child: RecentJobBlock(position: 'Executive Coordinator', company: 'Deloitte', timeBlock: '2019 - Present')),
-          //     Expanded(child: RecentJobBlock(position: 'Market Development Representative', company: 'Active Network', timeBlock: '2018 - 2019'))
-          //   ],
-          // )
         ],
       ),
     );
   }
 }
-
-// class SkillBars extends StatelessWidget {
-//   final int skillLevel;
-//   const SkillBars({Key? key, required this.skillLevel}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TweenAnimationBuilder(tween: IntTween(begin: 0, end: skillLevel), duration: Duration(milliseconds: 500), builder: (context, int skill, child) {
-//       return
-//     });
-//   }
-// }
 
 class SkillBars extends StatefulWidget {
   final double skillLevel;

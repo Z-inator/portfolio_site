@@ -35,11 +35,13 @@ class LargeAboutMeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 750,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(child: AboutMe()),
           SizedBox(width: 80,),
-          Expanded(child: MySkills())
+          Expanded(child: ExperienceAndEducation())
         ],
       ),
     );
