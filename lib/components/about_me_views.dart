@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class AboutMe extends StatelessWidget {
@@ -64,6 +67,10 @@ class AboutMe extends StatelessWidget {
 class MySkills extends StatelessWidget {
   const MySkills({Key? key}) : super(key: key);
 
+  void launchURL(String url) {
+    window.open(url, 'new tab');
+  }
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -75,8 +82,66 @@ class MySkills extends StatelessWidget {
         children: [
           Text('Experience & Education', style: theme.textTheme.headline4),
           Container(
-            child: SkillBars(skillLevel: .8, skillColor: Colors.blue),
+            child: Text('Frameworks:', style: theme.textTheme.headline6),
           ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: ListTile(
+              leading: ElevatedButton(
+                  onPressed: () => launchURL('https://flutter.dev/'),
+                  child: Container(
+                      width: 100,
+                      height: 50,
+                      padding: EdgeInsets.all(5),
+                      child: Image.asset(
+                        'logos/flutter_logo.png',
+                      ))),
+              title: SkillBars(skillLevel: 1, skillColor: Color(0xFF45D1FD)),
+            ),
+          ),
+          Container(
+            child: ListTile(
+              leading: ElevatedButton(
+                  onPressed: () => launchURL('https://www.djangoproject.com/'),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    padding: EdgeInsets.all(5),
+                    child: Image.asset(
+                      'logos/django_logo.png',
+                    ),
+                  )),
+              title: SkillBars(skillLevel: .66, skillColor: Color(0xFF0C4B33)),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: ListTile(
+              leading: ElevatedButton(
+                  onPressed: () => launchURL('https://reactjs.org/'),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    padding: EdgeInsets.all(5),
+                    child: Image.asset(
+                      'logos/react_logo.png',
+                    ),
+                  )),
+              title: SkillBars(skillLevel: .33, skillColor: Color(0xFF61DAFB)),
+            ),
+          ),
+          // Container(
+          //   padding: EdgeInsets.all(20.0),
+          //   child: SkillBars(skillLevel: 1, skillColor: Color(0xFF45D1FD)),
+          // ),
+          // Container(
+          //   padding: EdgeInsets.all(20.0),
+          //   child: SkillBars(skillLevel: .66, skillColor: Color(0xFF0C4B33)),
+          // ),
+          // Container(
+          //   padding: EdgeInsets.all(20.0),
+          //   child: SkillBars(skillLevel: .33, skillColor: Color(0xFF5ED2F7)),
+          // ),
           // Row(
           //   children: [
           //     Expanded(child: RecentJobBlock(position: 'Executive Coordinator', company: 'Deloitte', timeBlock: '2019 - Present')),
@@ -114,33 +179,40 @@ class SkillBars extends StatefulWidget {
 
 class _SkillBarsState extends State<SkillBars>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late AnimationController controller;
+  late Animation<double> animation;
 
   @override
   void initState() {
-    super.initState();
-    _controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 500),
-        upperBound: widget.skillLevel)
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
+    animation = Tween(begin: 0.0, end: widget.skillLevel).animate(controller)
       ..addListener(() {
         setState(() {});
-        _controller.repeat(reverse: true);
       });
+    controller.forward();
+    super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LinearProgressIndicator(
-      value: _controller.value,
-      backgroundColor: Colors.grey,
-      // color: widget.skillColor,
+    return Container(
+      decoration: ShapeDecoration(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+      clipBehavior: Clip.hardEdge,
+      child: LinearProgressIndicator(
+        value: animation.value,
+        backgroundColor: Colors.grey[200],
+        color: widget.skillColor,
+        minHeight: 10,
+      ),
     );
   }
 }

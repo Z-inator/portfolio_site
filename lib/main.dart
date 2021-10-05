@@ -185,21 +185,27 @@ class _HomePageState extends State<HomePage>
 
 ThemeData themeData(ThemeData base) {
   return base.copyWith(
-      primaryColor: Colors.cyan,
-      cardTheme: CardTheme(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25))),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25))),
-        filled: true,
-        fillColor: Colors.grey[200],
-        focusColor: Colors.cyan,
-      ),
-      tabBarTheme: base.tabBarTheme.copyWith(
-          labelColor: Colors.cyan,
-          unselectedLabelColor: base.textTheme.headline4?.color));
+    primaryColor: Colors.cyan,
+    cardTheme: CardTheme(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+      filled: true,
+      fillColor: Colors.grey[200],
+      focusColor: Colors.cyan,
+    ),
+    tabBarTheme: base.tabBarTheme.copyWith(
+        labelColor: Colors.cyan,
+        unselectedLabelColor: base.textTheme.headline4?.color),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+      primary: base.canvasColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+    )),
+  );
 }
 
 bool _isLargeScreen(BuildContext context) {
