@@ -65,7 +65,6 @@ class ProjectGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Project> projects = Provider.of<ProjectState>(context).projects;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 40),
       child: GridView(
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

@@ -17,7 +17,6 @@ class LargeContactForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -28,7 +27,7 @@ class LargeContactForm extends StatelessWidget {
               ),
             ),
             Container(
-                padding: EdgeInsets.only(bottom: 40),
+                padding: EdgeInsets.symmetric(vertical: 40),
                 child: ContactFormMessage()),
             Container(child: ContactFormSubmitButton())
           ],

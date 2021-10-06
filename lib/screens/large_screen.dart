@@ -17,9 +17,8 @@ class LargeScreenHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(40.0),
+          padding: EdgeInsets.all(40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [LargeAboutMeSection(), LargeProjectSection(), LargeContactSection()],
@@ -35,47 +34,13 @@ class LargeAboutMeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 750,
+      // padding: EdgeInsets.symmetric(vertical: 40),
+      // height: 740,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(child: AboutMe()),
           SizedBox(width: 80,),
           Expanded(child: ExperienceAndEducation())
-        ],
-      ),
-    );
-  }
-}
-
-class LandingPage extends StatelessWidget {
-  const LandingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-              'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.',
-              style: Theme.of(context).textTheme.headline2),
-          OutlinedButton(
-              onPressed: () {},
-              child: Text('Contact Me',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(color: Colors.cyan)),
-              style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.all(20),
-                minimumSize: Size(200, 100),
-                side: BorderSide(width: 4, color: Colors.cyan),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-              ))
         ],
       ),
     );
@@ -119,7 +84,7 @@ class LargeContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 40.0),
+        // padding: EdgeInsets.symmetric(vertical: 40.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -132,5 +97,39 @@ class LargeContactSection extends StatelessWidget {
             LargeContactForm(),
           ],
         ));
+  }
+}
+
+class LandingPage extends StatelessWidget {
+  const LandingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+              'Hi,\nWelcome to my portfolio website.\nI am an aspiring software engineer.',
+              style: Theme.of(context).textTheme.headline2),
+          OutlinedButton(
+              onPressed: () {},
+              child: Text('Contact Me',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(color: Colors.cyan)),
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.all(20),
+                minimumSize: Size(200, 100),
+                side: BorderSide(width: 4, color: Colors.cyan),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+              ))
+        ],
+      ),
+    );
   }
 }

@@ -11,7 +11,6 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 40),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,14 +43,13 @@ class ExperienceAndEducation extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 40),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('Experience & Education', style: theme.textTheme.headline4),
           Frameworks(),
-          Expanded(child: Education()),
+          Education(),
         ],
       ),
     );
@@ -83,85 +81,168 @@ class _EducationState extends State<Education> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     schools = Provider.of<List<School>>(context);
     certificates = Provider.of<List<Certificate>>(context);
     return Container(
-        padding: EdgeInsets.only(bottom: 40),
-        child: Row(
+      height: 380,
+      child: Card(
+        borderOnForeground: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(
+            color: theme.primaryColor,
+            width: 2.0
+          )
+        ),
+        elevation: 0,
+        child: ListView(
           children: [
-            Expanded(
-              child: ExpansionTile(
-                title: Text('Schooling'),
-                children: schools.map((School school) {
-                      return ListTile(
-                        title: Text(school.name),
-                        subtitle: Text(school.study),
-                        trailing: Text(school.years),
-                      );
-                    }).toList(),
-              )
+            ListTile(
+              title: Text('Schooling', style: TextStyle(color: Colors.white),),
+              tileColor: theme.primaryColor,
             ),
-            SizedBox(
-              width: 40,
+            ListView(
+              shrinkWrap: true,
+              children: schools.map((School school) {
+                return ListTile(
+                  title: Text(school.name),
+                  subtitle: Text(school.study),
+                  trailing: Text(school.years),
+                );
+              }).toList(),
             ),
-            Expanded(
-              child: ExpansionTile(
-                title: Text('Certificates'),
-                children: certificates.map((Certificate certificate) {
-                      return ListTile(
-                          title: Text(certificate.course),
-                          subtitle: Text(certificate.author),
-                          trailing: IconButton(
-                              onPressed: () => launchURL(certificate.url),
-                              icon: Icon(Icons.open_in_new_rounded)));
-                    }).toList(),
-              ),
+            ListTile(
+              title: Text('Certifications', style: TextStyle(color: Colors.white)),
+              tileColor: theme.primaryColor,
+            ),
+            ListView(
+              shrinkWrap: true,
+              children: certificates.map((Certificate certificate) {
+                return ListTile(
+                    title: Text(certificate.course),
+                    subtitle: Text(certificate.author),
+                    trailing: IconButton(
+                        onPressed: () => launchURL(certificate.url),
+                        icon: Icon(Icons.open_in_new_rounded)));
+              }).toList(),
             )
           ],
-        ));
-        // ExpansionPanelList(
-        //     expansionCallback: (int index, bool isExpanded) {
-        //       setState(() {
-        //         itemToExpand[index] = !isExpanded;
-        //       });
-        //     },
-        //     children: [
-        //       ExpansionPanel(
-        //           headerBuilder: (BuildContext context, bool isExpanded) {
-        //             return ListTile(
-        //               title: Text('Schooling'),
-        //             );
-        //           },
-        //           body: ListView(
-        //             shrinkWrap: true,
-        //             children: schools.map((School school) {
-        //               return ListTile(
-        //                 title: Text(school.name),
-        //                 subtitle: Text(school.study),
-        //                 trailing: Text(school.years),
-        //               );
-        //             }).toList(),
-        //           ),
-        //           isExpanded: itemToExpand[0]),
-        //       ExpansionPanel(
-        //           headerBuilder: (BuildContext context, bool isExpanded) {
-        //             return ListTile(
-        //               title: Text('Certificates'),
-        //             );
-        //           },
-        //           body: ListView(
-        //             shrinkWrap: true,
-        //             children: certificates.map((Certificate certificate) {
-        //               return ListTile(
-        //                   title: Text(certificate.course),
-        //                   subtitle: Text(certificate.author),
-        //                   trailing: IconButton(
-        //                       onPressed: () => launchURL(certificate.url),
-        //                       icon: Icon(Icons.open_in_new_rounded)));
-        //             }).toList(),
-        //           ),
-        //           isExpanded: itemToExpand[1])
-        //     ]));
+        ),
+      ),
+    );
+    // Container(
+    //     padding: EdgeInsets.only(bottom: 40),
+    //     child: Row(
+    //       children: [
+    //         Expanded(
+    //           child: Container(
+    //             height: 500,
+    //             child: Card(
+    //               elevation: 0,
+    //               child: ListView(
+    //                 children: schools.map((School school) {
+    //                     return ListTile(
+    //                       title: Text(school.name),
+    //                       subtitle: Text(school.study),
+    //                       trailing: Text(school.years),
+    //                     );
+    //                   }).toList(),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         Expanded(
+    //           child: Container(
+    //             height: 500,
+    //             child: Card(
+    //               elevation: 0,
+    //               child: ListView(
+    //                 children: certificates.map((Certificate certificate) {
+    //                   return ListTile(
+    //                       title: Text(certificate.course),
+    //                       subtitle: Text(certificate.author),
+    //                       trailing: IconButton(
+    //                           onPressed: () => launchURL(certificate.url),
+    //                           icon: Icon(Icons.open_in_new_rounded)));
+    //                 }).toList(),
+    //               ),
+    //             ),
+    //           ),
+    //         )
+    //         // Expanded(
+    //         //   child: ExpansionTile(
+    //         //     title: Text('Schooling'),
+    //         //     children: schools.map((School school) {
+    //         //           return ListTile(
+    //         //             title: Text(school.name),
+    //         //             subtitle: Text(school.study),
+    //         //             trailing: Text(school.years),
+    //         //           );
+    //         //         }).toList(),
+    //         //   )
+    //         // ),
+    //         // SizedBox(
+    //         //   width: 40,
+    //         // ),
+    //         // Expanded(
+    //         //   child: ExpansionTile(
+    //         //     title: Text('Certificates'),
+    //         //     children: certificates.map((Certificate certificate) {
+    //         //           return ListTile(
+    //         //               title: Text(certificate.course),
+    //         //               subtitle: Text(certificate.author),
+    //         //               trailing: IconButton(
+    //         //                   onPressed: () => launchURL(certificate.url),
+    //         //                   icon: Icon(Icons.open_in_new_rounded)));
+    //         //         }).toList(),
+    //         //   ),
+    //         // )
+    //       ],
+    //     ));
+    ExpansionPanelList(
+        expansionCallback: (int index, bool isExpanded) {
+          setState(() {
+            itemToExpand[index] = !isExpanded;
+          });
+        },
+        children: [
+          ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return ListTile(
+                  title: Text('Schooling'),
+                );
+              },
+              body: ListView(
+                // shrinkWrap: true,
+                children: schools.map((School school) {
+                  return ListTile(
+                    title: Text(school.name),
+                    subtitle: Text(school.study),
+                    trailing: Text(school.years),
+                  );
+                }).toList(),
+              ),
+              isExpanded: itemToExpand[0]),
+          ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return ListTile(
+                  title: Text('Certificates'),
+                );
+              },
+              body: ListView(
+                // shrinkWrap: true,
+                children: certificates.map((Certificate certificate) {
+                  return ListTile(
+                      title: Text(certificate.course),
+                      subtitle: Text(certificate.author),
+                      trailing: IconButton(
+                          onPressed: () => launchURL(certificate.url),
+                          icon: Icon(Icons.open_in_new_rounded)));
+                }).toList(),
+              ),
+              isExpanded: itemToExpand[1])
+        ]);
   }
 }
 
