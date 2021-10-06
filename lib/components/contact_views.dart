@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
@@ -49,11 +51,10 @@ class SmallContactForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 40),
               child: ContactFormName(),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 40),
+              padding: EdgeInsets.symmetric(vertical: 40),
               child: ContactFormEmail(),
             ),
             Container(
@@ -116,9 +117,9 @@ class ContactFormMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      // initialValue: contactFormState.body,
       keyboardType: TextInputType.multiline,
       minLines: 5,
       maxLines: null,
@@ -143,20 +144,25 @@ class ContactFormSubmitButton extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     contactFormState = Provider.of<ContactFormState>(context);
     return ElevatedButton(
-        onPressed: () async {
-          String platformResponse = '';
-          if (contactFormState.formKey.currentState!.validate()) {
-            await contactFormState.sendInquiry().then((value) {
-              platformResponse = value;
-            });
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(platformResponse),
-              ),
-            );
-          }
+        onPressed: () {
+          log(theme.dividerColor.toString());
         },
-        style: ElevatedButton.styleFrom(primary: theme.primaryColor, padding: EdgeInsets.all(20)),
-        child: Text('Submit', style: theme.textTheme.headline6?.copyWith(color: Colors.white)));
+        // onPressed: () async {
+        //   String platformResponse = '';
+        //   if (contactFormState.formKey.currentState!.validate()) {
+        //     await contactFormState.sendInquiry().then((value) {
+        //       platformResponse = value;
+        //     });
+        //     ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(
+        //         content: Text(platformResponse),
+        //       ),
+        //     );
+        //   }
+        // },
+        style: ElevatedButton.styleFrom(
+            primary: theme.primaryColor, padding: EdgeInsets.all(20)),
+        child: Text('Submit',
+            style: theme.textTheme.headline6?.copyWith(color: Colors.white)));
   }
 }

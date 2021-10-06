@@ -12,14 +12,21 @@ import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
 
 class SmallScreenHomePage extends StatelessWidget {
-  SmallScreenHomePage({Key? key,}) : super(key: key);
+  SmallScreenHomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
+        padding: EdgeInsets.all(40),
         child: Column(
-          children: [SmallAboutMeSection(), SmallProjectSection(), SmallContactSection()],
+          children: [
+            SmallAboutMeSection(),
+            SmallProjectSection(),
+            SmallContactSection()
+          ],
         ),
       ),
     );
@@ -32,8 +39,15 @@ class SmallAboutMeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40),
-      child: AboutMe(),
+      child: Column(
+        children: [
+          AboutMe(),
+          SizedBox(
+            height: 40,
+          ),
+          ExperienceAndEducation()
+        ],
+      ),
     );
   }
 }
@@ -46,16 +60,14 @@ class SmallProjectSection extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => PageViewDotsState(),
       child: Container(
-        height: 650,
+        height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: EdgeInsets.only(bottom: 40),
-              child: 
-                  Text('Projects',
-                      style: Theme.of(context).textTheme.headline4),
+              child: Text('Projects',
+                  style: Theme.of(context).textTheme.headline4),
             ),
             Expanded(child: ProjectPageView()),
             PageViewDotsRow()
@@ -72,16 +84,15 @@ class SmallContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(40.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text('Contact', style: Theme.of(context).textTheme.headline4),
-          SmallContactForm(),
-        ],
-      )
-    );
+        child: Column(
+      children: [
+        Container(
+            padding: EdgeInsets.only(bottom: 40),
+            child:
+                Text('Contact', style: Theme.of(context).textTheme.headline4)),
+        SmallContactForm(),
+      ],
+    ));
   }
 }
 
@@ -91,11 +102,11 @@ class PageViewDots extends StatelessWidget {
   late AnimationController animationController;
   PageViewDots({Key? key, required this.index}) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
-    PageViewDotsState pageViewDotsState = Provider.of<PageViewDotsState>(context);
+    ThemeData theme = Theme.of(context);
+    PageViewDotsState pageViewDotsState =
+        Provider.of<PageViewDotsState>(context);
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -103,7 +114,7 @@ class PageViewDots extends StatelessWidget {
       width: pageViewDotsState.activePage == index ? 12 : 8,
       decoration: BoxDecoration(
           color:
-              pageViewDotsState.activePage == index ? Colors.cyan : Colors.grey,
+              pageViewDotsState.activePage == index ? theme.primaryColor : Colors.grey[600],
           borderRadius: BorderRadius.all(Radius.circular(25))),
     );
   }

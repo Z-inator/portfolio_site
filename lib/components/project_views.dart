@@ -41,7 +41,7 @@ class ProjectPageView extends StatelessWidget {
         ),
         IconButton(
             onPressed: () {
-              pageController.animateToPage((pageController.page! + 1).toInt(),
+              pageController..animateToPage((pageController.page! + 1).toInt(),
                   duration: Duration(milliseconds: 300), curve: Curves.easeIn);
             },
             icon: Icon(Icons.chevron_right_rounded)),

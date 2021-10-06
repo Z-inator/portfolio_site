@@ -34,9 +34,8 @@ class LargeAboutMeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.symmetric(vertical: 40),
-      // height: 740,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(child: AboutMe()),
           SizedBox(width: 80,),
@@ -84,7 +83,6 @@ class LargeContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // padding: EdgeInsets.symmetric(vertical: 40.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,

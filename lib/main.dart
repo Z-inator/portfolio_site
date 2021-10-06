@@ -166,13 +166,14 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  //TODO: Rebuild these so they are scrollable on their own page
+
   List<Widget> _buildSmallTabViews() {
     return [
       SmallScreenHomePage(),
-      Center(child: AboutMe()),
-      Center(child: SmallProjectSection()),
-      Center(
-        child: SmallContactSection(),
+      Container(padding: EdgeInsets.all(40), child: SmallAboutMeSection()),
+      Container(padding: EdgeInsets.all(40), child: SmallProjectSection()),
+      Container(padding: EdgeInsets.all(40), child: SmallContactSection(),
       )
     ];
   }
@@ -180,9 +181,9 @@ class _HomePageState extends State<HomePage>
   List<Widget> _buildTabViews() {
     return [
       LargeScreenHomePage(),
-      Center(child: AboutMe()),
-      Center(child: LargeProjectSection()),
-      Center(child: LargeContactSection())
+      Container(padding: EdgeInsets.fromLTRB(40, 40, 40, 0), child: LargeAboutMeSection()),
+      Container(padding: EdgeInsets.all(40), child: LargeProjectSection()),
+      Container(padding: EdgeInsets.all(40), child: LargeContactSection())
     ];
   }
 }
@@ -209,10 +210,10 @@ ThemeData themeData(ThemeData base) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-      primary: base.canvasColor,
+      primary: Colors.blueGrey,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     )),
-    iconTheme: IconThemeData(color: Colors.grey[600])
+    iconTheme: IconThemeData(color: Colors.grey[600]),
   );
 }
 
