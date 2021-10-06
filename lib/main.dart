@@ -189,26 +189,30 @@ class _HomePageState extends State<HomePage>
 
 ThemeData themeData(ThemeData base) {
   return base.copyWith(
-    primaryColor: Colors.cyan,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey),
+    primaryColor: Colors.blueGrey,
     cardTheme: CardTheme(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25))),
+      clipBehavior: Clip.hardEdge
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25))),
       filled: true,
       fillColor: Colors.grey[200],
-      focusColor: Colors.cyan,
     ),
     tabBarTheme: base.tabBarTheme.copyWith(
-        labelColor: Colors.cyan,
-        unselectedLabelColor: base.textTheme.headline4?.color),
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey[600],
+        indicator: BoxDecoration(color: Colors.blueGrey)
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
       primary: base.canvasColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     )),
+    iconTheme: IconThemeData(color: Colors.grey[600])
   );
 }
 

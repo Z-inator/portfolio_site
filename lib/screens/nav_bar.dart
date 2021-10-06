@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:portfolio_site/components/project_views.dart';
 import 'package:portfolio_site/main.dart';
 import 'package:portfolio_site/screens/large_screen.dart';
@@ -25,7 +26,11 @@ class NavTabBar extends StatelessWidget {
   final List<Widget> tabs;
   final TabController tabController;
   final bool isScrollable;
-  const NavTabBar({Key? key, required this.tabs, required this.tabController, required this.isScrollable})
+  const NavTabBar(
+      {Key? key,
+      required this.tabs,
+      required this.tabController,
+      required this.isScrollable})
       : super(key: key);
 
   @override
@@ -35,7 +40,8 @@ class NavTabBar extends StatelessWidget {
         order: NumericFocusOrder(0),
         child: TabBar(
             tabs: tabs,
-            isScrollable: isScrollable,   // Allows for mobile version to expand to fill width
+            isScrollable:
+                isScrollable, // Allows for mobile version to expand to fill width
             controller: tabController,
             indicatorColor: theme.primaryColor,
             indicatorWeight: 3));
@@ -52,8 +58,10 @@ class TopNavBar extends StatelessWidget {
         elevation: 16,
         borderRadius: BorderRadius.zero,
         clipBehavior: Clip.hardEdge,
-        child:
-            NavTabBar(tabs: _buildSmallTabs(), tabController: tabController, isScrollable: false));
+        child: NavTabBar(
+            tabs: _buildSmallTabs(),
+            tabController: tabController,
+            isScrollable: false));
   }
 }
 
@@ -64,6 +72,7 @@ class LeftNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Container(
         margin: EdgeInsets.only(right: 20),
         width: 200,
@@ -78,15 +87,14 @@ class LeftNavBar extends StatelessWidget {
                 RotatedBox(
                   quarterTurns: 1,
                   child: NavTabBar(
-                    tabs: _buildLargeTabs(tabController: tabController)
-                        .map((widget) => RotatedBox(
-                              quarterTurns: 3,
-                              child: widget,
-                            ))
-                        .toList(),
-                    tabController: tabController,
-                    isScrollable: true,
-                  ),
+                      tabs: _buildLargeTabs(tabController: tabController)
+                          .map((widget) => RotatedBox(
+                                quarterTurns: 3,
+                                child: widget,
+                              ))
+                          .toList(),
+                      tabController: tabController,
+                      isScrollable: true,)
                 ),
                 LinkList()
               ],
@@ -119,10 +127,11 @@ List<Widget> _buildLargeTabs({required TabController tabController}) {
   return [
     Tab(
         child: NavigationItem(
-            icon: Icon(Icons.home_rounded),
-            name: 'home',
-            index: 0,
-            tabController: tabController,)),
+      icon: Icon(Icons.home_rounded),
+      name: 'home',
+      index: 0,
+      tabController: tabController,
+    )),
     Tab(
         child: NavigationItem(
             icon: Icon(Icons.person_rounded),
@@ -144,20 +153,20 @@ List<Widget> _buildLargeTabs({required TabController tabController}) {
   ];
 }
 
-
 class LogoHeader extends StatelessWidget {
   const LogoHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.all(20),
       decoration: ShapeDecoration(
-          color: Colors.cyan,
+          color: theme.primaryColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
       child: Center(
-          child: Text('Z', style: Theme.of(context).textTheme.headline1)),
+          child: Text('Z', style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white))),
     );
   }
 }
@@ -170,8 +179,7 @@ class PageList extends StatelessWidget {
     return Container(
         margin: EdgeInsets.symmetric(vertical: 40),
         child: Column(
-          children: [
-          ],
+          children: [],
         ));
   }
 }
@@ -212,7 +220,7 @@ class _NavigationItemState extends State<NavigationItem> {
           SizedBox(
             width: 30,
           ),
-          Text(widget.name.toUpperCase(), style: theme.textTheme.subtitle1)
+          Text(widget.name.toUpperCase())
         ],
       ),
     );
@@ -235,15 +243,15 @@ class LinkList extends StatelessWidget {
           IconButton(
             onPressed: () =>
                 launchURL('https://www.linkedin.com/in/zacharywauer/'),
-            icon: Image.asset('logos/linkedin.png'),
+            icon: Icon(MdiIcons.linkedin),
           ),
           IconButton(
             onPressed: () => launchURL('https://github.com/Z-inator'),
-            icon: Image.asset('logos/github.png'),
+            icon: Icon(MdiIcons.github),
           ),
           IconButton(
             onPressed: () => launchURL('https://twitter.com/ZachWauer'),
-            icon: Image.asset('logos/twitter.png'),
+            icon: Icon(MdiIcons.twitter),
           ),
         ]);
   }

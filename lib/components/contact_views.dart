@@ -141,6 +141,7 @@ class ContactFormSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     contactFormState = Provider.of<ContactFormState>(context);
     return ElevatedButton(
         onPressed: () async {
@@ -156,6 +157,7 @@ class ContactFormSubmitButton extends StatelessWidget {
             );
           }
         },
-        child: Text('Submit'));
+        style: ElevatedButton.styleFrom(primary: theme.primaryColor, padding: EdgeInsets.all(20)),
+        child: Text('Submit', style: theme.textTheme.headline6?.copyWith(color: Colors.white)));
   }
 }
