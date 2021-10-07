@@ -38,16 +38,14 @@ class SmallAboutMeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          AboutMe(),
-          SizedBox(
-            height: 40,
-          ),
-          ExperienceAndEducation()
-        ],
-      ),
+    return Column(
+      children: [
+        AboutMe(),
+        SizedBox(
+          height: 40,
+        ),
+        ExperienceAndEducation()
+      ],
     );
   }
 }
@@ -63,6 +61,8 @@ class SmallProjectSection extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Container(
               padding: EdgeInsets.only(bottom: 40),
@@ -83,16 +83,15 @@ class SmallContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
+    return Column(
       children: [
-        Container(
-            padding: EdgeInsets.only(bottom: 40),
-            child:
-                Text('Contact', style: Theme.of(context).textTheme.headline4)),
-        SmallContactForm(),
+    Container(
+        padding: EdgeInsets.only(bottom: 40),
+        child:
+            Text('Contact', style: Theme.of(context).textTheme.headline4)),
+    SmallContactForm(),
       ],
-    ));
+    );
   }
 }
 
@@ -128,7 +127,7 @@ class PageViewDotsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    numberOfPages = Provider.of<ProjectState>(context).projects.length;
+    numberOfPages = Provider.of<List<Project>>(context).length;
     return ListTile(
       title: Row(
         mainAxisSize: MainAxisSize.min,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:portfolio_site/Services/project_services.dart';
 import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class ProjectPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Project> projects = Provider.of<ProjectState>(context).projects;
+    List<Project> projects = Provider.of<List<Project>>(context);
     PageViewDotsState pageViewDotsState =
         Provider.of<PageViewDotsState>(context);
     return Container(
@@ -63,7 +64,7 @@ class ProjectGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Project> projects = Provider.of<ProjectState>(context).projects;
+    List<Project> projects = Provider.of<List<Project>>(context);
     return Container(
       child: GridView(
         shrinkWrap: true,
@@ -105,22 +106,11 @@ class ProjectTile extends StatelessWidget {
                     Text(project.name,
                         style: Theme.of(context).textTheme.subtitle1),
                     IconButton(
-                        icon: Icon(Icons.open_in_new_rounded),
+                        icon: Icon(MdiIcons.github),
                         onPressed: () {}),
                   ],
                 )),
           ]),
     );
   }
-}
-
-class Project {
-  final String name;
-  final String description;
-  // final List<Photo> photos;
-  final Image photo;
-  final String tools;
-  final String takeAways;
-
-  Project(this.name, this.description, this.photo, this.tools, this.takeAways);
 }

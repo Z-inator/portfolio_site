@@ -21,7 +21,7 @@ class LargeScreenHomePage extends StatelessWidget {
           padding: EdgeInsets.all(40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [LargeAboutMeSection(), LargeProjectSection(), LargeContactSection()],
+            children: [LargeAboutMeSection(), SizedBox(height: 40), LargeProjectSection(), SizedBox(height: 40), LargeContactSection()],
           ),
       ),
     );
@@ -33,15 +33,13 @@ class LargeAboutMeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: AboutMe()),
-          SizedBox(width: 80,),
-          Expanded(child: ExperienceAndEducation())
-        ],
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(child: AboutMe()),
+        SizedBox(width: 80,),
+        Expanded(child: ExperienceAndEducation())
+      ],
     );
   }
 }
@@ -53,25 +51,22 @@ class LargeProjectSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 40),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              padding: EdgeInsets.only(bottom: 40.0),
-              child: Column(
-                children: [
-                  Text('Projects',
-                      style: Theme.of(context).textTheme.headline4),
-                  // FlutterButton()
-                ],
-              ),
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: 40.0),
+            child: Column(
+              children: [
+                Text('Projects',
+                    style: Theme.of(context).textTheme.headline4),
+                // FlutterButton()
+              ],
             ),
-            Container(child: ProjectGridView()),
-          ]),
-    );
+          ),
+          Container(child: ProjectGridView()),
+        ]);
   }
 }
 
@@ -82,19 +77,18 @@ class LargeContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              padding: EdgeInsets.only(bottom: 40.0),
-              child: Text('Contact',
-                      style: Theme.of(context).textTheme.headline4),
-            ),
-            LargeContactForm(),
-          ],
-        ));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          padding: EdgeInsets.only(bottom: 40.0),
+          child: Text('Contact',
+                  style: Theme.of(context).textTheme.headline4),
+        ),
+        LargeContactForm(),
+      ],
+    );
   }
 }
 

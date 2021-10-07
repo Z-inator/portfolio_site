@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
-import 'package:portfolio_site/Services/project_services.dart';
+import 'package:portfolio_site/Services/project_services.dart' as project;
 import 'package:portfolio_site/components/about_me_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
 
@@ -59,10 +59,7 @@ class PortfolioApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<ProjectState>(
-          create: (context) => ProjectState(),
-          dispose: (context, value) => value.dispose(),
-        ),
+        Provider<List<project.Project>>.value(value: project.projects),
         Provider<List<education.Certificate>>.value(value: education.certificates),
         Provider<List<education.School>>.value(value: education.schools),
         ChangeNotifierProvider(
@@ -171,9 +168,16 @@ class _HomePageState extends State<HomePage>
   List<Widget> _buildSmallTabViews() {
     return [
       SmallScreenHomePage(),
-      Container(padding: EdgeInsets.all(40), child: SmallAboutMeSection()),
-      Container(padding: EdgeInsets.all(40), child: SmallProjectSection()),
-      Container(padding: EdgeInsets.all(40), child: SmallContactSection(),
+      SingleChildScrollView(
+        padding: EdgeInsets.all(40),
+        child: SmallAboutMeSection()
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 40),
+        child: SmallProjectSection()),
+      SingleChildScrollView(
+        padding: EdgeInsets.all(40),
+        child: SmallContactSection()
       )
     ];
   }
@@ -181,9 +185,18 @@ class _HomePageState extends State<HomePage>
   List<Widget> _buildTabViews() {
     return [
       LargeScreenHomePage(),
-      Container(padding: EdgeInsets.fromLTRB(40, 40, 40, 0), child: LargeAboutMeSection()),
-      Container(padding: EdgeInsets.all(40), child: LargeProjectSection()),
-      Container(padding: EdgeInsets.all(40), child: LargeContactSection())
+      SingleChildScrollView(
+        padding: EdgeInsets.all(40),
+        child: LargeAboutMeSection()
+      ),
+      SingleChildScrollView(
+        padding: EdgeInsets.all(40),
+        child: LargeProjectSection()
+      ),
+      SingleChildScrollView(
+        padding: EdgeInsets.all(40),
+        child: LargeContactSection()
+      )
     ];
   }
 }
