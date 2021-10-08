@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/animation.dart';
@@ -42,13 +43,14 @@ class ProjectPageView extends StatelessWidget {
         ),
         IconButton(
             onPressed: () {
-              pageController..animateToPage((pageController.page! + 1).toInt(),
-                  duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+              pageController
+                ..animateToPage((pageController.page! + 1).toInt(),
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn);
             },
             icon: Icon(Icons.chevron_right_rounded)),
       ],
-    )
-        );
+    ));
   }
 }
 
@@ -78,39 +80,61 @@ class ProjectGridView extends StatelessWidget {
 
 class ProjectTile extends StatelessWidget {
   final Project project;
-  const ProjectTile({Key? key, required this.project}) : super(key: key);
+  late List<String> images = ['assets/dashboard.png'];
+  ProjectTile({Key? key, required this.project}) : super(key: key);
+
+  Future<List<dynamic>> getProjectImages(BuildContext context) async {
+    List<dynamic> images = [];
+      String manifestJson =
+          await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+      Map<String, dynamic> manifestMap = await jsonDecode(manifestJson);
+      images = manifestMap
+          .keys
+          .where(
+              (String key) => key.contains('assets/${project.photoLocation}'))
+          .toList();
+    return images;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      clipBehavior: Clip.hardEdge,
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Image.asset(
-                'assets/dashboard.png',
-                fit: BoxFit.none,
-              ),
-            ),
-            Container(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CircleAvatar(),
-                    Text(project.name,
-                        style: Theme.of(context).textTheme.subtitle1),
-                    IconButton(
-                        icon: Icon(MdiIcons.github),
-                        onPressed: () {}),
-                  ],
-                )),
-          ]),
+    return FutureBuilder(
+      future: getProjectImages(context),
+      initialData: images,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Card(
+          elevation: 0,
+          clipBehavior: Clip.hardEdge,
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                    child: Image(
+                  image: AssetImage(snapshot.data[0]),
+                )
+                    // Image.asset(
+                    //   images[0],
+                    //   fit: BoxFit.none,
+                    // ),
+                    ),
+                Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(),
+                        Text(project.name,
+                            style: Theme.of(context).textTheme.subtitle1),
+                        IconButton(
+                            icon: Icon(MdiIcons.github), onPressed: () {}),
+                      ],
+                    )),
+              ]),
+        );
+      },
     );
   }
 }
