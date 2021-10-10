@@ -208,7 +208,8 @@ ThemeData themeData(ThemeData base) {
     cardTheme: CardTheme(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25))),
-      clipBehavior: Clip.hardEdge
+      clipBehavior: Clip.hardEdge,
+      color: Colors.blueGrey[50]
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
@@ -223,7 +224,7 @@ ThemeData themeData(ThemeData base) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-      primary: Colors.blueGrey,
+      primary: Colors.blueGrey[50],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     )),
     iconTheme: IconThemeData(color: Colors.grey[600]),
