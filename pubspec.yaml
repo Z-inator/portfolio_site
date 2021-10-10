@@ -57,9 +57,16 @@ flutter:
   assets:
     - assets/dashboard.png
     - assets/logos/
-    - assets/projects/
-    # - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    - assets/projects/django_management_app/
+    - assets/projects/django_socialmedia_app/
+    - assets/projects/dynamic_color_theme/
+    - assets/projects/jamming_app/
+    - assets/projects/ravenous_app/
+    - assets/projects/simple_time_range_picker/
+    - assets/projects/star_citizen_app/
+    - assets/projects/productivity_app/
+    - assets/projects/computer_science_program/
+
 
 
   #

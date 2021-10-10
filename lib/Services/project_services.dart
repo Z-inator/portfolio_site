@@ -24,7 +24,7 @@ List<Project> projects = [
       name: 'Productivity App',
       description: 'description',
       photoLocation: 'projects/productivity_app',
-      tools: ['Flutter', 'Firebase', 'Firestore', 'FireAuth', 'Prov[ider'],
+      tools: ['Flutter', 'Firebase', 'Firestore', 'FireAuth', 'Provider'],
       takeAways: 'takeAways',
       url: 'https://github.com/Z-inator/productivity_app'),
   Project(
@@ -58,7 +58,7 @@ List<Project> projects = [
   Project(
       name: 'Django Social Media App',
       description: 'description',
-      photoLocation: 'projects/django_social_media_app',
+      photoLocation: 'projects/django_socialmedia_app',
       tools: ['Django', 'SQL', 'Authentification'],
       takeAways: 'takeAways',
       url: 'https://github.com/Z-inator/DjangoSocialMediaClone'),
@@ -81,7 +81,7 @@ List<Project> projects = [
   Project(
       name: 'Codecademy Computer Science Program',
       description: 'description',
-      photoLocation: '',
+      photoLocation: 'projects/computer_science_program',
       tools: [
         'Nodes',
         'Queues',
