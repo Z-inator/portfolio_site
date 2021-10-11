@@ -163,7 +163,6 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  //TODO: Rebuild these so they are scrollable on their own page
 
   List<Widget> _buildSmallTabViews() {
     return [

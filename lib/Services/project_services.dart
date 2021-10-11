@@ -4,14 +4,16 @@ import 'package:portfolio_site/components/project_views.dart';
 class Project {
   final String name;
   final String description;
+  final String framework;
   // final List<Photo> photos;
   final String photoLocation;
   final List<String> tools;
   final String takeAways;
   final String url;
 
-  Project(
-      {required this.name,
+  Project({
+      required this.framework, 
+      required this.name,
       required this.description,
       required this.photoLocation,
       required this.tools,
@@ -23,6 +25,7 @@ List<Project> projects = [
   Project(
       name: 'Productivity App',
       description: 'description',
+      framework: 'Flutter',
       photoLocation: 'projects/productivity_app',
       tools: ['Flutter', 'Firebase', 'Firestore', 'FireAuth', 'Provider'],
       takeAways: 'takeAways',
@@ -30,6 +33,7 @@ List<Project> projects = [
   Project(
       name: 'Star Citizen App',
       description: 'description',
+      framework: 'Flutter',
       photoLocation: 'projects/star_citizen_app',
       tools: ['Flutter', 'Firebase', 'Firestore', 'FireAuth', 'Provider'],
       takeAways: 'takeAways',
@@ -37,6 +41,7 @@ List<Project> projects = [
   Project(
       name: 'Simple Time Range Picker',
       description: 'description',
+      framework: 'Flutter',
       photoLocation: 'projects/simple_time_range_picker',
       tools: ['Flutter', 'PubDev Package'],
       takeAways: 'takeAways',
@@ -44,20 +49,23 @@ List<Project> projects = [
   Project(
       name: 'Dynamic Color Theme',
       description: 'description',
+      framework: 'Flutter',
       photoLocation: 'projects/dynamic_color_theme',
       tools: ['Flutter', 'PubDev Package'],
       takeAways: 'takeAways',
       url: 'https://github.com/DFreds/dynamic_color_theme'),
   Project(
-      name: 'Django Management App',
+      name: 'Management App',
       description: 'description',
+      framework: 'Django',
       photoLocation: 'projects/django_management_app',
       tools: ['Django', 'SQL', 'Authentification', 'Admin', 'Django Signals'],
       takeAways: 'takeAways',
       url: 'https://github.com/Z-inator/DjangoManagementAppClone'),
   Project(
-      name: 'Django Social Media App',
+      name: 'Social Media App',
       description: 'description',
+      framework: 'Django',
       photoLocation: 'projects/django_socialmedia_app',
       tools: ['Django', 'SQL', 'Authentification'],
       takeAways: 'takeAways',
@@ -65,6 +73,7 @@ List<Project> projects = [
   Project(
       name: 'Ravenous App',
       description: 'description',
+      framework: 'React',
       photoLocation: 'projects/ravenous_app',
       tools: ['React', 'Yelp API', 'AJAX'],
       takeAways: 'takeAways',
@@ -73,6 +82,7 @@ List<Project> projects = [
   Project(
       name: 'Jamming App',
       description: 'description',
+      framework: 'React',
       photoLocation: 'projects/jamming_app',
       tools: ['React', 'Spotify API'],
       takeAways: 'takeAways',
@@ -81,6 +91,7 @@ List<Project> projects = [
   Project(
       name: 'Codecademy Computer Science Program',
       description: 'description',
+      framework: 'Python',
       photoLocation: 'projects/computer_science_program',
       tools: [
         'Nodes',
