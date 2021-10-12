@@ -231,9 +231,8 @@ class ProjectViewer extends StatelessWidget {
             spacing: 20,
             runSpacing: 20,
             children: project.tools.map((String tool) => Chip(
-              backgroundColor: theme.primaryColor,
-              label: Text(tool, style: TextStyle(color: Colors.white),)
-            )
+              backgroundColor: Colors.blueGrey[50],
+              label: Text(tool))
             ).toList()
           ),
           trailing: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close_rounded)),
