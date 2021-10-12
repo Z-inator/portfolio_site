@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:html' as html;
 import 'dart:ui';
 
@@ -95,34 +96,34 @@ class ProjectTile extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           child: Column(children: [
             Expanded(
-                child: InkWell(
-              onTap: () => showProjectDialog(context, snapshot),
-              child: Stack(
-                  fit: StackFit.expand,
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Image(
-                      image: AssetImage(snapshot.data![0]),
-                      fit: BoxFit.none,
-                    ),
-                    BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        color: Colors.white.withOpacity(0.1),
-                        alignment: Alignment.center,
-                        child: Image(image: AssetImage(snapshot.data![0])),
-                      ),
-                    )
-                  ]),
-            )
-                // Image.asset(
-                //   images[0],
-                //   fit: BoxFit.none,
-                // ),
-                ),
-            ListTile(
+              child: InkWell(
+                hoverColor: Colors.blueGrey,
+                onTap: () => showProjectDialog(context, snapshot),
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Stack(
+                      fit: StackFit.expand,
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Image(
+                          image: AssetImage(snapshot.data![0]),
+                          fit: BoxFit.cover,
+                        ),
+                        BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Image(image: AssetImage(snapshot.data![0])),
+                          ),
+                        )
+                      ]),
+                  ),
+              )
+            ),
+            ListTile(              
+              // tileColor: Colors.blueGrey[50],
               leading: getFrameworkLogo(project.framework),
-              title: Text(project.name),
+              title: Text(project.name, textAlign: TextAlign.center),
               // subtitle: getFrameworkLogo(project.framework),
               trailing: IconButton(
                   icon: Icon(MdiIcons.github),
@@ -196,12 +197,15 @@ class ProjectTile extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Dialog(
-            insetPadding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(25))),
-            backgroundColor: Colors.blueGrey[50],
-            child: ProjectViewer(images: snapshot.data!, project: project)
+          return Container(
+            margin: EdgeInsets.all(40),
+            child: Dialog(
+                insetPadding: EdgeInsets.zero,
+                clipBehavior: Clip.hardEdge,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                backgroundColor: Colors.blueGrey[50],
+                child: ProjectViewer(images: snapshot.data!, project: project)),
           );
         });
   }
@@ -217,27 +221,46 @@ class ProjectViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    return Container(
-      width: MediaQuery.of(context).size.width - 80,
-      height: MediaQuery.of(context).size.height - 80,
-      child: Card(
-        elevation: 0,
-        child: Column(
-          children: [
-            Text(project.name, style: theme.textTheme.headline4),
-            Expanded(
-              child: PageView(
-                controller: pageController,
-                children: images.map((String imageName) => Image(image: AssetImage(imageName))).toList(),
-              ),
-            ),
-            ListTile(
-              leading: IconButton(onPressed: () => pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn), icon: Icon(Icons.chevron_left_rounded)),
-              trailing: IconButton(onPressed: () => pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn), icon: Icon(Icons.chevron_right_rounded)),
+    return Column(
+      children: [
+        ListTile(
+          tileColor: theme.primaryColor,
+          title: Text(project.name, style: theme.textTheme.headline4?.copyWith(color: Colors.white), textAlign: TextAlign.center),
+          subtitle: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 20,
+            runSpacing: 20,
+            children: project.tools.map((String tool) => Chip(
+              backgroundColor: theme.primaryColor,
+              label: Text(tool, style: TextStyle(color: Colors.white),)
             )
-          ],
+            ).toList()
+          ),
+          trailing: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close_rounded)),
         ),
-      ),
+        Expanded(
+          child: PageView(
+            controller: pageController,
+            children: images
+                .map((String imageName) =>
+                    Image(image: AssetImage(imageName)))
+                .toList(),
+          ),
+        ),
+        ListTile(
+          leading: IconButton(
+              onPressed: () => pageController.previousPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeIn),
+              icon: Icon(Icons.chevron_left_rounded)),
+          subtitle: Text(project.description, textAlign: TextAlign.center),
+          trailing: IconButton(
+              onPressed: () => pageController.nextPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeIn),
+              icon: Icon(Icons.chevron_right_rounded)),
+        )
+      ],
     );
   }
 }
