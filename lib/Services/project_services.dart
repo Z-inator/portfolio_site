@@ -8,7 +8,7 @@ class Project {
   // final List<Photo> photos;
   final String photoLocation;
   final List<String> tools;
-  final String takeAways;
+  final String features;
   final String url;
 
   Project({
@@ -17,18 +17,18 @@ class Project {
       required this.description,
       required this.photoLocation,
       required this.tools,
-      required this.takeAways,
+      required this.features,
       required this.url});
 }
 
 List<Project> projects = [
   Project(
       name: 'Productivity App',
-      description: 'description',
+      description: 'This app is both a dream app and capstone project. I like to track my productivity in all the different projects I do but was struggling to find an app that was a task manager, project manager, time logger and timer, and goal planner. So I made the app that I want to use. This app allows the user to create an account and track progress of tasks. They can assign time entries to tasks and projects or run a live timer for it. ',
       framework: 'Flutter',
       photoLocation: 'projects/productivity_app',
       tools: ['Flutter', 'Firebase', 'Firestore', 'FireAuth', 'Provider'],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/Z-inator/productivity_app'),
   Project(
       name: 'Star Citizen App',
@@ -36,7 +36,7 @@ List<Project> projects = [
       framework: 'Flutter',
       photoLocation: 'projects/star_citizen_app',
       tools: ['Flutter', 'Firebase', 'Firestore', 'FireAuth', 'Provider'],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/Z-inator/star_citizen_app'),
   Project(
       name: 'Simple Time Range Picker',
@@ -44,7 +44,7 @@ List<Project> projects = [
       framework: 'Flutter',
       photoLocation: 'projects/simple_time_range_picker',
       tools: ['Flutter', 'PubDev Package'],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/trashfeed/simple_time_range_picker'),
   Project(
       name: 'Dynamic Color Theme',
@@ -52,7 +52,7 @@ List<Project> projects = [
       framework: 'Flutter',
       photoLocation: 'projects/dynamic_color_theme',
       tools: ['Flutter', 'PubDev Package'],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/DFreds/dynamic_color_theme'),
   Project(
       name: 'Management App',
@@ -60,7 +60,7 @@ List<Project> projects = [
       framework: 'Django',
       photoLocation: 'projects/django_management_app',
       tools: ['Django', 'SQL', 'Authentification', 'Admin', 'Django Signals'],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/Z-inator/DjangoManagementAppClone'),
   Project(
       name: 'Social Media App',
@@ -68,7 +68,7 @@ List<Project> projects = [
       framework: 'Django',
       photoLocation: 'projects/django_socialmedia_app',
       tools: ['Django', 'SQL', 'Authentification'],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/Z-inator/DjangoSocialMediaClone'),
   Project(
       name: 'Ravenous App',
@@ -76,7 +76,7 @@ List<Project> projects = [
       framework: 'React',
       photoLocation: 'projects/ravenous_app',
       tools: ['React', 'Yelp API', 'AJAX'],
-      takeAways: 'takeAways',
+      features: 'features',
       url:
           'https://github.com/Z-inator/Web-Development/tree/master/Ravenous%20App'),
   Project(
@@ -85,7 +85,7 @@ List<Project> projects = [
       framework: 'React',
       photoLocation: 'projects/jamming_app',
       tools: ['React', 'Spotify API'],
-      takeAways: 'takeAways',
+      features: 'features',
       url:
           'https://github.com/Z-inator/Web-Development/tree/master/Jamming%20App'),
   Project(
@@ -104,7 +104,7 @@ List<Project> projects = [
         'Databases',
         'Computer Architecture'
       ],
-      takeAways: 'takeAways',
+      features: 'features',
       url: 'https://github.com/Z-inator/Computer-Science-Course')
 ];
 

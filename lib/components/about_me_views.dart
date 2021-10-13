@@ -16,6 +16,7 @@ class AboutMe extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 100,
+          foregroundImage: AssetImage('personal.jfif'),
         ),
         Container(
             padding: EdgeInsets.symmetric(vertical: 40),
@@ -23,10 +24,9 @@ class AboutMe extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline4)),
         Container(
           child: Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum est eu nunc posuere mattis. Morbi commodo gravida velit, vel lobortis dolor sagittis quis. Morbi eget dapibus ante, sed interdum metus. Donec pulvinar sit amet orci in dignissim. Nulla sollicitudin feugiat semper. Quisque auctor ',
+            'I am a Full-Stack Developer located in Dallas, Texas. I have a passion for developing complete multi-platform applications. Most recently, I have been designing, building, and producing Flutter applications on Android, iOS, desktop, and web utilizing Firebase as a back-end. It is fulfilling to use creativity to turn ideas into a digital fabrication. The problem-solving nature of software development is what I enjoy the most. I am a well-organized and independent employee with high attention to detail.\n\nSome of my other computer-related interests include 3D modeling and printing, video game development, and hardware repair and manipulation. I desire to learn and experiment with robotics in the future. I also enjoy fitness, nature, and travel. When planning a trip, I find locations that can satisfy these parameters. My most recent trip was to Seward, Alaska where I hiked a new location every day. My leisure activities include long walks, debating, learning, and playing games.\n\nI have been actively learning and writing software for 3 years now am looking forward to having a career in the field.',
             style: Theme.of(context).textTheme.subtitle1,
             softWrap: true,
-            maxLines: 10,
           ),
         )
       ],
