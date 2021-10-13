@@ -7,6 +7,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:portfolio_site/Services/project_services.dart';
+import 'package:portfolio_site/main.dart';
 import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -96,31 +97,30 @@ class ProjectTile extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           child: Column(children: [
             Expanded(
-              child: InkWell(
-                hoverColor: Colors.blueGrey,
-                onTap: () => showProjectDialog(context, snapshot),
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Stack(
-                      fit: StackFit.expand,
-                      alignment: AlignmentDirectional.center,
-                      children: [
-                        Image(
-                          image: AssetImage(snapshot.data![0]),
-                          fit: BoxFit.cover,
+                child: InkWell(
+              hoverColor: Colors.blueGrey,
+              onTap: () => showProjectDialog(context, snapshot),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Stack(
+                    fit: StackFit.expand,
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Image(
+                        image: AssetImage(snapshot.data![0]),
+                        fit: BoxFit.cover,
+                      ),
+                      BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Image(image: AssetImage(snapshot.data![0])),
                         ),
-                        BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Image(image: AssetImage(snapshot.data![0])),
-                          ),
-                        )
-                      ]),
-                  ),
-              )
-            ),
-            ListTile(              
+                      )
+                    ]),
+              ),
+            )),
+            ListTile(
               // tileColor: Colors.blueGrey[50],
               leading: getFrameworkLogo(project.framework),
               title: Text(project.name, textAlign: TextAlign.center),
@@ -225,38 +225,160 @@ class ProjectViewer extends StatelessWidget {
       children: [
         ListTile(
           tileColor: theme.primaryColor,
-          title: Text(project.name, style: theme.textTheme.headline4?.copyWith(color: Colors.white), textAlign: TextAlign.center),
-          subtitle: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 20,
-            runSpacing: 20,
-            children: project.tools.map((String tool) => Chip(
-              backgroundColor: Colors.blueGrey[50],
-              label: Text(tool))
-            ).toList()
+          leading: PopupMenuButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                  child: Icon(Icons.lightbulb_rounded, color: Colors.blueGrey[50],),
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                        PopupMenuItem(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              width: 500,
+                              child: Text(project.description),
+                            ))
+                      ]),
+          title: Text(project.name,
+              style: theme.textTheme.headline4?.copyWith(color: Colors.blueGrey[50]),
+              textAlign: TextAlign.center),
+          subtitle: Container(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 20,
+                runSpacing: 5,
+                children: project.tools
+                    .map((String tool) => Chip(
+                        backgroundColor: Colors.blueGrey[50], label: Text(tool)))
+                    .toList()),
           ),
-          trailing: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close_rounded)),
+          trailing: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.close_rounded, color: Colors.blueGrey[50],)),
         ),
         Expanded(
-          child: PageView(
-            controller: pageController,
-            children: images
-                .map((String imageName) =>
-                    Image(image: AssetImage(imageName)))
-                .toList(),
-          ),
+            child: PageView(
+                controller: pageController,
+                children: images
+                    .map((String imageName) =>
+                        Image(image: AssetImage(imageName)))
+                    .toList(),
+              ),
         ),
         ListTile(
           leading: IconButton(
               onPressed: () => pageController.previousPage(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeIn),
+                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
               icon: Icon(Icons.chevron_left_rounded)),
-          subtitle: Text(project.description, textAlign: TextAlign.center),
           trailing: IconButton(
               onPressed: () => pageController.nextPage(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeIn),
+                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
+              icon: Icon(Icons.chevron_right_rounded)),
+        )
+      ],
+    );
+  }
+}
+
+class ProjectViewer2 extends StatelessWidget {
+  final List<String> images;
+  final Project project;
+  final PageController pageController = PageController();
+  ProjectViewer2({Key? key, required this.images, required this.project})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    final bool isDesktop = isLargeScreen(context);
+    Widget projectViewerLayout;
+    if (isDesktop) {
+      projectViewerLayout = Container(
+        padding: EdgeInsets.all(10),
+        child: Row(children: [
+          Container(
+            child: PageView(
+              controller: pageController,
+              children: images
+                  .map(
+                      (String imageName) => Image(image: AssetImage(imageName)))
+                  .toList(),
+            ),
+          ),
+          SizedBox(width: 80),
+          Container(
+            child: Text(project.description),
+          )
+        ]),
+      );
+    } else {
+      projectViewerLayout = Container(
+        padding: EdgeInsets.all(10),
+        child: PageView(
+          controller: pageController,
+          children: images
+              .map((String imageName) => Image(image: AssetImage(imageName)))
+              .toList(),
+        ),
+      );
+    }
+    return Column(
+      children: [
+        ListTile(
+          tileColor: theme.primaryColor,
+          leading: isDesktop
+              ? PopupMenuButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                  child: Icon(Icons.lightbulb_rounded),
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                        PopupMenuItem(
+                            child: Container(
+                          width: 500,
+                          child: Text(project.description),
+                        ))
+                      ])
+              : Container(),
+          title: Text(project.name,
+              style: theme.textTheme.headline4?.copyWith(color: Colors.white),
+              textAlign: TextAlign.center),
+          subtitle: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 20,
+              runSpacing: 5,
+              children: project.tools
+                  .map((String tool) => Chip(
+                      backgroundColor: Colors.blueGrey[50], label: Text(tool)))
+                  .toList()),
+          trailing: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.close_rounded)),
+        ),
+        Expanded(
+            child: Row(
+          children: [
+            Container(
+              child: PageView(
+                controller: pageController,
+                children: images
+                    .map((String imageName) =>
+                        Image(image: AssetImage(imageName)))
+                    .toList(),
+              ),
+            ),
+            SizedBox(width: 80),
+            Container(
+              child: Text(project.description),
+            )
+          ],
+        )),
+        ListTile(
+          leading: IconButton(
+              onPressed: () => pageController.previousPage(
+                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
+              icon: Icon(Icons.chevron_left_rounded)),
+          trailing: IconButton(
+              onPressed: () => pageController.nextPage(
+                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
               icon: Icon(Icons.chevron_right_rounded)),
         )
       ],

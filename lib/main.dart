@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = _isLargeScreen(context);
+    final bool isDesktop = isLargeScreen(context);
     Widget tabBarView;
     if (isDesktop) {
       tabBarView = Row(children: [
@@ -208,13 +208,14 @@ ThemeData themeData(ThemeData base) {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25))),
       clipBehavior: Clip.hardEdge,
+      elevation: 0,
       color: Colors.blueGrey[50]
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25))),
       filled: true,
-      fillColor: Colors.grey[200],
+      fillColor: Colors.blueGrey[50],
     ),
     tabBarTheme: base.tabBarTheme.copyWith(
         labelColor: Colors.white,
@@ -230,7 +231,7 @@ ThemeData themeData(ThemeData base) {
   );
 }
 
-bool _isLargeScreen(BuildContext context) {
+bool isLargeScreen(BuildContext context) {
   return MediaQuery.of(context).size.width > 1024.0;
 }
 
