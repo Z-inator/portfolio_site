@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class AboutMe extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 100,
-          foregroundImage: AssetImage('personal.jfif'),
+          foregroundImage: AssetImage('assets/personal.jfif'),
         ),
         Container(
             padding: EdgeInsets.symmetric(vertical: 40),
@@ -32,6 +31,13 @@ class AboutMe extends StatelessWidget {
       ],
     );
   }
+}
+
+class Education extends StatefulWidget {
+  Education({Key? key}) : super(key: key);
+
+  @override
+  State<Education> createState() => _EducationState();
 }
 
 class ExperienceAndEducation extends StatelessWidget {
@@ -52,11 +58,134 @@ class ExperienceAndEducation extends StatelessWidget {
   }
 }
 
-class Education extends StatefulWidget {
-  Education({Key? key}) : super(key: key);
+class Frameworks extends StatelessWidget {
+  const Frameworks({Key? key}) : super(key: key);
 
   @override
-  State<Education> createState() => _EducationState();
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 40),
+      child: Column(
+        children: [
+          Container(
+            child: Text('Frameworks:', style: theme.textTheme.headline6),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: ListTile(
+              leading: ElevatedButton(
+                  onPressed: () => launchURL('https://flutter.dev/'),
+                  child: Container(
+                      width: 100,
+                      height: 50,
+                      padding: EdgeInsets.all(5),
+                      child: Image.asset(
+                        'assets/logos/flutter_logo.png',
+                      ))),
+              title: SkillBars(skillLevel: 1, skillColor: Color(0xFF45D1FD)),
+            ),
+          ),
+          Container(
+            child: ListTile(
+              leading: ElevatedButton(
+                  onPressed: () => launchURL('https://www.djangoproject.com/'),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    padding: EdgeInsets.all(5),
+                    child: Image.asset(
+                      'assets/logos/django_logo.png',
+                    ),
+                  )),
+              title: SkillBars(skillLevel: .66, skillColor: Color(0xFF0C4B33)),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: ListTile(
+              leading: ElevatedButton(
+                  onPressed: () => launchURL('https://reactjs.org/'),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    padding: EdgeInsets.all(5),
+                    child: Image.asset(
+                      'assets/logos/react_logo.png',
+                    ),
+                  )),
+              title: SkillBars(skillLevel: .33, skillColor: Color(0xFF61DAFB)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void launchURL(String url) {
+    window.open(url, 'new tab');
+  }
+}
+
+class RecentJobBlock extends StatelessWidget {
+  final String position;
+  final String company;
+  final String timeBlock;
+  const RecentJobBlock(
+      {Key? key,
+      required this.position,
+      required this.company,
+      required this.timeBlock})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      height: 150,
+      child: Card(
+        elevation: 0,
+        color: Colors.grey,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                position,
+                textAlign: TextAlign.left,
+                style: theme.textTheme.headline6,
+              ),
+              Text(
+                company,
+                textAlign: TextAlign.left,
+                style: theme.textTheme.subtitle1,
+              ),
+              Text(
+                timeBlock,
+                textAlign: TextAlign.left,
+                style: theme.textTheme.bodyText1,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SkillBars extends StatefulWidget {
+  final double skillLevel;
+  final Color skillColor;
+  const SkillBars(
+      {Key? key, required this.skillLevel, required this.skillColor})
+      : super(key: key);
+
+  @override
+  _SkillBarsState createState() => _SkillBarsState();
 }
 
 class _EducationState extends State<Education> {
@@ -70,10 +199,6 @@ class _EducationState extends State<Education> {
     false, // schoolsIsExpanded
     false, // certificatesIsExpanded
   ];
-
-  void launchURL(String url) {
-    window.open(url, 'new tab');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,110 +365,16 @@ class _EducationState extends State<Education> {
     //           isExpanded: itemToExpand[1])
     //     ]);
   }
-}
-
-class Frameworks extends StatelessWidget {
-  const Frameworks({Key? key}) : super(key: key);
 
   void launchURL(String url) {
     window.open(url, 'new tab');
   }
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 40),
-      child: Column(
-        children: [
-          Container(
-            child: Text('Frameworks:', style: theme.textTheme.headline6),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: ListTile(
-              leading: ElevatedButton(
-                  onPressed: () => launchURL('https://flutter.dev/'),
-                  child: Container(
-                      width: 100,
-                      height: 50,
-                      padding: EdgeInsets.all(5),
-                      child: Image.asset(
-                        'logos/flutter_logo.png',
-                      ))),
-              title: SkillBars(skillLevel: 1, skillColor: Color(0xFF45D1FD)),
-            ),
-          ),
-          Container(
-            child: ListTile(
-              leading: ElevatedButton(
-                  onPressed: () => launchURL('https://www.djangoproject.com/'),
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    padding: EdgeInsets.all(5),
-                    child: Image.asset(
-                      'logos/django_logo.png',
-                    ),
-                  )),
-              title: SkillBars(skillLevel: .66, skillColor: Color(0xFF0C4B33)),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: ListTile(
-              leading: ElevatedButton(
-                  onPressed: () => launchURL('https://reactjs.org/'),
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    padding: EdgeInsets.all(5),
-                    child: Image.asset(
-                      'logos/react_logo.png',
-                    ),
-                  )),
-              title: SkillBars(skillLevel: .33, skillColor: Color(0xFF61DAFB)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SkillBars extends StatefulWidget {
-  final double skillLevel;
-  final Color skillColor;
-  const SkillBars(
-      {Key? key, required this.skillLevel, required this.skillColor})
-      : super(key: key);
-
-  @override
-  _SkillBarsState createState() => _SkillBarsState();
 }
 
 class _SkillBarsState extends State<SkillBars>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
-
-  @override
-  void initState() {
-    controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
-    animation = Tween(begin: 0.0, end: widget.skillLevel).animate(controller)
-      ..addListener(() {
-        setState(() {});
-      });
-    controller.forward();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -360,54 +391,22 @@ class _SkillBarsState extends State<SkillBars>
       ),
     );
   }
-}
-
-class RecentJobBlock extends StatelessWidget {
-  final String position;
-  final String company;
-  final String timeBlock;
-  const RecentJobBlock(
-      {Key? key,
-      required this.position,
-      required this.company,
-      required this.timeBlock})
-      : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      height: 150,
-      child: Card(
-        elevation: 0,
-        color: Colors.grey,
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                position,
-                textAlign: TextAlign.left,
-                style: theme.textTheme.headline6,
-              ),
-              Text(
-                company,
-                textAlign: TextAlign.left,
-                style: theme.textTheme.subtitle1,
-              ),
-              Text(
-                timeBlock,
-                textAlign: TextAlign.left,
-                style: theme.textTheme.bodyText1,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
+  void initState() {
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
+    animation = Tween(begin: 0.0, end: widget.skillLevel).animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
+    controller.forward();
+    super.initState();
   }
 }

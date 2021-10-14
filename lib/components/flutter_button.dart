@@ -7,10 +7,6 @@ class FlutterButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  void launchURL(String url) {
-    window.open(url, 'new tab');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,22 +19,30 @@ class FlutterButton extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6),
           //TODO: make this a Textbutton to Flutter's website
           ElevatedButton.icon(
-          onPressed: () => launchURL('https://flutter.dev/'),
-          icon: Image.asset('logos/flutter_logo.png', width: 24, height: 24,),
-          // CircleAvatar(
-          //   foregroundImage: AssetImage('logos/flutter_logo.png'),
-          //   backgroundColor: Colors.grey,
-          // ),
-          label: Text('Flutter')),
+              onPressed: () => launchURL('https://flutter.dev/'),
+              icon: Image.asset(
+                'assets/logos/flutter_logo.png',
+                width: 24,
+                height: 24,
+              ),
+              // CircleAvatar(
+              //   foregroundImage: AssetImage('assets/logos/flutter_logo.png'),
+              //   backgroundColor: Colors.grey,
+              // ),
+              label: Text('Flutter')),
           TextButton.icon(
               onPressed: () => launchURL('https://flutter.dev/'),
               icon: CircleAvatar(
-                foregroundImage: AssetImage('logos/flutter_logo.png'),
+                foregroundImage: AssetImage('assets/logos/flutter_logo.png'),
                 backgroundColor: Colors.grey,
               ),
               label: Text('Flutter'))
         ],
       ),
     );
+  }
+
+  void launchURL(String url) {
+    window.open(url, 'new tab');
   }
 }

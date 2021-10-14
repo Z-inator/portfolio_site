@@ -67,7 +67,7 @@ class PortfolioApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        title: 'Portfolio Site',
+        title: 'Zachary Wauer',
         debugShowCheckedModeBanner: false,
         theme: themeData(ThemeData.light()),
         home: HomePage(),
