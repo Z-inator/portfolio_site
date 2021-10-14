@@ -99,7 +99,7 @@ class ProjectTile extends StatelessWidget {
             Expanded(
                 child: InkWell(
               hoverColor: Colors.blueGrey,
-              onTap: () => showProjectDialog(context, snapshot),
+              onTap: () => showBottomSheet(context, snapshot),
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: Stack(
@@ -207,6 +207,23 @@ class ProjectTile extends StatelessWidget {
                 backgroundColor: Colors.blueGrey[50],
                 child: ProjectViewer(images: snapshot.data!, project: project)),
           );
+        });
+  }
+
+  Future<dynamic> showBottomSheet(
+      BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+        constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height - 40,
+            maxWidth: MediaQuery.of(context).size.width - 80),
+        builder: (BuildContext context) {
+          return ProjectViewer2(images: snapshot.data!, project: project);
         });
   }
 }
@@ -344,13 +361,34 @@ class ProjectViewer2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    final bool isDesktop = isLargeScreen(context);
-    Widget projectViewerLayout;
-    if (isDesktop) {
-      projectViewerLayout = Container(
-        padding: EdgeInsets.all(10),
-        child: Row(children: [
-          Container(
+    return  Column(
+        children: [
+          ListTile(
+            tileColor: theme.primaryColor,
+            title: Text(project.name,
+                style: theme.textTheme.headline4
+                    ?.copyWith(color: Colors.blueGrey[50]),
+                textAlign: TextAlign.center),
+            subtitle: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 20,
+                  runSpacing: 5,
+                  children: project.tools
+                      .map((String tool) => Chip(
+                          backgroundColor: Colors.blueGrey[50],
+                          label: Text(tool)))
+                      .toList()),
+            ),
+            trailing: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(
+                  Icons.close_rounded,
+                  color: Colors.blueGrey[50],
+                )),
+          ),
+          Expanded(
             child: PageView(
               controller: pageController,
               children: images
@@ -359,84 +397,45 @@ class ProjectViewer2 extends StatelessWidget {
                   .toList(),
             ),
           ),
-          SizedBox(width: 80),
-          Container(
-            child: Text(project.description),
-          )
-        ]),
-      );
-    } else {
-      projectViewerLayout = Container(
-        padding: EdgeInsets.all(10),
-        child: PageView(
-          controller: pageController,
-          children: images
-              .map((String imageName) => Image(image: AssetImage(imageName)))
-              .toList(),
-        ),
-      );
-    }
-    return Column(
-      children: [
-        ListTile(
-          tileColor: theme.primaryColor,
-          leading: isDesktop
-              ? PopupMenuButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25))),
-                  child: Icon(Icons.lightbulb_rounded),
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                        PopupMenuItem(
-                            child: Container(
-                          width: 500,
-                          child: Text(project.description),
-                        ))
-                      ])
-              : Container(),
-          title: Text(project.name,
-              style: theme.textTheme.headline4?.copyWith(color: Colors.white),
-              textAlign: TextAlign.center),
-          subtitle: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 20,
-              runSpacing: 5,
-              children: project.tools
-                  .map((String tool) => Chip(
-                      backgroundColor: Colors.blueGrey[50], label: Text(tool)))
-                  .toList()),
-          trailing: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.close_rounded)),
-        ),
-        Expanded(
-            child: Row(
-          children: [
-            Container(
-              child: PageView(
-                controller: pageController,
-                children: images
-                    .map((String imageName) =>
-                        Image(image: AssetImage(imageName)))
-                    .toList(),
-              ),
+          ListTile(
+            leading: IconButton(
+                onPressed: () => pageController.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn),
+                icon: Icon(Icons.chevron_left_rounded)),
+            title: IconButton(
+              icon: Icon(Icons.lightbulb_rounded),
+              onPressed: () => showDescriptionDialog(context),
             ),
-            SizedBox(width: 80),
-            Container(
-              child: Text(project.description),
-            )
-          ],
-        )),
-        ListTile(
-          leading: IconButton(
-              onPressed: () => pageController.previousPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
-              icon: Icon(Icons.chevron_left_rounded)),
-          trailing: IconButton(
-              onPressed: () => pageController.nextPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
-              icon: Icon(Icons.chevron_right_rounded)),
-        )
-      ],
+            trailing: IconButton(
+                onPressed: () => pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn),
+                icon: Icon(Icons.chevron_right_rounded)),
+          )
+        ],
     );
+  }
+
+  Future<dynamic> showDescriptionDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.zero,
+            clipBehavior: Clip.hardEdge,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+                side: BorderSide(color: Colors.blueGrey, width: 4.0)),
+            backgroundColor: Colors.blueGrey[50],
+            child: Container(
+              width: MediaQuery.of(context).size.width * .5,
+              constraints: BoxConstraints(maxHeight: 500),
+              child: SingleChildScrollView(
+                  padding: EdgeInsets.all(40),
+                  child: Text(project.description)),
+            ),
+          );
+        });
   }
 }
