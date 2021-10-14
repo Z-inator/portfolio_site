@@ -214,6 +214,7 @@ class ProjectTile extends StatelessWidget {
 class ProjectViewer extends StatelessWidget {
   final List<String> images;
   final Project project;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final PageController pageController = PageController();
   ProjectViewer({Key? key, required this.images, required this.project})
       : super(key: key);
@@ -221,60 +222,114 @@ class ProjectViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    return Column(
-      children: [
-        ListTile(
-          tileColor: theme.primaryColor,
-          leading: PopupMenuButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25))),
-                  child: Icon(Icons.lightbulb_rounded, color: Colors.blueGrey[50],),
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                        PopupMenuItem(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              width: 500,
-                              child: Text(project.description),
-                            ))
-                      ]),
-          title: Text(project.name,
-              style: theme.textTheme.headline4?.copyWith(color: Colors.blueGrey[50]),
-              textAlign: TextAlign.center),
-          subtitle: Container(
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 20,
-                runSpacing: 5,
-                children: project.tools
-                    .map((String tool) => Chip(
-                        backgroundColor: Colors.blueGrey[50], label: Text(tool)))
-                    .toList()),
+    return Scaffold(
+      key: _scaffoldKey,
+      body: Column(
+        children: [
+          ListTile(
+            tileColor: theme.primaryColor,
+            leading: PopupMenuButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                child: Icon(
+                  Icons.lightbulb_rounded,
+                  color: Colors.blueGrey[50],
+                ),
+                itemBuilder: (BuildContext context) => [
+                      PopupMenuItem(
+                          child: Container(
+                        padding: EdgeInsets.all(20),
+                        width: 2000,
+                        height: 800,
+                        child: SingleChildScrollView(
+                            child: Text(project.description)),
+                      ))
+                    ]),
+            title: Text(project.name,
+                style: theme.textTheme.headline4
+                    ?.copyWith(color: Colors.blueGrey[50]),
+                textAlign: TextAlign.center),
+            subtitle: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 20,
+                  runSpacing: 5,
+                  children: project.tools
+                      .map((String tool) => Chip(
+                          backgroundColor: Colors.blueGrey[50],
+                          label: Text(tool)))
+                      .toList()),
+            ),
+            trailing: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(
+                  Icons.close_rounded,
+                  color: Colors.blueGrey[50],
+                )),
           ),
-          trailing: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.close_rounded, color: Colors.blueGrey[50],)),
-        ),
-        Expanded(
+          Expanded(
             child: PageView(
-                controller: pageController,
-                children: images
-                    .map((String imageName) =>
-                        Image(image: AssetImage(imageName)))
-                    .toList(),
-              ),
-        ),
-        ListTile(
-          leading: IconButton(
-              onPressed: () => pageController.previousPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
-              icon: Icon(Icons.chevron_left_rounded)),
-          trailing: IconButton(
-              onPressed: () => pageController.nextPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.easeIn),
-              icon: Icon(Icons.chevron_right_rounded)),
-        )
-      ],
+              controller: pageController,
+              children: images
+                  .map(
+                      (String imageName) => Image(image: AssetImage(imageName)))
+                  .toList(),
+            ),
+          ),
+          ListTile(
+            leading: IconButton(
+                onPressed: () => pageController.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn),
+                icon: Icon(Icons.chevron_left_rounded)),
+            title: IconButton(
+              icon: Icon(Icons.lightbulb_rounded),
+              onPressed: () {
+                // _scaffoldKey.currentState?.showBottomSheet(
+                //   (BuildContext context) {
+                //     return Container(
+                //       child: SingleChildScrollView(
+                //           padding: EdgeInsets.all(20),
+                //           child: Text(project.description)),
+                //     );
+                //   },
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.only(
+                //           topLeft: Radius.circular(25),
+                //           topRight: Radius.circular(25)),
+                //       side: BorderSide(color: Colors.blueGrey, width: 2.0)),
+                //   constraints: BoxConstraints(
+                //       maxHeight: 300,
+                //       maxWidth: MediaQuery.of(context).size.width * .6),
+                // );
+                showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25)),
+                        side: BorderSide(color: Colors.blueGrey, width: 2.0)),
+                    constraints: BoxConstraints(
+                        maxHeight: 300,
+                        maxWidth: MediaQuery.of(context).size.width * .6),
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: SingleChildScrollView(
+                            padding: EdgeInsets.all(20),
+                            child: Text(project.description)),
+                      );
+                    });
+              },
+            ),
+            trailing: IconButton(
+                onPressed: () => pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn),
+                icon: Icon(Icons.chevron_right_rounded)),
+          )
+        ],
+      ),
     );
   }
 }

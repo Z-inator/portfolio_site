@@ -68,6 +68,7 @@ class PortfolioApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Portfolio Site',
+        debugShowCheckedModeBanner: false,
         theme: themeData(ThemeData.light()),
         home: HomePage(),
         // initialRoute: '/',
