@@ -1,12 +1,6 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ContactFormState extends ChangeNotifier {
   String name = '';
@@ -70,44 +64,5 @@ class ContactFormState extends ChangeNotifier {
       output = 'Error sending inquiry. $error';
     });
     return output;
-
-    // final smtpServer = gmailSaslXoauth2(email, accessToken)
-
-    // final Message message = Message()
-    //   ..from = Address(email, name)
-    //   ..recipients = ['zawauer@gmail.com']
-    //   ..subject = 'Portfolio Site Inquiry'
-    //   ..text = body;
-
-    // try {
-    //   await send(message, smtpServer);
-    //   return 'success';
-    // } on MailerException catch (e) {
-    //   return e.toString();
-    // }
-
-    // final Email email = Email(
-    //   body: message,
-    //   subject: 'Portfolio Site Inquiry',
-    //   recipient: 'zawauer@gmail.com',
-    //   isHTML: true,
-    // );
-
-    // // String platformResponse;
-
-    // try {
-    //   await SendEmail.send(email);
-    //   return 'success';
-    // } catch (error) {
-    //   return error.toString();
-    // }
-
-    // if (!mounted) return;
-
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(platformResponse),
-    //   ),
-    // );
   }
 }

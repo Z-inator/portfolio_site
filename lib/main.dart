@@ -1,16 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
-import 'package:portfolio_site/Services/project_services.dart' as project;
-import 'package:portfolio_site/components/about_me_views.dart';
 import 'package:portfolio_site/screens/small_screen.dart';
-
 import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:portfolio_site/screens/nav_bar.dart';
 import 'package:provider/provider.dart';
 
-import 'components/project_views.dart';
 import 'education_and_certifications.dart' as education;
+import 'projects.dart' as project;
 
 
 void main() {
@@ -71,27 +68,6 @@ class PortfolioApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: themeData(ThemeData.light()),
         home: HomePage(),
-        // initialRoute: '/',
-        // routes: {
-        //   '/': (context) => AdaptiveScaffold(),
-        //   // '/about': (context) => AboutMe(),
-        //   // '/projects': (context) => ProjectPageView(),
-        //   // '/contact': (context) => LargeContactSection()
-        // },
-        // onGenerateRoute: (settings) {
-        //   switch (settings.name) {
-        //     case '/home':
-        //       return SlideRightRoute(page: AdaptiveScaffold());
-        //     case '/about':
-        //       return SlideRightRoute(page: AboutMe());
-        //     case '/projects':
-        //       return SlideRightRoute(page: ProjectPageView());
-        //     case '/contact':
-        //       return SlideRightRoute(page: LargeContactSection());
-        //     default:
-        //       return SlideRightRoute(page: UnknownRoute());
-        //   }
-        // },
       ),
     );
   }

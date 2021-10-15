@@ -2,25 +2,6 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:portfolio_site/components/project_views.dart';
-import 'package:portfolio_site/main.dart';
-import 'package:portfolio_site/screens/large_screen.dart';
-
-class DrawerNavBar extends StatelessWidget {
-  final List<Widget> drawerWidgets;
-  const DrawerNavBar({Key? key, required this.drawerWidgets}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: drawerWidgets),
-    );
-  }
-}
 
 class NavTabBar extends StatelessWidget {
   final List<Widget> tabs;
@@ -127,29 +108,20 @@ List<Widget> _buildLargeTabs({required TabController tabController}) {
   return [
     Tab(
         child: NavigationItem(
-      icon: Icon(Icons.home_rounded),
-      name: 'home',
-      index: 0,
-      tabController: tabController,
-    )),
+            icon: Icon(Icons.home_rounded),
+            name: 'home')),
     Tab(
         child: NavigationItem(
             icon: Icon(Icons.person_rounded),
-            name: 'about',
-            index: 1,
-            tabController: tabController)),
+            name: 'about')),
     Tab(
         child: NavigationItem(
             icon: Icon(Icons.topic_rounded),
-            name: 'projects',
-            index: 2,
-            tabController: tabController)),
+            name: 'projects')),
     Tab(
         child: NavigationItem(
             icon: Icon(Icons.message_rounded),
-            name: 'contact',
-            index: 3,
-            tabController: tabController)),
+            name: 'contact')),
   ];
 }
 
@@ -171,42 +143,14 @@ class LogoHeader extends StatelessWidget {
   }
 }
 
-class PageList extends StatelessWidget {
-  PageList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 40),
-        child: Column(
-          children: [],
-        ));
-  }
-}
-
-class NavigationItem extends StatefulWidget {
+class NavigationItem extends StatelessWidget {
   final Icon icon;
   final String name;
-  final TabController tabController;
-  final int index;
   const NavigationItem({
     Key? key,
     required this.icon,
     required this.name,
-    required this.tabController,
-    required this.index,
   }) : super(key: key);
-
-  @override
-  State<NavigationItem> createState() => _NavigationItemState();
-}
-
-class _NavigationItemState extends State<NavigationItem> {
-  // @override
-  // void didUpdateWidget(covariant NavigationItem oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -216,11 +160,11 @@ class _NavigationItemState extends State<NavigationItem> {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          widget.icon,
+          icon,
           SizedBox(
             width: 30,
           ),
-          Text(widget.name.toUpperCase())
+          Text(name.toUpperCase())
         ],
       ),
     );

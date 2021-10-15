@@ -8,6 +8,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:portfolio_site/Services/project_services.dart';
 import 'package:provider/provider.dart';
 
+import 'package:portfolio_site/projects.dart';
+
 class ProjectGridView extends StatelessWidget {
   late List<Project> projects;
   ProjectGridView({Key? key}) : super(key: key);

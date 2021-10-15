@@ -1,15 +1,12 @@
-import 'dart:developer';
-import 'dart:html';
-
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/project_services.dart';
 import 'package:portfolio_site/components/about_me_views.dart';
 import 'package:portfolio_site/components/contact_views.dart';
-import 'package:portfolio_site/components/flutter_button.dart';
 import 'package:portfolio_site/components/project_views.dart';
-import 'package:portfolio_site/screens/large_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:portfolio_site/projects.dart';
 
 class SmallScreenHomePage extends StatelessWidget {
   SmallScreenHomePage({

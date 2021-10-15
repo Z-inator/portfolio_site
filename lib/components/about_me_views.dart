@@ -33,13 +33,6 @@ class AboutMe extends StatelessWidget {
   }
 }
 
-class Education extends StatefulWidget {
-  Education({Key? key}) : super(key: key);
-
-  @override
-  State<Education> createState() => _EducationState();
-}
-
 class ExperienceAndEducation extends StatelessWidget {
   const ExperienceAndEducation({Key? key}) : super(key: key);
 
@@ -127,78 +120,17 @@ class Frameworks extends StatelessWidget {
   }
 }
 
-class RecentJobBlock extends StatelessWidget {
-  final String position;
-  final String company;
-  final String timeBlock;
-  const RecentJobBlock(
-      {Key? key,
-      required this.position,
-      required this.company,
-      required this.timeBlock})
-      : super(key: key);
+
+class Education extends StatefulWidget {
+  Education({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      height: 150,
-      child: Card(
-        elevation: 0,
-        color: Colors.grey,
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                position,
-                textAlign: TextAlign.left,
-                style: theme.textTheme.headline6,
-              ),
-              Text(
-                company,
-                textAlign: TextAlign.left,
-                style: theme.textTheme.subtitle1,
-              ),
-              Text(
-                timeBlock,
-                textAlign: TextAlign.left,
-                style: theme.textTheme.bodyText1,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SkillBars extends StatefulWidget {
-  final double skillLevel;
-  final Color skillColor;
-  const SkillBars(
-      {Key? key, required this.skillLevel, required this.skillColor})
-      : super(key: key);
-
-  @override
-  _SkillBarsState createState() => _SkillBarsState();
+  State<Education> createState() => _EducationState();
 }
 
 class _EducationState extends State<Education> {
-  bool schoolsIsExpanded = false;
-  bool certificatesIsExpanded = false;
-
   late List<School> schools;
   late List<Certificate> certificates;
-
-  List<bool> itemToExpand = [
-    false, // schoolsIsExpanded
-    false, // certificatesIsExpanded
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -252,123 +184,23 @@ class _EducationState extends State<Education> {
         ),
       ),
     );
-    // Container(
-    //     padding: EdgeInsets.only(bottom: 40),
-    //     child: Row(
-    //       children: [
-    //         Expanded(
-    //           child: Container(
-    //             height: 500,
-    //             child: Card(
-    //               elevation: 0,
-    //               child: ListView(
-    //                 children: schools.map((School school) {
-    //                     return ListTile(
-    //                       title: Text(school.name),
-    //                       subtitle: Text(school.study),
-    //                       trailing: Text(school.years),
-    //                     );
-    //                   }).toList(),
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //         Expanded(
-    //           child: Container(
-    //             height: 500,
-    //             child: Card(
-    //               elevation: 0,
-    //               child: ListView(
-    //                 children: certificates.map((Certificate certificate) {
-    //                   return ListTile(
-    //                       title: Text(certificate.course),
-    //                       subtitle: Text(certificate.author),
-    //                       trailing: IconButton(
-    //                           onPressed: () => launchURL(certificate.url),
-    //                           icon: Icon(Icons.open_in_new_rounded)));
-    //                 }).toList(),
-    //               ),
-    //             ),
-    //           ),
-    //         )
-    //         // Expanded(
-    //         //   child: ExpansionTile(
-    //         //     title: Text('Schooling'),
-    //         //     children: schools.map((School school) {
-    //         //           return ListTile(
-    //         //             title: Text(school.name),
-    //         //             subtitle: Text(school.study),
-    //         //             trailing: Text(school.years),
-    //         //           );
-    //         //         }).toList(),
-    //         //   )
-    //         // ),
-    //         // SizedBox(
-    //         //   width: 40,
-    //         // ),
-    //         // Expanded(
-    //         //   child: ExpansionTile(
-    //         //     title: Text('Certificates'),
-    //         //     children: certificates.map((Certificate certificate) {
-    //         //           return ListTile(
-    //         //               title: Text(certificate.course),
-    //         //               subtitle: Text(certificate.author),
-    //         //               trailing: IconButton(
-    //         //                   onPressed: () => launchURL(certificate.url),
-    //         //                   icon: Icon(Icons.open_in_new_rounded)));
-    //         //         }).toList(),
-    //         //   ),
-    //         // )
-    //       ],
-    //     ));
-    // ExpansionPanelList(
-    //     expansionCallback: (int index, bool isExpanded) {
-    //       setState(() {
-    //         itemToExpand[index] = !isExpanded;
-    //       });
-    //     },
-    //     children: [
-    //       ExpansionPanel(
-    //           headerBuilder: (BuildContext context, bool isExpanded) {
-    //             return ListTile(
-    //               title: Text('Schooling'),
-    //             );
-    //           },
-    //           body: ListView(
-    //             // shrinkWrap: true,
-    //             children: schools.map((School school) {
-    //               return ListTile(
-    //                 title: Text(school.name),
-    //                 subtitle: Text(school.study),
-    //                 trailing: Text(school.years),
-    //               );
-    //             }).toList(),
-    //           ),
-    //           isExpanded: itemToExpand[0]),
-    //       ExpansionPanel(
-    //           headerBuilder: (BuildContext context, bool isExpanded) {
-    //             return ListTile(
-    //               title: Text('Certificates'),
-    //             );
-    //           },
-    //           body: ListView(
-    //             // shrinkWrap: true,
-    //             children: certificates.map((Certificate certificate) {
-    //               return ListTile(
-    //                   title: Text(certificate.course),
-    //                   subtitle: Text(certificate.author),
-    //                   trailing: IconButton(
-    //                       onPressed: () => launchURL(certificate.url),
-    //                       icon: Icon(Icons.open_in_new_rounded)));
-    //             }).toList(),
-    //           ),
-    //           isExpanded: itemToExpand[1])
-    //     ]);
   }
 
   void launchURL(String url) {
     window.open(url, 'new tab');
   }
+}
+
+
+class SkillBars extends StatefulWidget {
+  final double skillLevel;
+  final Color skillColor;
+  const SkillBars(
+      {Key? key, required this.skillLevel, required this.skillColor})
+      : super(key: key);
+
+  @override
+  _SkillBarsState createState() => _SkillBarsState();
 }
 
 class _SkillBarsState extends State<SkillBars>

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_site/Services/contact_form_services.dart';
@@ -77,7 +75,6 @@ class ContactFormName extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      // initialValue: contactFormState.name,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         hintText: 'Your Name',
@@ -98,7 +95,6 @@ class ContactFormEmail extends StatelessWidget {
   Widget build(BuildContext context) {
     contactFormState = Provider.of<ContactFormState>(context);
     return TextFormField(
-      // initialValue: contactFormState.email,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: 'Your Email',
@@ -144,22 +140,19 @@ class ContactFormSubmitButton extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     contactFormState = Provider.of<ContactFormState>(context);
     return ElevatedButton(
-        onPressed: () {
-          log(theme.dividerColor.toString());
+        onPressed: () async {
+          String platformResponse = '';
+          if (contactFormState.formKey.currentState!.validate()) {
+            await contactFormState.sendInquiry().then((value) {
+              platformResponse = value;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(platformResponse),
+              ),
+            );
+          }
         },
-        // onPressed: () async {
-        //   String platformResponse = '';
-        //   if (contactFormState.formKey.currentState!.validate()) {
-        //     await contactFormState.sendInquiry().then((value) {
-        //       platformResponse = value;
-        //     });
-        //     ScaffoldMessenger.of(context).showSnackBar(
-        //       SnackBar(
-        //         content: Text(platformResponse),
-        //       ),
-        //     );
-        //   }
-        // },
         style: ElevatedButton.styleFrom(
             primary: theme.primaryColor, padding: EdgeInsets.all(20)),
         child: Text('Submit',
